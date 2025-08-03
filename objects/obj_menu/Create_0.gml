@@ -60,7 +60,7 @@ draw_inventory = function() {
 			
 			var cel_value = inventory[# j, i]
 			
-			global.draw_middle_center(_x1, _y1, cel_value);
+			draw_middle_center(_x1, _y1, cel_value);
 			draw_sprite_stretched(spr_caixa_item, _point_over, _x1, _y1, cel_size, cel_size);
 			draw_sprite_stretched(spr_itens, cel_value%11, _x1, _y1, cel_size, cel_size);
 		}

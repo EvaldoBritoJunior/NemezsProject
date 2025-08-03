@@ -11,7 +11,7 @@ draw_text(x - 340, ystart, global.language.language_button);
 
 draw_set_valign(fa_top);
 
-global.draw_middle_center(x, y, global.language.language_name);
+draw_middle_center(x, y, global.language.language_name);
 
 if (instance_exists(obj_language_menu)) {
 	draw_set_font(fnt_main);

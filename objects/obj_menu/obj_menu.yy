@@ -10,8 +10,8 @@
   "name":"obj_menu",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Temporary",
+    "path":"folders/Objects/Temporary.yy",
   },
   "parentObjectId":null,
   "persistent":false,

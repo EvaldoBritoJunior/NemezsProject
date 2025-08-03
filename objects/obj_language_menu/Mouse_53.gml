@@ -4,5 +4,5 @@ if (check_point_over_surface()) {
 	}
 }
 
-global.enable_buttons(global.array_options_screen_buttons, true);
+enable_buttons(global.array_options_screen_buttons, true);
 instance_destroy();

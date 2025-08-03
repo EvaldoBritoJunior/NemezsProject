@@ -74,7 +74,7 @@ draw_inventory = function() {
 			}
 			
 			draw_sprite_stretched(spr_button_naked_half, _point_over, _x1, _y1, cel_w, cel_h);
-			global.draw_middle_center(_x1 + cel_w * 0.5, _y1 + cel_h * 0.5, cel_value.language_name);
+			draw_middle_center(_x1 + cel_w * 0.5, _y1 + cel_h * 0.5, cel_value.language_name);
 			draw_rectangle(_x1, _y1, _x2, _y2, true);
 		}
 	}

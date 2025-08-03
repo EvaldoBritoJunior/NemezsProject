@@ -1,6 +1,6 @@
-global.array_options_screen_buttons = [obj_input_name, obj_button_language]
+global.array_options_screen_buttons = [obj_input_name, obj_button_language, obj_button_end_options]
 
-global.draw_middle_center = function(_x, _y, _txt) {
+function draw_middle_center(_x, _y, _txt) {
 	draw_set_font(fnt_main);
 
 	draw_set_halign(fa_center);
@@ -12,7 +12,7 @@ global.draw_middle_center = function(_x, _y, _txt) {
 	draw_set_valign(fa_top);
 }
 
-global.enable_buttons = function (_array, _enable) {
+function enable_buttons(_array, _enable) {
 	for (var i = 0; i < array_length(_array); i++) {
 		var button = _array[i];
 		button.enabled = _enable;
