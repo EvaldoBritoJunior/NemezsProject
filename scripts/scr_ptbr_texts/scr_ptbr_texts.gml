@@ -5,7 +5,8 @@ global.ptbr_texts = {
 	opening_button_text: "Aperte Para Iniciar",
 	
 	// Main Menu
-	
+	start_duel_button_text: "➤ Iniciar Duelo",
+	start_options_button_text: "Configurações",
 	
 	// Options Menu
 	language_button: "Idioma:",

@@ -3,7 +3,7 @@ event_inherited();
 
 draw_self();
 
-draw_set_font(fnt_main);
+draw_set_font(fnt_main_20);
 
 draw_set_valign(fa_middle);
 
@@ -14,7 +14,7 @@ draw_set_valign(fa_top);
 draw_middle_center(x, y, global.language.language_name);
 
 if (instance_exists(obj_language_menu)) {
-	draw_set_font(fnt_main);
+	draw_set_font(fnt_main_20);
 	draw_set_halign(fa_right);
 	draw_set_valign(fa_middle);
 

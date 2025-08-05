@@ -5,7 +5,8 @@ global.eng_texts = {
 	opening_button_text: "Press To Start",
 	
 	// Main Menu
-	
+	start_duel_button_text: "➤ Start Duel",
+	start_options_button_text: "Settings",
 	
 	// Options Menu
 	language_button: "Language:",

@@ -1,7 +1,7 @@
 event_inherited();
 draw_self();
 
-draw_set_font(fnt_main);
+draw_set_font(fnt_main_20);
 
 draw_set_valign(fa_middle);
 
@@ -14,7 +14,7 @@ if (active) {
     // While active, show the current input (with placeholder if empty)
     var displayText = name_input + "|";
     draw_middle_center(x, y, displayText);  // Draw on UI (GUI) layer
-	draw_set_font(fnt_main);
+	draw_set_font(fnt_main_20);
 
 	draw_set_halign(fa_center);
 	draw_set_valign(fa_middle);
@@ -26,5 +26,5 @@ if (active) {
 	
 } else {
     // After saving, you could show a confirmation or proceed
-     draw_middle_center(x, y, global.player_info.name);
+     draw_middle_center(x, y, global.player_data.name);
 }

@@ -12,7 +12,7 @@ if (active) {
     // If Enter is pressed, save and exit input mode
     if (keyboard_check_pressed(vk_enter)) {
 		if (name_input != "") { 
-			global.player_info.name = name_input;   // Store final name globally
+			global.player_data.name = name_input;   // Store final name globally
 		}
         active = false;                  // Stop capturing input
 		// Enable buttons

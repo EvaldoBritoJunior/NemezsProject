@@ -32,8 +32,8 @@
   },
   "name":"sq_tittle_fade_in",
   "parent":{
-    "name":"Transitions",
-    "path":"folders/Sequences/Transitions.yy",
+    "name":"Room Transitions",
+    "path":"folders/Sequences/Room Transitions.yy",
   },
   "playback":0,
   "playbackSpeed":60.0,

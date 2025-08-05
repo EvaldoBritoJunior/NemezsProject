@@ -6,7 +6,7 @@ surface_w = sprite_get_width(spr_button_naked_half);
 surface_h = sprite_get_height(spr_button_naked_half) * 2.5;
 surface_x = x - 148;
 surface_y = y + 25;
-inv_surface = noone;
+inv_surface = -1;
 
 // Cell Size
 cel_w = sprite_get_width(spr_button_naked_half);
