@@ -12,3 +12,5 @@ champ_1 = {
 	spr_card_art: spr_sample_card_art,
 	spr_cut_card_art: spr_sample_half_art
 };
+
+global.champ_cards = [champ_1];

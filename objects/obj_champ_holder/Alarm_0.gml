@@ -1,0 +1,1 @@
+manager_inst.init_stage_step();

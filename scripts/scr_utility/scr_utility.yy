@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_champ_cards",
+  "%Name":"scr_utility",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_champ_cards",
+  "name":"scr_utility",
   "parent":{
-    "name":"Cards",
-    "path":"folders/Scripts/Cards.yy",
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
