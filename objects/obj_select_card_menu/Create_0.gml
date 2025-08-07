@@ -4,17 +4,17 @@ selected = noone;
 // Surface
 surface_w = room_height + 100;
 surface_h = room_height;
-surface_x = room_width - room_height - 100;
+surface_x = 0;
 surface_y = 0;
 inv_surface = -1;
 
 // Cell Size
-c_sprite = spr_sample_card_art;
-cel_w = sprite_get_width(c_sprite) / 2;
-cel_h = sprite_get_height(c_sprite) / 2;
+c_sprite = spr_sample_half_card;
+cel_w = sprite_get_width(c_sprite) / 1.9;
+cel_h = sprite_get_height(c_sprite) / 1.9;
 cols = 3;
 rows = 3;
-marg_x = 60;
+marg_x = 45;
 marg_y = 60;
 
 // Inventory
@@ -82,7 +82,7 @@ draw_inventory_surface = function() {
 	} else {
 		surface_set_target(inv_surface)
 		
-		draw_clear_alpha(c_black, 0.5);
+		draw_clear_alpha(c_black, 0.0);
 		draw_inventory();
 		
 		surface_reset_target();
