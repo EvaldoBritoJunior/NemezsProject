@@ -1,7 +1,12 @@
-draw_self();
-draw_inventory_surface();
+if (show) {
+	draw_self();
+	draw_inventory_surface();
 
-draw_middle_center(1052, 55, "VANGUARD", fnt_main_30)
-draw_sprite(spr_sample_card, 0, 1052, room_height / 2);
-//draw_sprite(Sprite17, 0,  room_width / 2, room_height / 2);
-//draw_sprite(Sprite17, 0, room_width - 225, room_height / 2);
+	draw_middle_center(1052, 55, title, fnt_main_30);
+
+	if (selected != noone) {
+		draw_sprite(selected.spr_card, 0, 1052, room_height / 2);
+	}
+}
+
+draw_buttons();

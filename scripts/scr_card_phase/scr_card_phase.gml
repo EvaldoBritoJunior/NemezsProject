@@ -16,16 +16,17 @@ enum card_positions {
 	VANGUARD, REARI, REARII, REARIII
 } 
 
-function create_champ_instance(_card) constructor {
+function champ_instance(_card) constructor {
 	hp = _card.hp;
 	stats = array_full_copy(_card.stats);
 	
-	original_card = _card;
+	card = _card;
 }
 
 function reset_card_phase_data() {
 	
 	global.card_phase_data = {
+		enemy_name: "Nemesis",
 		#region Field
 		turn_owner: noone,
 		turn_stage: card_phase_stages.INIT_STAGE,
@@ -63,6 +64,22 @@ function reset_card_phase_data() {
 		#endregion
 	}
 	
+}
+
+function get_position_name(_pos) {
+	switch (_pos)
+	{
+	    case card_positions.VANGUARD:
+	        return "VANGUARD";
+	    case card_positions.REARI:
+	        return "REARI";
+		case card_positions.REARII:
+	        return "REARII";
+		case card_positions.REARIII:
+	        return "REARIII";
+		default:
+			throw $"Invalid position: {_pos}";
+	}
 }
 
 reset_card_phase_data();

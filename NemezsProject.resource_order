@@ -67,7 +67,9 @@
     {"name":"spr_sample_card","order":4,"path":"sprites/spr_sample_card/spr_sample_card.yy",},
     {"name":"spr_sample_half_art","order":7,"path":"sprites/spr_sample_half_art/spr_sample_half_art.yy",},
     {"name":"spr_sample_half_card","order":6,"path":"sprites/spr_sample_half_card/spr_sample_half_card.yy",},
+    {"name":"spr_select_card_confirm","order":4,"path":"sprites/spr_select_card_confirm/spr_select_card_confirm.yy",},
     {"name":"spr_select_card_screen","order":3,"path":"sprites/spr_select_card_screen/spr_select_card_screen.yy",},
+    {"name":"spr_select_card_see_field","order":5,"path":"sprites/spr_select_card_see_field/spr_select_card_see_field.yy",},
     {"name":"spr_stars","order":1,"path":"sprites/spr_stars/spr_stars.yy",},
   ],
 }

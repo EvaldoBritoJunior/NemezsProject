@@ -1,6 +1,8 @@
 global.eng_texts = {
 	language_name: "English",
 	
+	#region Opening
+	
 	//Title Screen
 	opening_button_text: "Press To Start",
 	
@@ -12,5 +14,13 @@ global.eng_texts = {
 	language_button: "Language:",
 	input_name: "Name:",
 	input_name_confirm_text: "Press ENTER To Confirm",
-	finish_config_button_text: "➤ Finish"
+	finish_config_button_text: "➤ Finish",
+	
+	#endregion
+	
+	#region Card Phase
+	
+	select_card_confirm_text: "Finish"
+	
+	#endregion
 }
