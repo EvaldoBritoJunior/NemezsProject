@@ -10,7 +10,24 @@ instances_positions = [
 		[101, 360], [1179, 360],	// Rear II
 		[101, 492], [1179, 492]		// Rear III
 	];
-	
+champ_card_selection = [];
+
+#endregion
+
+#region Data Functions
+
+champ_card_selection_remove = function(_card) {
+	var new_arr = [];
+    var len = array_length(champ_card_selection);
+
+    for (var i = 0; i < len; i++) {
+        if (champ_card_selection[i].card_id != _card.card_id) { // only keep if it's not the target value
+            array_push(new_arr, champ_card_selection[i]);
+        }
+    }
+    champ_card_selection = new_arr;
+}
+
 #endregion
 
 #region Utility Functions
@@ -102,7 +119,7 @@ end_stage = function () {
 init_stage_step = function() {
 	current_step++;
 	if (current_step < array_length(objects_step_order)) {
-		objects_step_order[current_step].start_init_step();
+		objects_step_order[current_step].start_init_step(champ_card_selection);
 	} else {
 		end_stage();
 	}
@@ -111,6 +128,7 @@ init_stage_step = function() {
 start_stage = function () {
 	current_step = -1;
 	if (data.turn_stage == card_phase_stages.INIT_STAGE) {
+		champ_card_selection = array_full_copy(global.champ_cards);
 		var _first = card_owners.ENEMY //choose(card_owners.PLAYER, card_owners.ENEMY);
 		data.turn_owner = _first;
 		create_objects();

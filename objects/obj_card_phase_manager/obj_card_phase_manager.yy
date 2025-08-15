@@ -30,6 +30,8 @@
   "properties":[
     {"$GMObjectProperty":"v1","%Name":"objects_step_order","filters":[],"listItems":[],"multiselect":false,"name":"objects_step_order","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"-1","varType":4,},
     {"$GMObjectProperty":"v1","%Name":"current_step","filters":[],"listItems":[],"multiselect":false,"name":"current_step","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"-1","varType":4,},
+    {"$GMObjectProperty":"v1","%Name":"show_cards_when_over","filters":[],"listItems":[],"multiselect":false,"name":"show_cards_when_over","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"true","varType":3,},
+    {"$GMObjectProperty":"v1","%Name":"champ_card_selection_remove","filters":[],"listItems":[],"multiselect":false,"name":"champ_card_selection_remove","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"-1","varType":4,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

@@ -147,6 +147,7 @@ end_selection = function() {
 			array_push(_response, card_array[i])
 		}
 	}
+	manager_inst.show_cards_when_over = true;
 	return_func(_response);
 	instance_destroy();
 }
@@ -180,6 +181,7 @@ draw_buttons = function() {
 			draw_middle_center(1205 - 3, 660 - 3, ">");
 			if (mouse_check_button_pressed(mb_left)) {
 				show = false;
+				manager_inst.show_cards_when_over = true;
 			}
 		} else {
 			draw_sprite(spr_select_card_see_field, _spr_see_field, 0, 0);
@@ -193,6 +195,7 @@ draw_buttons = function() {
 			if (mouse_check_button_pressed(mb_left)) {
 				selected = noone;
 				show = true;
+				manager_inst.show_cards_when_over = false;
 			}
 		} else {
 			draw_sprite(spr_select_card_see_field, _spr_see_field, 0, 0);
@@ -204,3 +207,4 @@ draw_buttons = function() {
 #endregion
 
 fill_grid(inventory);
+manager_inst.show_cards_when_over = false;
