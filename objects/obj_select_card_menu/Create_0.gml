@@ -1,3 +1,4 @@
+// Feather ignore once GM1041
 array_size = array_length(card_array);
 
 if (array_size == 0 || array_size < select_amount) {

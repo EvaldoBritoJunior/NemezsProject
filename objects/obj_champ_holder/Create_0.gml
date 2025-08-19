@@ -37,12 +37,10 @@ draw_card = function() {
 	var _sprite = -1;
 	
 	if (_card_instance != noone) {
-		_sprite = _card_instance.card.spr_card;
 		if (card_owner == card_owners.PLAYER){
-			draw_sprite(_sprite, 0, x + 200, room_height / 2);
+			draw_champ_card_instance(_card_instance, x + 230, room_height / 2);
 		} else {
-			draw_sprite(_sprite, 0, x - 200, room_height / 2);
-
+			draw_champ_card_instance(_card_instance, x - 230, room_height / 2);
 		}
 	}
 }
@@ -54,6 +52,7 @@ draw_card = function() {
 fin_init_step = function(_array_response) {
 	var _selected_card = _array_response[0];
 	manager_inst.champ_card_selection_remove(_selected_card);
+	// Feather ignore once GM1041
 	update_card_instance(new champ_instance(_selected_card));
 	alarm[0] = 20;
 }

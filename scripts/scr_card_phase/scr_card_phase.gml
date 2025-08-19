@@ -19,6 +19,7 @@ enum card_positions {
 function champ_instance(_card) constructor {
 	hp = _card.hp;
 	stats = array_full_copy(_card.stats);
+	type = _card.type;
 	
 	card = _card;
 }

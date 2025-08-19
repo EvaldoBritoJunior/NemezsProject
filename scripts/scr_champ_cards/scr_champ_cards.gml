@@ -32,15 +32,15 @@ global.champ_cards = [
 		spr_sample_card, spr_sample_half_card, spr_sample_card_art, spr_sample_half_art
 	), 
 	new champ_card(
-		1, "FIMOSE DRAGON", 230, 3, 2, [6, 5, 4, 3], 1,
+		1, "FIMOSE DRAGON", 230, 3, 2, [3, 4, 5, 6], 1,
 		spr_sample_card, spr_sample_half_card, spr_sample_card_art, spr_sample_half_art
 	),
 	new champ_card(
-		2, "FIMOSE DRAGON", 230, 3, 2, [6, 5, 4, 3], 2,
+		2, "FIMOSE DRAGON", 230, 3, 2, [0, 1, 2, 3], 2,
 		spr_sample_card, spr_sample_half_card, spr_sample_card_art, spr_sample_half_art
 	),
 	new champ_card(
-		3, "FIMOSE DRAGON", 230, 3, 2, [6, 5, 4, 3], 3,
+		3, "FIMOSE DRAGON", 230, 3, 2, [3, 2, 1, 0], 3,
 		spr_sample_card, spr_sample_half_card, spr_sample_card_art, spr_sample_half_art
 	),
 	new champ_card(
