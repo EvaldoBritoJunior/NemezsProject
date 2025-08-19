@@ -66,9 +66,8 @@ function draw_middle_center_outline(_x, _y, _text, _font = fnt_main_20, _text_co
 
 function array_full_copy(_array) {
 	var _len = array_length(_array);
+	var _response = array_create(_len, -1);
+    array_copy(_response, 0, _array, 0, _len);
 	
-	response = array_create(_len, -1);
-    array_copy(response, 0, _array, 0, _len);
-	
-	return response;
+	return _response;
 }
