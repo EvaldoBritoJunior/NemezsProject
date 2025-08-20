@@ -1,6 +1,6 @@
 {
   "$GMFont":"",
-  "%Name":"font_card_text_15",
+  "%Name":"font_card_text_10",
   "AntiAlias":1,
   "applyKerning":0,
   "ascender":13,
@@ -145,7 +145,7 @@
   "last":0,
   "lineHeight":15,
   "maintainGms1Font":false,
-  "name":"font_card_text_15",
+  "name":"font_card_text_10",
   "parent":{
     "name":"Card Text",
     "path":"folders/Fonts/Card Text.yy",
@@ -162,7 +162,10 @@
   "sdfSpread":8,
   "size":10.0,
   "styleName":"Regular",
-  "textureGroupId":null,
+  "textureGroupId":{
+    "name":"Default",
+    "path":"texturegroups/Default",
+  },
   "TTFName":"",
   "usesSDF":true,
 }

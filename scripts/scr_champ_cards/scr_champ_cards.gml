@@ -29,34 +29,34 @@ function champ_card(_card_id, _name, _hp, _gw, _md, _stats, _type,
 global.champ_cards = [
 	new champ_card(
 		0, "FIMOSE DRAGON", 230, 3, 2, [6, 5, 4, 3], 0,
-		spr_sample_card, spr_sample_half_card, spr_sample_card_art, spr_sample_half_art
+		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art
 	), 
 	new champ_card(
 		1, "FIMOSE DRAGON", 230, 3, 2, [3, 4, 5, 6], 1,
-		spr_sample_card, spr_sample_half_card, spr_sample_card_art, spr_sample_half_art
+		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art
 	),
 	new champ_card(
 		2, "FIMOSE DRAGON", 230, 3, 2, [0, 1, 2, 3], 2,
-		spr_sample_card, spr_sample_half_card, spr_sample_card_art, spr_sample_half_art
+		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art
 	),
 	new champ_card(
 		3, "FIMOSE DRAGON", 230, 3, 2, [3, 2, 1, 0], 3,
-		spr_sample_card, spr_sample_half_card, spr_sample_card_art, spr_sample_half_art
+		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art
 	),
 	new champ_card(
 		4, "FIMOSE DRAGON", 230, 3, 2, [6, 5, 4, 3], 3,
-		spr_sample_card, spr_sample_half_card, spr_sample_card_art, spr_sample_half_art
+		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art
 	),
 	new champ_card(
 		5, "FIMOSE DRAGON", 230, 3, 2, [6, 5, 4, 3], 0,
-		spr_sample_card, spr_sample_half_card, spr_sample_card_art, spr_sample_half_art
+		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art
 	),
 	new champ_card(
 		6, "FIMOSE DRAGON", 230, 3, 2, [6, 5, 4, 3], 1,
-		spr_sample_card, spr_sample_half_card, spr_sample_card_art, spr_sample_half_art
+		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art
 	),
 	new champ_card(
 		7, "FIMOSE DRAGON", 230, 3, 2, [6, 5, 4, 3], 2,
-		spr_sample_card, spr_sample_half_card, spr_sample_card_art, spr_sample_half_art
+		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art
 	)
 ];

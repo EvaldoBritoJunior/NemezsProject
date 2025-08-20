@@ -62,6 +62,8 @@ start_init_step = function(_card_array) {
 		instance_create_layer(640, 360, "Instances_above", obj_select_card_menu,
 		{
 			manager_inst: self.manager_inst,
+			draw_cut_func: global.draw_champ_cut_card,
+			draw_func: global.draw_champ_card,
 			return_func: self.fin_init_step,
 			card_array: _card_array,
 			select_amount: 1,
@@ -73,3 +75,5 @@ start_init_step = function(_card_array) {
 }
 
 #endregion
+
+update_sprite();

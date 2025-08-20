@@ -34,7 +34,7 @@ inventory = ds_grid_create(cols, rows);
 
 #endregion
 
-#region Methods
+#region Utility Methods
 
 draw_rectangle_set_color = function(_x1, _y1, _x2, _y2, _color = c_white) {
 	draw_set_colour(_color);
@@ -58,20 +58,24 @@ mouse_check = function(_position) {
 	}
 }
 
-custom_draw_sprite = function(_array_pos, _point_over, _x1, _y1, _x2, _y2, _sprite) {
+custom_draw_sprite = function(_array_pos, _point_over, _x1, _y1, _x2, _y2, _card) {
 	var _color = c_white;
 	if (selected_array[_array_pos]) {
 		_color = c_black;
 	}
 	
 	if (_point_over && (selected_array[_array_pos] || selected_amount < select_amount)) {
-		draw_sprite_stretched(_sprite, 0, _x1 - 3, _y1 - 3, cel_w - 3, cel_h - 3);
+		draw_cut_func(_card, _x1 - 3, _y1 - 3, cel_w - 3, cel_h - 3);
 		draw_rectangle_set_color(_x1 - 3, _y1 - 3, _x2 - 3, _y2 - 3, _color);
 	} else {
-		draw_sprite_stretched(_sprite, 0, _x1, _y1, cel_w, cel_h);
+		draw_cut_func(_card, _x1, _y1, cel_w, cel_h);
 		draw_rectangle_set_color(_x1, _y1, _x2, _y2, _color);
 	}
 }
+
+#endregion
+
+#region Main Methods
 
 fill_grid = function(_grid) {
 	var _cols = ds_grid_width(_grid);
@@ -107,7 +111,6 @@ draw_inventory = function() {
 			var _y2 = _y1 + cel_h;
 			var _cel_value = inventory[# j, i];
 			var _array_pos = i * 3 + j;
-			var _sprite = -1;
 			var _point_over_surface = check_point_over_surface();
 			
 			if (_point_over_surface) {
@@ -115,12 +118,11 @@ draw_inventory = function() {
 			}
 			
 			if (_cel_value != noone) {
-				_sprite = _cel_value.spr_cut_card;
 				if (_point_over) {
 					selected = _cel_value;
 					mouse_check(_array_pos);
 				} 
-				custom_draw_sprite(_array_pos, _point_over, _x1, _y1, _x2, _y2, _sprite);
+				custom_draw_sprite(_array_pos, _point_over, _x1, _y1, _x2, _y2, _cel_value);
 			}
 		}
 	}
