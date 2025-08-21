@@ -110,10 +110,68 @@ init_stage_sort = function() {
 
 #endregion
 
+#region Set Decks Functions
+
+set_gear_decks = function () {
+	var _this = self;
+	var _card_array = global.gear_cards;
+	var _select_amount = data.champ_qty * 2;
+	
+	instance_create_layer(640, 360, "Instances_above", obj_select_card_menu,
+		{
+			card_array: _card_array,
+			select_amount: _select_amount,
+			title: "Gear Cards",
+			manager_inst: _this,
+			draw_cut_func: global.draw_gear_cut_card,
+			draw_func: global.draw_gear_card,
+			return_func: self.set_magic_decks
+		});
+}
+
+set_magic_decks = function (_gear_cards) {
+	data.player_gear_orig_deck = _gear_cards;
+	data.player_gear_deck = array_full_copy(_gear_cards);
+	
+	var _card_array = global.magic_cards;
+	var _select_amount = data.champ_qty * 2;
+	
+	instance_create_layer(640, 360, "Instances_above", obj_select_card_menu,
+		{
+			card_array: _card_array,
+			select_amount: _select_amount,
+			title: "Magic Cards",
+			manager_inst: self,
+			draw_cut_func: global.draw_magic_cut_card,
+			draw_func: global.draw_magic_card,
+			return_func: self.set_field_decks
+		});
+}
+
+set_field_decks = function (_magic_cards) {
+	data.player_magic_orig_deck = _magic_cards;
+	data.player_magic_deck = array_full_copy(_magic_cards);
+
+	
+}
+
+end_set_decks = function () {
+}
+
+#endregion
+
 #region Stage Functions
 
 end_stage = function () {
-	//game_end();
+	if (data.turn_stage == card_phase_stages.INIT_STAGE) {
+		set_gear_decks();
+	} else if (data.turn_stage == card_phase_stages.ACT_STAGE) {
+		
+	} else if (data.turn_stage == card_phase_stages.END_STAGE) {
+		
+	} else {
+		
+	}
 }
 
 init_stage_step = function() {

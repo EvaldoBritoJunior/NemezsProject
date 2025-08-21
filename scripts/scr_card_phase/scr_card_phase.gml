@@ -24,10 +24,11 @@ function champ_instance(_card) constructor {
 	card = _card;
 }
 
-function reset_card_phase_data() {
+function reset_card_phase_data(_champ_qty = 4) {
 	
 	global.card_phase_data = {
 		enemy_name: "Nemesis",
+		champ_qty: _champ_qty,
 		#region Field
 		turn_owner: noone,
 		turn_stage: card_phase_stages.INIT_STAGE,
@@ -35,33 +36,39 @@ function reset_card_phase_data() {
 		#endregion
 		
 		#region Player
-		player_champs: array_create(champ_qty, noone),
+		player_champs: array_create(_champ_qty, noone),
 		player_gear_hand: array_create(max_gear_qty, noone),
 		player_magic_hand: array_create(max_magic_qty, noone),
+		
+		player_gear_orig_deck: [],
+		player_magic_orig_deck: [],
+		player_territory_orig_deck: [],
+		player_gear_deck: [],
+		player_magic_deck: [],
+		player_territory_deck: [],
 		
 		player_champs_gyd: [],
 		player_gear_gyd: [],
 		player_magic_gyd: [],
 		player_territory_gyd: [],
-		
-		player_gear_deck: [],
-		player_magic_deck: [],
-		player_territory_deck: [],
 		#endregion
 		
 		#region Enemy
-		enemy_champs: array_create(champ_qty, noone),
+		enemy_champs: array_create(_champ_qty, noone),
 		enemy_gear_hand: array_create(max_gear_qty, noone),
 		enemy_magic_hand: array_create(max_magic_qty, noone),
+		
+		enemy_gear_orig_deck: [],
+		enemy_magic_orig_deck: [],
+		enemy_territory_orig_deck: [],
+		enemy_gear_deck: [],
+		enemy_magic_deck: [],
+		enemy_territory_deck: [],
 		
 		enemy_champs_gyd: [],
 		enemy_gear_gyd: [],
 		enemy_magic_gyd: [],
-		enemy_territory_gyd: [],
-		
-		enemy_gear_deck: [],
-		enemy_magic_deck: [],
-		enemy_territory_deck: []
+		enemy_territory_gyd: []
 		#endregion
 	}
 	

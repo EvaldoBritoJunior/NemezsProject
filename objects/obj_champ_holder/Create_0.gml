@@ -1,12 +1,12 @@
 mouse_over = false;
+data = global.card_phase_data;
 
 #region Utility Functions
 
 update_sprite = function() {
-	var _data = global.card_phase_data;
 	var _card_instance = 
-		card_owner == card_owners.PLAYER ? _data.player_champs[field_position] 
-			: _data.enemy_champs[field_position];
+		card_owner == card_owners.PLAYER ? data.player_champs[field_position] 
+			: data.enemy_champs[field_position];
 	
 	if (_card_instance == noone) {
 		sprite_index = -1;
@@ -18,22 +18,20 @@ update_sprite = function() {
 }
 
 update_card_instance = function(_card_instance) {
-	var _data = global.card_phase_data
 	// Set card
 	if (card_owner == card_owners.PLAYER) {
-		_data.player_champs[field_position] = _card_instance;
+		data.player_champs[field_position] = _card_instance;
 	} else {
-		_data.enemy_champs[field_position] = _card_instance;
+		data.enemy_champs[field_position] = _card_instance;
 	}
 	update_sprite();
 }
 
 draw_card = function() {
-	var _data = global.card_phase_data;
 	var layer_id = layer_get_id("Instances_above");
 	var _card_instance = 
-		card_owner == card_owners.PLAYER ? _data.player_champs[field_position] 
-			: _data.enemy_champs[field_position];
+		card_owner == card_owners.PLAYER ? data.player_champs[field_position] 
+			: data.enemy_champs[field_position];
 	var _sprite = -1;
 	
 	if (_card_instance != noone) {
@@ -42,6 +40,35 @@ draw_card = function() {
 		} else {
 			draw_champ_card_instance(_card_instance, x - 230, room_height / 2);
 		}
+	}
+}
+
+draw_stats = function() {
+	var _card_instance = 
+		card_owner == card_owners.PLAYER ? data.player_champs[field_position] 
+			: data.enemy_champs[field_position];
+	if (_card_instance != noone) {
+		var _vanguard = field_position == card_positions.VANGUARD;
+		var _card = _card_instance.card;
+		var _w = sprite_width;
+		var _h = sprite_height;
+		var _hp = _card_instance.hp;
+		var _max = _card.hp;
+		var _fnt = _vanguard ? fnt_main_30 : fnt_main_20;
+		
+		var _x1 = x - (_w * 0.35);
+		var _y1 = y - (_h * 0.48);
+		
+		var _x1_hp = _vanguard ? _x1 - 41 : _x1 - 28;
+		var _y1_hp = _vanguard ? _y1 + 27 : _y1 + 20;
+		var _x2_hp = _vanguard ? _x1 + 37 : _x1 + 23;
+		var _y2_hp = _vanguard ? _y1 + 34 : _y1 + 25;
+
+
+		draw_middle_center_outline(_x1, _y1, _card_instance.hp, _fnt);
+		draw_healthbar(_x1_hp, _y1_hp, _x2_hp, _y2_hp, 100 * _hp / _max, 
+		c_black, c_red, c_lime, 0, true, true);
+
 	}
 }
 

@@ -57,7 +57,8 @@ function draw_card_name(_text, _x, _y) {
 	draw_line_width(_x - 130, _y + 38, _x + 130, _y + 38, 3);
 }
 
-function draw_card_description(_text, _x, _y) {
+function draw_card_description(_card, _x, _y) {
+	var _text = _card.description;
 	draw_outline(_x - 135, _y + 125, _text, font_card_text_10);
 }
 
@@ -94,7 +95,7 @@ function draw_champ_cut_card(_card, _x, _y, _w, _h){
 function draw_champ_card(_card, _x, _y){
 	draw_sprite(_card.spr_card, 0, _x, _y);
 	draw_card_name(_card.name, _x, _y);
-	draw_card_description(_card.description, _x, _y);
+	draw_card_description(_card, _x, _y);
 	draw_card_stats(_card.stats, _x, _y);
 	draw_card_type(_card.type, _x, _y);
 	
@@ -115,7 +116,7 @@ function draw_champ_card_instance(_card_inst, _x, _y){
 	
 	draw_sprite(_card.spr_card, 0, _x, _y);
 	draw_card_name(_card.name, _x, _y);
-	draw_card_description(_card.description, _x, _y);
+	draw_card_description(_card, _x, _y);
 	
 	draw_card_inst_stats(_stats, _stats_orig, _x, _y);
 	
@@ -131,5 +132,39 @@ function draw_champ_card_instance(_card_inst, _x, _y){
 	draw_middle_center_outline(_x - 137, _y - 150, _card.md, font_card_text_20);
 	
 }
+		
+function draw_gear_cut_card(_card, _x, _y, _w, _h){
+	draw_sprite_stretched(_card.spr_cut_card, 0, _x, _y, _w, _h);
+	draw_cut_card_name(_card.name, _x, _y, _w, _h);
+	draw_cut_card_type(_card.type, _x, _y, _w, _h);
 	
+	draw_middle_center_outline(_x + 40, _y + 25, $"{_card.gw}gw", font_card_text_10);
+}
+
+function draw_gear_card(_card, _x, _y){
+	draw_sprite(_card.spr_card, 0, _x, _y);
+	draw_card_name(_card.name, _x, _y);
+	draw_card_description(_card, _x, _y);
+	draw_card_stats(_card.stats, _x, _y);
+	draw_card_type(_card.type, _x, _y);
+	
+	draw_middle_center_outline(_x - 113, _y - 225, "gw", font_card_text_10);
+	draw_middle_center_outline(_x - 137, _y - 232, _card.gw, font_card_text_20);
+}
+
+function draw_magic_cut_card(_card, _x, _y, _w, _h){
+	draw_sprite_stretched(_card.spr_cut_card, 0, _x, _y, _w, _h);
+	draw_cut_card_name(_card.name, _x, _y, _w, _h);
+
+	draw_middle_center_outline(_x + 40, _y + 25, $"{_card.md}md", font_card_text_10);
+}
+
+function draw_magic_card(_card, _x, _y){
+	draw_sprite(_card.spr_card, 0, _x, _y);
+	draw_card_name(_card.name, _x, _y);
+	draw_card_description(_card, _x, _y);
+	
+	draw_middle_center_outline(_x - 113, _y - 225, "md", font_card_text_10);
+	draw_middle_center_outline(_x - 137, _y - 232, _card.md, font_card_text_20);
+}
 #endregion
