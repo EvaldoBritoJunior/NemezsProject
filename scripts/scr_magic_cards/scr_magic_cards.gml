@@ -6,7 +6,7 @@ function magic_card(_card_id, _name, _md,
 	card_id = _card_id;
 	name = _name;
 	md = _md;
-	description = "Descricao";
+	description = $"Descricao :{_card_id}";
 	
 	spr_card = _spr_card;
 	spr_cut_card = _spr_cut_card;

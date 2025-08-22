@@ -112,7 +112,7 @@ create_objects = function() {
 		player_gear_holders[_i] = instance_create_layer(
 			p_gear_holders_positions[_i][0], p_gear_holders_positions[_i][1], "Instances", obj_cp_player_gear_holder,
 			{
-				field_position : floor(_i / 2),
+				field_position : _i,
 				manager_inst : _this
 			});
 	}
@@ -120,7 +120,7 @@ create_objects = function() {
 	// Player magic holders
 	for (var _i = 0; _i < array_length(player_magic_holders); _i++) {
 		player_magic_holders[_i] = instance_create_layer(
-			p_magic_holders_positions[_i][0], e_magic_holders_positions[_i][1], "Instances", obj_cp_player_magic_holder,
+			p_magic_holders_positions[_i][0], p_magic_holders_positions[_i][1], "Instances", obj_cp_player_magic_holder,
 			{
 				field_position : _i,
 				manager_inst : _this
@@ -132,7 +132,7 @@ create_objects = function() {
 		enemy_gear_holders[_i] = instance_create_layer(
 			e_gear_holders_positions[_i][0], e_gear_holders_positions[_i][1], "Instances", obj_cp_enemy_gear_holder,
 			{
-				field_position : floor(_i / 2),
+				field_position : _i,
 				manager_inst : _this
 			});
 	}
@@ -140,7 +140,7 @@ create_objects = function() {
 	// Enemy magic holders
 	for (var _i = 0; _i < array_length(enemy_magic_holders); _i++) {
 		enemy_magic_holders[_i] = instance_create_layer(
-			e_magic_holders_positions[_i][0], p_magic_holders_positions[_i][1], "Instances", obj_cp_enemy_magic_holder,
+			e_magic_holders_positions[_i][0], e_magic_holders_positions[_i][1], "Instances", obj_cp_enemy_magic_holder,
 			{
 				field_position : _i,
 				manager_inst : _this
@@ -148,7 +148,31 @@ create_objects = function() {
 	}
 	
 }
+
+draw_stage_draws = function() {
+	//Player draw
+	var _card = data.playerDrawGear();
+	if (_card != noone) {
+		player_gear_holders[data.player_gear_hand_size - 1].update_sprite();
+	}
 	
+	_card = data.playerDrawMagic();
+	if (_card != noone) {
+		player_magic_holders[data.player_gear_hand_size - 1].update_sprite();
+	}
+	
+	//Enemy draw
+	_card = data.enemyDrawGear();
+	if (_card != noone) {
+		enemy_gear_holders[data.enemy_gear_hand_size - 1].update_sprite();
+	}
+	
+	_card = data.enemyDrawMagic();
+	if (_card != noone) {
+		enemy_magic_holders[data.enemy_gear_hand_size - 1].update_sprite();
+	}
+}
+
 stage_sort = function() {
 	array_sort(objects_step_order, function(left, right) {
 	    if (left.initiative_value < right.initiative_value)
@@ -255,33 +279,8 @@ set_field_decks = function (_magic_cards) {
 end_set_decks = function (_terr_cards) {
 	data.player_territory_orig_deck = _terr_cards;
 	data.player_territory_deck = array_full_copy(_terr_cards);
-	var _card;
-	
-	//Player draw
-	_card = data.playerDrawGear();
-	if (_card != noone) {
-		player_gear_holders[data.player_gear_hand_size - 1].update_sprite();
-	}
-	
-	_card = data.playerDrawMagic();
-	if (_card != noone) {
-		player_magic_holders[data.player_gear_hand_size - 1].update_sprite();
-	}
-	
-	//Enemy draw
-	_card = data.enemyDrawGear();
-	if (_card != noone) {
-		enemy_gear_holders[data.enemy_gear_hand_size - 1].update_sprite();
-	}
-	
-	_card = data.enemyDrawMagic();
-	if (_card != noone) {
-		enemy_magic_holders[data.enemy_gear_hand_size - 1].update_sprite();
-	}
-	
-	// Change stage
+	draw_stage_draws();
 	data.turn_stage = card_phase_stages.ACT_STAGE;
-	// Init stage
 	start_stage();
 }
 
@@ -300,6 +299,9 @@ start_stage = function () {
 		init_stage_step();
 		
 	} else if (data.turn_stage == card_phase_stages.ACT_STAGE) {
+		draw_stage_draws();
+		//draw & set field
+		//act_stage_step
 		
 	} else if (data.turn_stage == card_phase_stages.END_STAGE) {
 		
@@ -312,6 +314,15 @@ init_stage_step = function() {
 	current_step++;
 	if (current_step < array_length(objects_step_order)) {
 		objects_step_order[current_step].start_init_step(champ_card_selection);
+	} else {
+		end_stage();
+	}
+}
+
+act_stage_step = function() {
+	current_step++;
+	if (current_step < array_length(objects_step_order)) {
+		objects_step_order[current_step].start_act_step();
 	} else {
 		end_stage();
 	}
