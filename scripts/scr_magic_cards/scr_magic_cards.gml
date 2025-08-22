@@ -16,43 +16,43 @@ function magic_card(_card_id, _name, _md,
 
 global.magic_cards = [
 	new magic_card(
-		0, "FIMOSE DRAGON", 1,
+		0, "MAGIC NAME", 1,
 		spr_sample_magic, spr_sample_cut_magic, spr_sample_card_art
 	), 
 	new magic_card(
-		1, "FIMOSE DRAGON", 2,
+		1, "MAGIC NAME", 2,
 		spr_sample_magic, spr_sample_cut_magic, spr_sample_card_art
 	),
 	new magic_card(
-		2, "FIMOSE DRAGON", 3,
+		2, "MAGIC NAME", 3,
 		spr_sample_magic, spr_sample_cut_magic, spr_sample_card_art
 	),
 	new magic_card(
-		3, "FIMOSE DRAGON", 1,
+		3, "MAGIC NAME", 1,
 		spr_sample_magic, spr_sample_cut_magic, spr_sample_card_art
 	),
 	new magic_card(
-		4, "FIMOSE DRAGON", 2,
+		4, "MAGIC NAME", 2,
 		spr_sample_magic, spr_sample_cut_magic, spr_sample_card_art
 	),
 	new magic_card(
-		5, "FIMOSE DRAGON", 3,
+		5, "MAGIC NAME", 3,
 		spr_sample_magic, spr_sample_cut_magic, spr_sample_card_art
 	),
 	new magic_card(
-		6, "FIMOSE DRAGON", 3,
+		6, "MAGIC NAME", 3,
 		spr_sample_magic, spr_sample_cut_magic, spr_sample_card_art
 	),
 	new magic_card(
-		7, "FIMOSE DRAGON", 2,
+		7, "MAGIC NAME", 2,
 		spr_sample_magic, spr_sample_cut_magic, spr_sample_card_art
 	),
 	new magic_card(
-		8, "FIMOSE DRAGON", 1,
+		8, "MAGIC NAME", 1,
 		spr_sample_magic, spr_sample_cut_magic, spr_sample_card_art
 	),
 	new magic_card(
-		9, "FIMOSE DRAGON", 2,
+		9, "MAGIC NAME", 2,
 		spr_sample_magic, spr_sample_cut_magic, spr_sample_card_art
 	)
 ];

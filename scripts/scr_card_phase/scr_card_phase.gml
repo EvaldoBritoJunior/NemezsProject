@@ -43,6 +43,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 		player_gear_orig_deck: [],
 		player_magic_orig_deck: [],
 		player_territory_orig_deck: [],
+		
 		player_gear_deck: [],
 		player_magic_deck: [],
 		player_territory_deck: [],
@@ -61,6 +62,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 		enemy_gear_orig_deck: [],
 		enemy_magic_orig_deck: [],
 		enemy_territory_orig_deck: [],
+		
 		enemy_gear_deck: [],
 		enemy_magic_deck: [],
 		enemy_territory_deck: [],

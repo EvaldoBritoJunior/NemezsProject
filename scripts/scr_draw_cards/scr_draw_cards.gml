@@ -167,4 +167,16 @@ function draw_magic_card(_card, _x, _y){
 	draw_middle_center_outline(_x - 113, _y - 225, "md", font_card_text_10);
 	draw_middle_center_outline(_x - 137, _y - 232, _card.md, font_card_text_20);
 }
+	
+function draw_territory_cut_card(_card, _x, _y, _w, _h){
+	draw_sprite_stretched(_card.spr_cut_card, 0, _x, _y, _w, _h);
+	draw_cut_card_name(_card.name, _x, _y, _w, _h);
+}
+
+function draw_territory_card(_card, _x, _y){
+	draw_sprite(_card.spr_card, 0, _x, _y);
+	draw_card_name(_card.name, _x, _y);
+	draw_card_description(_card, _x, _y);
+}	
+
 #endregion

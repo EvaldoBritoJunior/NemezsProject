@@ -19,43 +19,43 @@ function gear_card(_card_id, _name, _gw, _stats, _type,
 
 global.gear_cards = [
 	new gear_card(
-		0, "FIMOSE DRAGON", 3, [6, 5, 4, 3], 0,
+		0, "GEAR NAME", 3, [6, 5, 4, 3], 0,
 		spr_sample_gear, spr_sample_cut_gear, spr_sample_card_art
 	), 
 	new gear_card(
-		1, "FIMOSE DRAGON", 3, [6, 5, 4, 3], 1,
+		1, "GEAR NAME", 3, [6, 5, 4, 3], 1,
 		spr_sample_gear, spr_sample_cut_gear, spr_sample_card_art
 	),
 	new gear_card(
-		2, "FIMOSE DRAGON", 3, [6, 5, 4, 3], 2,
+		2, "GEAR NAME", 3, [6, 5, 4, 3], 2,
 		spr_sample_gear, spr_sample_cut_gear, spr_sample_card_art
 	),
 	new gear_card(
-		3, "FIMOSE DRAGON", 3, [6, 5, 4, 3], 3,
+		3, "GEAR NAME", 3, [6, 5, 4, 3], 3,
 		spr_sample_gear, spr_sample_cut_gear, spr_sample_card_art
 	),
 	new gear_card(
-		4, "FIMOSE DRAGON", 3, [6, 5, 4, 3], 3,
+		4, "GEAR NAME", 3, [6, 5, 4, 3], 3,
 		spr_sample_gear, spr_sample_cut_gear, spr_sample_card_art
 	),
 	new gear_card(
-		5, "FIMOSE DRAGON", 3, [6, 5, 4, 3], 2,
+		5, "GEAR NAME", 3, [6, 5, 4, 3], 2,
 		spr_sample_gear, spr_sample_cut_gear, spr_sample_card_art
 	),
 	new gear_card(
-		6, "FIMOSE DRAGON", 3, [6, 5, 4, 3], 1,
+		6, "GEAR NAME", 3, [6, 5, 4, 3], 1,
 		spr_sample_gear, spr_sample_cut_gear, spr_sample_card_art
 	),
 	new gear_card(
-		7, "FIMOSE DRAGON", 3, [6, 5, 4, 3], 0,
+		7, "GEAR NAME", 3, [6, 5, 4, 3], 0,
 		spr_sample_gear, spr_sample_cut_gear, spr_sample_card_art
 	),
 	new gear_card(
-		8, "FIMOSE DRAGON", 3, [6, 5, 4, 3], 0,
+		8, "GEAR NAME", 3, [6, 5, 4, 3], 0,
 		spr_sample_gear, spr_sample_cut_gear, spr_sample_card_art
 	),
 	new gear_card(
-		9, "FIMOSE DRAGON", 3, [6, 5, 4, 3], 1,
+		9, "GEAR NAME", 3, [6, 5, 4, 3], 1,
 		spr_sample_gear, spr_sample_cut_gear, spr_sample_card_art
 	)
 ];

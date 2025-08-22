@@ -125,7 +125,7 @@ set_gear_decks = function () {
 			manager_inst: _this,
 			draw_cut_func: global.draw_gear_cut_card,
 			draw_func: global.draw_gear_card,
-			return_func: self.set_magic_decks
+			return_func: _this.set_magic_decks
 		});
 }
 
@@ -133,6 +133,7 @@ set_magic_decks = function (_gear_cards) {
 	data.player_gear_orig_deck = _gear_cards;
 	data.player_gear_deck = array_full_copy(_gear_cards);
 	
+	var _this = self;
 	var _card_array = global.magic_cards;
 	var _select_amount = data.champ_qty * 2;
 	
@@ -141,21 +142,37 @@ set_magic_decks = function (_gear_cards) {
 			card_array: _card_array,
 			select_amount: _select_amount,
 			title: "Magic Cards",
-			manager_inst: self,
+			manager_inst: _this,
 			draw_cut_func: global.draw_magic_cut_card,
 			draw_func: global.draw_magic_card,
-			return_func: self.set_field_decks
+			return_func: _this.set_field_decks
 		});
 }
 
 set_field_decks = function (_magic_cards) {
 	data.player_magic_orig_deck = _magic_cards;
 	data.player_magic_deck = array_full_copy(_magic_cards);
-
 	
+	var _this = self;
+	var _card_array = global.territory_cards;
+	var _select_amount = data.champ_qty;
+	
+	instance_create_layer(640, 360, "Instances_above", obj_select_card_menu,
+		{
+			card_array: _card_array,
+			select_amount: _select_amount,
+			title: "Territories",
+			manager_inst: _this,
+			draw_cut_func: global.draw_territory_cut_card,
+			draw_func: global.draw_territory_card,
+			return_func: _this.end_set_decks
+		});
+
 }
 
-end_set_decks = function () {
+end_set_decks = function (_terr_cards) {
+	data.player_territory_orig_deck = _terr_cards;
+	data.player_territory_deck = array_full_copy(_terr_cards);
 }
 
 #endregion

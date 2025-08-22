@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_card_phase",
+  "%Name":"scr_territory_cards",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_card_phase",
+  "name":"scr_territory_cards",
   "parent":{
-    "name":"Phases",
-    "path":"folders/Scripts/Phases.yy",
+    "name":"Cards",
+    "path":"folders/Scripts/Cards.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

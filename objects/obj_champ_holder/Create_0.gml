@@ -85,13 +85,14 @@ fin_init_step = function(_array_response) {
 }
 
 start_init_step = function(_card_array) {
+	var _this = self;
 	if (card_owner == card_owners.PLAYER){
 		instance_create_layer(640, 360, "Instances_above", obj_select_card_menu,
 		{
-			manager_inst: self.manager_inst,
+			manager_inst: _this.manager_inst,
 			draw_cut_func: global.draw_champ_cut_card,
 			draw_func: global.draw_champ_card,
-			return_func: self.fin_init_step,
+			return_func: _this.fin_init_step,
 			card_array: _card_array,
 			select_amount: 1,
 			title: get_position_name(field_position)
