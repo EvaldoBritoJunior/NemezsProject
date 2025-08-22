@@ -76,7 +76,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 		enemy_territory_gyd: [],
 		#endregion
 		
-		#region Functions
+		#region Draw Functions
 		playerDrawGear: function() {
 			var _response = noone;
 			var _size = -1;
@@ -104,7 +104,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 			var _size = -1;
 			var _index = -1;
 			
-			if (!(player_draw_hand_size >= global.max_magic_qty)) {
+			if (!(player_magic_hand_size >= global.max_magic_qty)) {
 				_size = array_length(player_magic_deck);
 				if (_size == 0) {
 					player_magic_deck = array_full_copy(player_magic_orig_deck);
@@ -168,7 +168,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 			var _size = -1;
 			var _index = -1;
 			
-			if (!(enemy_draw_hand_size >= global.max_magic_qty)) {
+			if (!(enemy_magic_hand_size >= global.max_magic_qty)) {
 				_size = array_length(enemy_magic_deck);
 				if (_size == 0) {
 					enemy_magic_deck = array_full_copy(enemy_magic_orig_deck);

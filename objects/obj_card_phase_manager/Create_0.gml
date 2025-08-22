@@ -2,7 +2,12 @@
 
 data = global.card_phase_data;
 default_background = spr_field_default;
-objects_step_order = array_create(data.champ_qty * 2, noone);
+objects_step_order = array_create(data.champ_qty * 2, noone); // Champ holders
+player_gear_holders = array_create(global.max_gear_qty, noone);
+player_magic_holders = array_create(global.max_magic_qty, noone);
+enemy_gear_holders = array_create(global.max_gear_qty, noone);
+enemy_magic_holders = array_create(global.max_magic_qty, noone);
+territory_holder = noone;
 
 
 instances_positions = [
@@ -11,6 +16,22 @@ instances_positions = [
 		[101, 227], [1179, 227],	// Rear I
 		[101, 360], [1179, 360],	// Rear II
 		[101, 492], [1179, 492]		// Rear III
+	];
+	
+p_gear_holders_positions = [
+		[574, 662], [457, 662],	[341, 662]
+	];
+	
+p_magic_holders_positions = [
+		[705, 662], [821, 662],	[938, 662]
+	];
+	
+e_gear_holders_positions = [
+		[574, 58], [457, 58], [341, 58]
+	];
+	
+e_magic_holders_positions = [
+		[705, 58], [821, 58], [938, 58]
 	];
 	
 champ_card_selection = [];
@@ -85,6 +106,27 @@ create_objects = function() {
 				manager_inst : _this
 			});
 	}
+	
+	// Player gear holders
+	for (var _i = 0; _i < array_length(player_gear_holders); _i++) {
+		player_gear_holders[_i] = instance_create_layer(
+			p_gear_holders_positions[_i][0], p_gear_holders_positions[_i][1], "Instances", obj_cp_player_gear_holder,
+			{
+				field_position : floor(_i / 2),
+				manager_inst : _this
+			});
+	}
+	
+	// Player magic holders
+	for (var _i = 0; _i < array_length(player_magic_holders); _i++) {
+		player_magic_holders[_i] = instance_create_layer(
+			p_magic_holders_positions[_i][0], p_magic_holders_positions[_i][1], "Instances", obj_cp_player_magic_holder,
+			{
+				field_position : _i,
+				manager_inst : _this
+			});
+	}
+	
 }
 	
 stage_sort = function() {
@@ -193,11 +235,26 @@ set_field_decks = function (_magic_cards) {
 end_set_decks = function (_terr_cards) {
 	data.player_territory_orig_deck = _terr_cards;
 	data.player_territory_deck = array_full_copy(_terr_cards);
+	var _card;
 	
-	//draw gear
-	//draw magic
+	//Player draw
+	_card = data.playerDrawGear();
+	if (_card != noone) {
+		player_gear_holders[data.player_gear_hand_size - 1].update_sprite();
+	}
+	
+	_card = data.playerDrawMagic();
+	if (_card != noone) {
+		player_magic_holders[data.player_gear_hand_size - 1].update_sprite();
+	}
+	
+	//Enemy draw
+	data.enemyDrawGear();
+	data.enemyDrawMagic();
 	//change stage
+	data.turn_stage = card_phase_stages.ACT_STAGE;
 	//init stage
+	start_stage();
 }
 
 #endregion
