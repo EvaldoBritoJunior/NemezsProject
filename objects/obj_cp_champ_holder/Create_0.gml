@@ -1,5 +1,5 @@
-mouse_over = false;
-data = global.card_phase_data;
+// Inherit the parent event
+event_inherited();
 
 #region Utility Functions
 
@@ -87,7 +87,7 @@ fin_init_step = function(_array_response) {
 start_init_step = function(_card_array) {
 	var _this = self;
 	if (card_owner == card_owners.PLAYER){
-		instance_create_layer(640, 360, "Instances_above", obj_select_card_menu,
+		instance_create_layer(640, 360, "Instances_above", obj_cp_select_card_menu,
 		{
 			manager_inst: _this.manager_inst,
 			draw_cut_func: global.draw_champ_cut_card,
@@ -98,7 +98,8 @@ start_init_step = function(_card_array) {
 			title: get_position_name(field_position)
 		});
 	} else {
-		fin_init_step(_card_array);
+		var _array_response = manager_inst.enemy_ia_inst.select_champ_card(field_position, _card_array)
+		fin_init_step(_array_response);
 	}
 }
 

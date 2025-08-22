@@ -28,6 +28,7 @@
   "physicsShapePoints":[],
   "physicsStartAwake":true,
   "properties":[
+    {"$GMObjectProperty":"v1","%Name":"enemy_ia_inst","filters":[],"listItems":[],"multiselect":false,"name":"enemy_ia_inst","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"-1","varType":4,},
     {"$GMObjectProperty":"v1","%Name":"objects_step_order","filters":[],"listItems":[],"multiselect":false,"name":"objects_step_order","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"-1","varType":4,},
     {"$GMObjectProperty":"v1","%Name":"current_step","filters":[],"listItems":[],"multiselect":false,"name":"current_step","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"-1","varType":4,},
     {"$GMObjectProperty":"v1","%Name":"show_cards_when_over","filters":[],"listItems":[],"multiselect":false,"name":"show_cards_when_over","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"true","varType":3,},

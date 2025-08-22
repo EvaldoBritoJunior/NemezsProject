@@ -2,7 +2,9 @@
 
 data = global.card_phase_data;
 default_background = spr_field_default;
-objects_step_order = array_create(global.champ_qty * 2, noone);
+objects_step_order = array_create(data.champ_qty * 2, noone);
+
+
 instances_positions = [
 	//  Player      Enemy
 		[410, 360], [870, 360],		// Vanguard
@@ -10,6 +12,7 @@ instances_positions = [
 		[101, 360], [1179, 360],	// Rear II
 		[101, 492], [1179, 492]		// Rear III
 	];
+	
 champ_card_selection = [];
 
 #endregion
@@ -68,9 +71,14 @@ draw_data = function () {
 
 create_objects = function() {
 	var _this = self;
+	
+	// Enemy IA
+	enemy_ia_inst = instance_create_layer(x, y, "Instances", obj_cp_enemy_ia);
+	
+	// Champ holders
 	for (var _i = 0; _i < array_length(objects_step_order); _i++) {
 		objects_step_order[_i] = instance_create_layer(
-			instances_positions[_i][0], instances_positions[_i][1], "Instances", obj_champ_holder,
+			instances_positions[_i][0], instances_positions[_i][1], "Instances", obj_cp_champ_holder,
 			{
 				card_owner : (_i % 2),
 				field_position : floor(_i / 2),
@@ -116,8 +124,12 @@ set_gear_decks = function () {
 	var _this = self;
 	var _card_array = global.gear_cards;
 	var _select_amount = data.champ_qty * 2;
+	var _enemy_gear_deck = enemy_ia_inst.select_gear_deck(_select_amount, _card_array);
+
+	data.enemy_gear_orig_deck = _enemy_gear_deck;
+	data.enemy_gear_deck = array_full_copy(_enemy_gear_deck);
 	
-	instance_create_layer(640, 360, "Instances_above", obj_select_card_menu,
+	instance_create_layer(640, 360, "Instances_above", obj_cp_select_card_menu,
 		{
 			card_array: _card_array,
 			select_amount: _select_amount,
@@ -136,8 +148,12 @@ set_magic_decks = function (_gear_cards) {
 	var _this = self;
 	var _card_array = global.magic_cards;
 	var _select_amount = data.champ_qty * 2;
+	var _enemy_magic_deck = enemy_ia_inst.select_magic_deck(_select_amount, _card_array);
+
+	data.enemy_magic_orig_deck = _enemy_magic_deck;
+	data.enemy_magic_deck = array_full_copy(_enemy_magic_deck);
 	
-	instance_create_layer(640, 360, "Instances_above", obj_select_card_menu,
+	instance_create_layer(640, 360, "Instances_above", obj_cp_select_card_menu,
 		{
 			card_array: _card_array,
 			select_amount: _select_amount,
@@ -156,8 +172,12 @@ set_field_decks = function (_magic_cards) {
 	var _this = self;
 	var _card_array = global.territory_cards;
 	var _select_amount = data.champ_qty;
+	var _enemy_territory_deck = enemy_ia_inst.select_territory_deck(_select_amount, _card_array);
+
+	data.enemy_territory_orig_deck = _enemy_territory_deck;
+	data.enemy_territory_deck = array_full_copy(_enemy_territory_deck);
 	
-	instance_create_layer(640, 360, "Instances_above", obj_select_card_menu,
+	instance_create_layer(640, 360, "Instances_above", obj_cp_select_card_menu,
 		{
 			card_array: _card_array,
 			select_amount: _select_amount,
@@ -173,6 +193,11 @@ set_field_decks = function (_magic_cards) {
 end_set_decks = function (_terr_cards) {
 	data.player_territory_orig_deck = _terr_cards;
 	data.player_territory_deck = array_full_copy(_terr_cards);
+	
+	//draw gear
+	//draw magic
+	//change stage
+	//init stage
 }
 
 #endregion
@@ -204,7 +229,7 @@ start_stage = function () {
 	current_step = -1;
 	if (data.turn_stage == card_phase_stages.INIT_STAGE) {
 		champ_card_selection = array_full_copy(global.champ_cards);
-		var _first = card_owners.ENEMY //choose(card_owners.PLAYER, card_owners.ENEMY);
+		var _first = choose(card_owners.PLAYER, card_owners.ENEMY);
 		data.turn_owner = _first;
 		create_objects();
 		init_stage_sort();
