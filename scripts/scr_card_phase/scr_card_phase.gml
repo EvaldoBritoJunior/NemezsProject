@@ -1,5 +1,7 @@
 global.max_gear_qty = 3;
 global.max_magic_qty = 3;
+global.cp_layer_instances_above = "Instances_above";
+global.cp_layer_assets_below = "Assets_below";
 
 global.card_phase_data = -1;
 
@@ -76,7 +78,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 		enemy_territory_gyd: [],
 		#endregion
 		
-		#region Draw Functions
+		#region Draw Card Functions
 		playerDrawGear: function() {
 			var _response = noone;
 			var _size = -1;
@@ -135,8 +137,6 @@ function reset_card_phase_data(_champ_qty = 4) {
 			_index = irandom(_size - 1);
 			_response = player_territory_deck[_index];
 			array_delete(player_territory_deck, _index, 1);
-			player_territory_hand[player_territory_hand_size] = _response;
-			player_territory_hand_size++;
 			
 			return _response;
 		},
@@ -199,8 +199,6 @@ function reset_card_phase_data(_champ_qty = 4) {
 			_index = irandom(_size - 1);
 			_response = enemy_territory_deck[_index];
 			array_delete(enemy_territory_deck, _index, 1);
-			enemy_territory_hand[enemy_territory_hand_size] = _response;
-			enemy_territory_hand_size++;
 			
 			return _response;
 		}

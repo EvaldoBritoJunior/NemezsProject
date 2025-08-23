@@ -28,11 +28,9 @@ update_card_instance = function(_card_instance) {
 }
 
 draw_card = function() {
-	var layer_id = layer_get_id("Instances_above");
 	var _card_instance = 
 		card_owner == card_owners.PLAYER ? data.player_champs[field_position] 
 			: data.enemy_champs[field_position];
-	var _sprite = -1;
 	
 	if (_card_instance != noone) {
 		if (card_owner == card_owners.PLAYER){
@@ -79,7 +77,7 @@ draw_stats = function() {
 start_init_step = function(_card_array) {
 	var _this = self;
 	if (card_owner == card_owners.PLAYER){
-		instance_create_layer(640, 360, "Instances_above", obj_cp_select_card_menu,
+		instance_create_layer(640, 360, global.cp_layer_instances_above, obj_cp_select_card_menu,
 		{
 			manager_inst: _this.manager_inst,
 			draw_cut_func: global.draw_champ_cut_card,

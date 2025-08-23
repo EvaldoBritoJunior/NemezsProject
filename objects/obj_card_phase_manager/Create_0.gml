@@ -7,33 +7,27 @@ player_gear_holders = array_create(global.max_gear_qty, noone);
 player_magic_holders = array_create(global.max_magic_qty, noone);
 enemy_gear_holders = array_create(global.max_gear_qty, noone);
 enemy_magic_holders = array_create(global.max_magic_qty, noone);
+
 territory_holder = noone;
-
-
-instances_positions = [
+instances_positions = [				// Champ holders
 	//  Player      Enemy
 		[410, 360], [870, 360],		// Vanguard
 		[101, 227], [1179, 227],	// Rear I
 		[101, 360], [1179, 360],	// Rear II
 		[101, 492], [1179, 492]		// Rear III
 	];
-	
 p_gear_holders_positions = [
 		[574, 662], [457, 662],	[341, 662]
 	];
-	
 p_magic_holders_positions = [
 		[705, 662], [821, 662],	[938, 662]
 	];
-	
 e_gear_holders_positions = [
 		[574, 58], [457, 58], [341, 58]
 	];
-	
 e_magic_holders_positions = [
 		[705, 58], [821, 58], [938, 58]
 	];
-	
 champ_card_selection = [];
 
 #endregion
@@ -147,6 +141,13 @@ create_objects = function() {
 			});
 	}
 	
+	// Territory holder
+	territory_holder = instance_create_layer(
+			room_width / 2, room_height / 2, "Instances", obj_cp_territory_holder,
+			{
+				field_position : _i,
+				manager_inst : _this
+			});
 }
 
 draw_stage_draws = function() {
@@ -215,7 +216,7 @@ set_gear_decks = function () {
 	data.enemy_gear_orig_deck = _enemy_gear_deck;
 	data.enemy_gear_deck = array_full_copy(_enemy_gear_deck);
 	
-	instance_create_layer(640, 360, "Instances_above", obj_cp_select_card_menu,
+	instance_create_layer(640, 360, global.cp_layer_instances_above, obj_cp_select_card_menu,
 		{
 			card_array: _card_array,
 			select_amount: _select_amount,
@@ -239,7 +240,7 @@ set_magic_decks = function (_gear_cards) {
 	data.enemy_magic_orig_deck = _enemy_magic_deck;
 	data.enemy_magic_deck = array_full_copy(_enemy_magic_deck);
 	
-	instance_create_layer(640, 360, "Instances_above", obj_cp_select_card_menu,
+	instance_create_layer(640, 360, global.cp_layer_instances_above, obj_cp_select_card_menu,
 		{
 			card_array: _card_array,
 			select_amount: _select_amount,
@@ -263,7 +264,7 @@ set_field_decks = function (_magic_cards) {
 	data.enemy_territory_orig_deck = _enemy_territory_deck;
 	data.enemy_territory_deck = array_full_copy(_enemy_territory_deck);
 	
-	instance_create_layer(640, 360, "Instances_above", obj_cp_select_card_menu,
+	instance_create_layer(640, 360, global.cp_layer_instances_above, obj_cp_select_card_menu,
 		{
 			card_array: _card_array,
 			select_amount: _select_amount,
@@ -301,6 +302,14 @@ start_stage = function () {
 	} else if (data.turn_stage == card_phase_stages.ACT_STAGE) {
 		draw_stage_draws();
 		//draw & set field
+		var _terr_card = -1;
+		if (data.turn_owner == card_owners.PLAYER) {
+			_terr_card = data.playerDrawTerritory();
+		} else {
+			_terr_card = data.enemyDrawTerritory();
+		}
+		data.current_territory = _terr_card;
+		territory_holder.update_sprite();
 		//act_stage_step
 		
 	} else if (data.turn_stage == card_phase_stages.END_STAGE) {

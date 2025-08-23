@@ -18,7 +18,7 @@ function champ_card(_card_id, _name, _hp, _gw, _md, _stats, _type,
 	md = _md;
 	stats = _stats;
 	type = _type;
-	description = "Descricao";
+	description = $"Descricao :{_card_id}";
 	
 	spr_card = _spr_card;
 	spr_cut_card = _spr_cut_card;

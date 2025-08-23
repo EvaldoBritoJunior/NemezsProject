@@ -59,9 +59,9 @@ mouse_check = function(_position) {
 }
 
 custom_draw_sprite = function(_array_pos, _point_over, _x1, _y1, _x2, _y2, _card) {
-	var _color = c_white;
+	var _color = c_black;
 	if (selected_array[_array_pos]) {
-		_color = c_black;
+		_color = c_white;
 	}
 	
 	if (_point_over && (selected_array[_array_pos] || selected_amount < select_amount)) {

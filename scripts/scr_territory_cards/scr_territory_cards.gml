@@ -17,7 +17,7 @@ function territory_card(_card_id, _name, _iniciative_type, _iniciative_stat,
 	name = _name; 
 	iniciative_type = _iniciative_type;
 	iniciative_stat = _iniciative_stat;
-	description = "Descricao";
+	description = $"Descricao {_card_id}";
 	
 	spr_card = _spr_card;
 	spr_cut_card = _spr_cut_card;

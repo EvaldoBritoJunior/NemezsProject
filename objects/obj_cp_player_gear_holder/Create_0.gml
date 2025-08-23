@@ -12,9 +12,7 @@ update_sprite = function() {
 }
 
 draw_card = function() {
-	var layer_id = layer_get_id("Instances_above");
 	var _card_instance = data.player_gear_hand[field_position];
-	var _sprite = -1;
 	
 	if (_card_instance != noone) {
 		draw_gear_card(_card_instance, x, room_height / 2);
