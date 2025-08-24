@@ -39,7 +39,9 @@
     {"name":"Timelines","order":6,"path":"folders/Timelines.yy",},
   ],
   "ResourceOrderSettings":[
+    {"name":"fnt_main_25","order":2,"path":"fonts/fnt_main_25/fnt_main_25.yy",},
     {"name":"fnt_main_30","order":1,"path":"fonts/fnt_main_30/fnt_main_30.yy",},
+    {"name":"fnt_main_35","order":3,"path":"fonts/fnt_main_35/fnt_main_35.yy",},
     {"name":"font_card_text_13","order":4,"path":"fonts/font_card_text_13/font_card_text_13.yy",},
     {"name":"font_card_text_20","order":1,"path":"fonts/font_card_text_20/font_card_text_20.yy",},
     {"name":"font_card_text_23","order":3,"path":"fonts/font_card_text_23/font_card_text_23.yy",},
@@ -79,6 +81,7 @@
     {"name":"spr_button","order":3,"path":"sprites/spr_button/spr_button.yy",},
     {"name":"spr_caixa_item","order":2,"path":"sprites/spr_caixa_item/spr_caixa_item.yy",},
     {"name":"spr_caixa","order":1,"path":"sprites/spr_caixa/spr_caixa.yy",},
+    {"name":"spr_card_stat","order":5,"path":"sprites/spr_card_stat/spr_card_stat.yy",},
     {"name":"spr_field_center","order":6,"path":"sprites/spr_field_center/spr_field_center.yy",},
     {"name":"spr_field_default","order":2,"path":"sprites/spr_field_default/spr_field_default.yy",},
     {"name":"spr_field_marks","order":1,"path":"sprites/spr_field_marks/spr_field_marks.yy",},

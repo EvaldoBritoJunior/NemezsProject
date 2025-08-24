@@ -1,2 +1,2 @@
 start_stage();
-randomise();
+randomize();

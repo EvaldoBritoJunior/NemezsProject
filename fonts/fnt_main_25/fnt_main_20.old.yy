@@ -213,8 +213,8 @@
   "maintainGms1Font":false,
   "name":"fnt_main_20",
   "parent":{
-    "name":"Main",
-    "path":"folders/Fonts/Main.yy",
+    "name":"Fonts",
+    "path":"folders/Fonts.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -230,10 +230,7 @@
   "sdfSpread":8,
   "size":20.0,
   "styleName":"Regular",
-  "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
-  },
+  "textureGroupId":null,
   "TTFName":"",
   "usesSDF":true,
 }

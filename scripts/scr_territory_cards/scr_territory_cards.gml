@@ -26,23 +26,23 @@ function territory_card(_card_id, _name, _iniciative_type, _iniciative_stat,
 
 global.territory_cards = [
 	new territory_card(
-		0, "TERRITORY N.", iniciative_types.BIGGER, card_stats.PWR,
+		0, "TERRITORY N.", iniciative_types.SMALLER, card_stats.PWR,
 		spr_sample_territory, spr_sample_cut_territory, spr_sample_territory_art
 	), 
 	new territory_card(
-		1, "TERRITORY N.", iniciative_types.BIGGER, card_stats.SKL,
+		1, "TERRITORY N.", iniciative_types.SMALLER, card_stats.SKL,
 		spr_sample_territory, spr_sample_cut_territory, spr_sample_territory_art
 	),
 	new territory_card(
-		2, "TERRITORY N.", iniciative_types.BIGGER, card_stats.INT,
+		2, "TERRITORY N.", iniciative_types.SMALLER, card_stats.INT,
 		spr_sample_territory, spr_sample_cut_territory, spr_sample_territory_art
 	),
 	new territory_card(
-		3, "TERRITORY N.", iniciative_types.BIGGER, card_stats.DVT,
+		3, "TERRITORY N.", iniciative_types.SMALLER, card_stats.DVT,
 		spr_sample_territory, spr_sample_cut_territory, spr_sample_territory_art
 	),
 	new territory_card(
-		4, "TERRITORY N.", iniciative_types.BIGGER, card_stats.PWR,
+		4, "TERRITORY N.", iniciative_types.SMALLER, card_stats.PWR,
 		spr_sample_territory, spr_sample_cut_territory, spr_sample_territory_art
 	)
 ];

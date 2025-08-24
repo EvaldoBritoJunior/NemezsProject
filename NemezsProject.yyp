@@ -59,7 +59,9 @@
   "name":"NemezsProject",
   "resources":[
     {"id":{"name":"fnt_main_20","path":"fonts/fnt_main_20/fnt_main_20.yy",},},
+    {"id":{"name":"fnt_main_25","path":"fonts/fnt_main_25/fnt_main_25.yy",},},
     {"id":{"name":"fnt_main_30","path":"fonts/fnt_main_30/fnt_main_30.yy",},},
+    {"id":{"name":"fnt_main_35","path":"fonts/fnt_main_35/fnt_main_35.yy",},},
     {"id":{"name":"font_card_text_10","path":"fonts/font_card_text_10/font_card_text_10.yy",},},
     {"id":{"name":"font_card_text_13","path":"fonts/font_card_text_13/font_card_text_13.yy",},},
     {"id":{"name":"font_card_text_20","path":"fonts/font_card_text_20/font_card_text_20.yy",},},
@@ -111,6 +113,7 @@
     {"id":{"name":"spr_button","path":"sprites/spr_button/spr_button.yy",},},
     {"id":{"name":"spr_caixa_item","path":"sprites/spr_caixa_item/spr_caixa_item.yy",},},
     {"id":{"name":"spr_caixa","path":"sprites/spr_caixa/spr_caixa.yy",},},
+    {"id":{"name":"spr_card_stat","path":"sprites/spr_card_stat/spr_card_stat.yy",},},
     {"id":{"name":"spr_card_type","path":"sprites/spr_card_type/spr_card_type.yy",},},
     {"id":{"name":"spr_enemy_gear_mark","path":"sprites/spr_enemy_gear_mark/spr_enemy_gear_mark.yy",},},
     {"id":{"name":"spr_enemy_magic_mark","path":"sprites/spr_enemy_magic_mark/spr_enemy_magic_mark.yy",},},
