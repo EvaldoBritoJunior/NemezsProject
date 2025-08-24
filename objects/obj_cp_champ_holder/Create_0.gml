@@ -12,7 +12,6 @@ get_card_instance = function() {
 	return _card_instance;
 }
 
-
 update_sprite = function() {
 	var _card_instance = get_card_instance();
 	

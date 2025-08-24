@@ -26,8 +26,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"Card Phase",
-    "path":"folders/Sprites/Card Phase.yy",
+    "name":"Select Screen",
+    "path":"folders/Sprites/Card Phase/Select Screen.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

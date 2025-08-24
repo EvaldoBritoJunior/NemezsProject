@@ -285,7 +285,7 @@ set_gear_decks = function () {
 		{
 			card_array: _card_array,
 			select_amount: _select_amount,
-			title: "Gear Cards",
+			title: global.language.select_card_gears,
 			manager_inst: _this,
 			draw_cut_func: global.draw_gear_cut_card,
 			draw_func: global.draw_gear_card,
@@ -309,7 +309,7 @@ set_magic_decks = function (_gear_cards) {
 		{
 			card_array: _card_array,
 			select_amount: _select_amount,
-			title: "Magic Cards",
+			title: global.language.select_card_magics,
 			manager_inst: _this,
 			draw_cut_func: global.draw_magic_cut_card,
 			draw_func: global.draw_magic_card,
@@ -333,7 +333,7 @@ set_field_decks = function (_magic_cards) {
 		{
 			card_array: _card_array,
 			select_amount: _select_amount,
-			title: "Territories",
+			title: global.language.select_card_territories,
 			manager_inst: _this,
 			draw_cut_func: global.draw_territory_cut_card,
 			draw_func: global.draw_territory_card,
@@ -419,3 +419,104 @@ end_stage = function () {
 }
 
 #endregion
+
+
+coisa = function() {
+	data.player_gear_hand_size = 3;
+	data.player_gear_hand = array_create(3, global.gear_cards[0]);
+	data.player_magic_hand_size = 3;
+	data.player_magic_hand = array_create(3, global.magic_cards[0]);
+	var _this = self;
+	var _card_inst = new champ_instance(global.champ_cards[0]),
+	
+	// Set equip gear act options
+	var _act_equip = new act_option(global.language.act_equip, 
+		create_act_sub_menu, 
+		[[]], 
+		noone, -1,
+		act_menu_draw_champ, [_card_inst]);
+		
+	var _opt_array = _act_equip.act_args[0];
+	var _card = -1;
+	for (var i = 0; i < data.player_gear_hand_size; i++) {
+		_card = data.player_gear_hand[i];
+		if (_card != noone) {
+			array_push(_opt_array, 
+				new act_option(
+					_card.name,
+					noone, 
+					-1, 
+					noone, 
+					-1,
+					act_menu_draw_gear, [_card]
+				)
+			);
+		}
+	}
+	array_push(_opt_array, new act_option(global.language.act_return, act_menu_go_back, -1, noone, -1, act_menu_draw_champ, [_card_inst]));	
+	
+	// Set use ability act options
+	var _act_ability = new act_option(global.language.act_ability, 
+		function(_self) {
+			// Use magic
+			self.manager_inst.show_cards_when_over = true;
+			self.return_func();
+			instance_destroy(self);
+		}, [self], 
+		noone, -1,
+		act_menu_draw_champ, [_card_inst]);
+	
+	// Set use magic act options
+	var _act_magic = new act_option(global.language.act_magic, 
+		create_act_sub_menu, 
+		[[]], 
+		noone, -1,
+		act_menu_draw_champ, [_card_inst]);
+		
+	_opt_array = _act_magic.act_args[0];
+	_card = -1;
+	for (var i = 0; i < data.player_magic_hand_size; i++) {
+		_card = data.player_magic_hand[i];
+		if (_card != noone) {
+			array_push(_opt_array, 
+				new act_option(
+					_card.name,
+					noone, 
+					-1, 
+					noone, 
+					-1,
+					act_menu_draw_magic, [_card]
+				)
+			);
+		}
+	}
+	array_push(_opt_array, new act_option(global.language.act_return, act_menu_go_back, -1, noone, -1, act_menu_draw_champ, [_card_inst]));	
+	
+	// Set do nothing option
+	var _act_pass = new act_option(global.language.act_pass, 
+		function(_self) {
+			self.manager_inst.show_cards_when_over = true;
+			self.return_func();
+			instance_destroy(self);
+		}, [self], 
+		function() {
+			return true;
+		}, -1,
+		act_menu_draw_champ, [_card_inst]);
+	
+	// Create select act menu
+	instance_create_layer(room_width / 2, room_height / 2, global.cp_layer_instances_above, obj_cp_select_act_menu,
+		{	
+			options_array: [
+				_act_equip,
+				_act_ability,		
+				_act_magic,
+				_act_pass
+			],
+			card_inst: _card_inst,
+			manager_inst: _this,
+			redo_func : _this.coisa,
+			return_func : _this.coisa
+		}
+	)
+}

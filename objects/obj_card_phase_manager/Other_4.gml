@@ -1,2 +1,4 @@
-start_stage();
-randomize();
+//randomize();
+//start_stage();
+
+coisa();

@@ -20,7 +20,17 @@ global.eng_texts = {
 	
 	#region Card Phase
 	
-	select_card_confirm_text: "Finish"
+	select_card_confirm_text: "Finish",
+	select_card_gears: "Gear Deck",
+	select_card_magics: "Magic Deck",
+	select_card_territories: "Territory Deck",
+	
+	select_act_title: "Select Action:",
+	act_equip: "Equip Gear",
+	act_ability: "Use Ability",
+	act_magic: "Use Magic",
+	act_pass: "Do Nothing",
+	act_return: "Return"
 	
 	#endregion
 }

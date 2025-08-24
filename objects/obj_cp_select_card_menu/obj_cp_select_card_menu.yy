@@ -9,8 +9,8 @@
   "name":"obj_cp_select_card_menu",
   "overriddenProperties":[],
   "parent":{
-    "name":"CardPhase",
-    "path":"folders/Objects/CardPhase.yy",
+    "name":"Menus",
+    "path":"folders/Objects/CardPhase/Menus.yy",
   },
   "parentObjectId":null,
   "persistent":false,
