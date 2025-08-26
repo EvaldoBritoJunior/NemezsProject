@@ -4,16 +4,11 @@ event_inherited();
 my_turn = false;
 
 #region Utility Functions
-get_card_instance = function() {
+update_sprite = function() {
 	var _card_instance = 
 		card_owner == card_owners.PLAYER ? data.player_champs[field_position] 
 			: data.enemy_champs[field_position];
-			
-	return _card_instance;
-}
-
-update_sprite = function() {
-	var _card_instance = get_card_instance();
+	card = _card_instance;
 	
 	if (_card_instance == noone) {
 		sprite_index = -1;
@@ -35,9 +30,7 @@ update_card_instance = function(_card_instance) {
 }
 
 draw_card = function() {
-	var _card_instance = 
-		card_owner == card_owners.PLAYER ? data.player_champs[field_position] 
-			: data.enemy_champs[field_position];
+	var _card_instance = card;
 	var _w = sprite_width;
 	
 	if (_card_instance != noone) {
@@ -50,9 +43,7 @@ draw_card = function() {
 }
 
 draw_stats = function() {
-	var _card_instance = 
-		card_owner == card_owners.PLAYER ? data.player_champs[field_position] 
-			: data.enemy_champs[field_position];
+	var _card_instance = card;
 	if (_card_instance != noone) {
 		var _vanguard = field_position == card_positions.VANGUARD;
 		var _card = _card_instance.card;

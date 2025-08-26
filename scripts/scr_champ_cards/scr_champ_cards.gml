@@ -2,10 +2,10 @@ enum card_types {
 	GRAY = 0, RED = 1, BLUE = 2, GOLD = 3
 } 
 
-function passive(_modifiers, _avail_func) constructor {
+function passive(_modifiers, _active_func) constructor {
 	modifiers  = _modifiers;
-	avail_func = _avail_func;
-    avail = false;
+	active_func = _active_func;
+    active = false;
 }
 
 function ability(_act_func, _avail_func) constructor {
@@ -23,7 +23,7 @@ function ability(_act_func, _avail_func) constructor {
 /// @param {real}  _type  Card type (0, 3)
 function champ_card(_card_id, _name, _hp, _gw, _md, _stats, _type,
 					_spr_card, _spr_cut_card, _spr_card_art, _spr_cut_card_art,
-					_passive = -1, _ability = -1) constructor {
+					_passive = noone, _ability = noone) constructor {
 	card_id = _card_id;
 	name = _name;
 	hp = _hp;

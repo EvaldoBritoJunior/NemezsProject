@@ -3,7 +3,7 @@
 /// @param {real}  _md  Card magic degree
 function magic_card(_card_id, _name, _md,
 					_spr_card, _spr_cut_card, _spr_card_art
-					, _ability = -1) constructor {
+					, _ability = noone) constructor {
 	card_id = _card_id;
 	name = _name;
 	md = _md;
@@ -16,14 +16,14 @@ function magic_card(_card_id, _name, _md,
 	card_ability = _ability;
 }
 
-var _20_dmg_func = function(_inst, _idx) {
-			var _data = global.card_phase_data;
-			var _card_t = _data.enemy_champs[0];
-			//_card_t.apply_modifier(_card_t, new modifier(champ_stat_type.HP, -20, value_target.BASE));
-			end_act_menu();
-		};
+var _20_dmg_func = function(_inst) {
+	var _data = global.card_phase_data;
+	var _card_t = _data.enemy_champs[0];
+	_inst.champ_add_modifier(_inst, new modifier(champ_stat_type.HP, -20, value_target.BASE));
+	end_act_menu();
+};
 	
-var _select_20_dmg = function(_inst, _idx) {
+var _select_20_dmg = function(_inst) {
 	var _act_pass = new act_option(global.language.act_pass, 
 		function() {
 			end_act_menu();
@@ -45,12 +45,12 @@ global.magic_cards = [
 	new magic_card(
 		1, "MAGIC NAME", 2,
 		spr_sample_magic, spr_sample_cut_magic, spr_sample_magic_art,
-		new ability(_select_20_dmg, _true)
+		new ability(_20_dmg_func, _true)
 	),
 	new magic_card(
-		2, "MAGIC NAME", 3,
+		2, "MAGIC NAME", 2,
 		spr_sample_magic, spr_sample_cut_magic, spr_sample_magic_art,
-		new ability(_select_20_dmg, _true)
+		new ability(_20_dmg_func, _true)
 	),
 	new magic_card(
 		3, "MAGIC NAME", 1,

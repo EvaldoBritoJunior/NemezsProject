@@ -5,7 +5,7 @@
 /// @param {real}  _type  Card type (0, 3)
 function gear_card(_card_id, _name, _gw, _stats, _type,
 				   _spr_card, _spr_cut_card, _spr_card_art,
-				   _passive = -1) constructor {
+				   _passive = noone) constructor {
 	card_id = _card_id;
 	name = _name;
 	gw = _gw;
@@ -20,18 +20,26 @@ function gear_card(_card_id, _name, _gw, _stats, _type,
 	card_passive = _passive;
 }
 
+var _true = function(_inst) {return true}
+var _modifiers = [	new modifier(champ_stat_type.HP, 20, value_target.CURRENT, math_ops.ADD), 
+					new modifier(champ_stat_type.HP, 20, value_target.MAX, math_ops.ADD)
+				];
+
 global.gear_cards = [
 	new gear_card(
 		0, "GEAR NAME", 1, [0, 0, 0, 0], 0,
-		spr_sample_gear, spr_sample_cut_gear, spr_sample_gear_art
+		spr_sample_gear, spr_sample_cut_gear, spr_sample_gear_art,
+		new passive(_modifiers, _true)
 	), 
 	new gear_card(
 		1, "GEAR NAME", 2, [4, 3, 2, 1], 1,
-		spr_sample_gear, spr_sample_cut_gear, spr_sample_gear_art
+		spr_sample_gear, spr_sample_cut_gear, spr_sample_gear_art,
+		new passive(_modifiers, _true)
 	),
 	new gear_card(
 		2, "GEAR NAME", 3, [1, 2, 3, 4], 2,
-		spr_sample_gear, spr_sample_cut_gear, spr_sample_gear_art
+		spr_sample_gear, spr_sample_cut_gear, spr_sample_gear_art,
+		new passive(_modifiers, _true)
 	),
 	new gear_card(
 		3, "GEAR NAME", 3, [6, 5, 4, 3], 3,

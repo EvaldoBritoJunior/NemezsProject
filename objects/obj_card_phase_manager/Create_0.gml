@@ -112,7 +112,7 @@ act_stage_sort = function() {
 	// Set initiative values
 	for (var _i = current_step; _i <= _max_i; _i++) {
 		_obj = objects_step_order[_i];
-		_card_instance = _obj.get_card_instance();
+		_card_instance = _obj.card;
 		if (_card_instance != noone) {
 			_owner_value = _turn_owner == _obj.card_owner ? 1 : 0;
 			_position = _obj.field_position;
@@ -239,23 +239,23 @@ create_objects = function() {
 
 draw_stage_draws = function() {
 	//Player draw
-	var _card = data.playerDrawGear();
+	var _card = data.player_draw_gear();
 	if (_card != noone) {
 		player_gear_holders[data.player_gear_hand_size - 1].update_sprite();
 	}
 	
-	_card = data.playerDrawMagic();
+	_card = data.player_draw_magic();
 	if (_card != noone) {
 		player_magic_holders[data.player_gear_hand_size - 1].update_sprite();
 	}
 	
 	//Enemy draw
-	_card = data.enemyDrawGear();
+	_card = data.enemy_draw_gear();
 	if (_card != noone) {
 		enemy_gear_holders[data.enemy_gear_hand_size - 1].update_sprite();
 	}
 	
-	_card = data.enemyDrawMagic();
+	_card = data.enemy_draw_magic();
 	if (_card != noone) {
 		enemy_magic_holders[data.enemy_gear_hand_size - 1].update_sprite();
 	}
@@ -370,9 +370,9 @@ start_stage = function () {
 		//draw & set field
 		var _terr_card = -1;
 		if (data.turn_owner == card_owners.PLAYER) {
-			_terr_card = data.playerDrawTerritory();
+			_terr_card = data.player_draw_territory();
 		} else {
-			_terr_card = data.enemyDrawTerritory();
+			_terr_card = data.enemy_draw_territory();
 		}
 		data.current_territory = _terr_card;
 		territory_holder.update_sprite();
@@ -420,14 +420,18 @@ end_stage = function () {
 
 #endregion
 
-
-coisa = function() {
-	data.player_gear_hand_size = 3;
-	data.player_gear_hand = [global.gear_cards[0], global.gear_cards[1], global.gear_cards[2]];
-	data.player_magic_hand_size = 3;
-	data.player_magic_hand = [global.magic_cards[0], global.magic_cards[1], global.magic_cards[2]];
+data.player_gear_hand_size = 3;
+data.player_gear_hand = [global.gear_cards[0], global.gear_cards[1], global.gear_cards[2]];
+data.player_magic_hand_size = 3;
+data.player_magic_hand = [global.magic_cards[0], global.magic_cards[1], global.magic_cards[2]];
+data.enemy_champs[0] = new champ_instance(global.champ_cards[1], card_owners.ENEMY, 0);
+data.player_champs[0] = new champ_instance(global.champ_cards[0], card_owners.PLAYER, 0);
+test_act_menu = function() {
+	data.enemy_champs[0].champ_apply_passives(data.enemy_champs[0]);
+	data.player_champs[0].champ_apply_passives(data.player_champs[0]);
+	// Start
 	var _this = self;
-	var _card_inst = new champ_instance(global.champ_cards[0]);
+	var _card_inst = data.player_champs[0];
 	var _go_back = new act_option(global.language.act_return, act_menu_go_back, [], -1, [], act_menu_draw_champ, [_card_inst]);
 	
 	// Set equip gear act options
@@ -436,7 +440,7 @@ coisa = function() {
 		create_act_sub_menu, [[]], 
 		check_any_avail, -1,
 		act_menu_draw_champ, [_card_inst]
-	);	
+	);
 	var _opt_array = _act_equip.act_args[0];
 	var _card = -1;
 	for (var i = 0; i < data.player_gear_hand_size; i++) {
@@ -506,8 +510,8 @@ coisa = function() {
 			],
 			card_inst: _card_inst,
 			manager_inst: _this,
-			redo_func : _this.coisa,
-			return_func : _this.coisa
+			redo_func : _this.test_act_menu,
+			return_func : _this.test_act_menu
 		}
 	)
 }

@@ -71,7 +71,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 		#endregion
 		
 		#region Draw Card Functions
-		playerDrawGear: function() {
+		player_draw_gear: function() {
 			var _response = noone;
 			var _size = -1;
 			var _index = -1;
@@ -93,7 +93,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 			return _response;
 		},
 		
-		playerDrawMagic: function() {
+		player_draw_magic: function() {
 		    var _response = noone;
 			var _size = -1;
 			var _index = -1;
@@ -115,7 +115,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 			return _response;
 		},
 		
-		playerDrawTerritory: function() {
+		player_draw_territory: function() {
 		    var _response = noone;
 			var _size = -1;
 			var _index = -1;
@@ -133,7 +133,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 			return _response;
 		},
 		
-		enemyDrawGear: function() {
+		enemy_draw_gear: function() {
 		    var _response = noone;
 			var _size = -1;
 			var _index = -1;
@@ -155,7 +155,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 			return _response;
 		},
 		
-		enemyDrawMagic: function() {
+		enemy_draw_magic: function() {
 		    var _response = noone;
 			var _size = -1;
 			var _index = -1;
@@ -177,7 +177,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 			return _response;
 		},
 		
-		enemyDrawTerritory: function() {
+		enemy_draw_territory: function() {
 		    var _response = noone;
 			var _size = -1;
 			var _index = -1;
@@ -193,6 +193,38 @@ function reset_card_phase_data(_champ_qty = 4) {
 			array_delete(enemy_territory_deck, _index, 1);
 			
 			return _response;
+		},
+		
+		#endregion
+		
+		#region Remove Card Functions
+		
+		player_rmv_gear: function(_idx) {
+			if (player_gear_hand_size == 0) throw("Tried to remove player gear with empty hand");
+			player_gear_hand_size--;
+			array_delete(player_gear_hand, _idx, 1);
+			array_push(player_gear_hand, noone);
+		},
+		
+		player_rmv_magic: function(_idx) {
+			if (player_magic_hand_size == 0) throw("Tried to remove player magic with empty hand");
+			player_magic_hand_size--;
+			array_delete(player_magic_hand, _idx, 1);
+			array_push(player_magic_hand, noone);
+		},
+		
+		enemy_rmv_gear: function(_idx) {
+			if (enemy_gear_hand_size == 0) throw("Tried to remove enemy gear with empty hand");
+			enemy_gear_hand_size--;
+			array_delete(enemy_gear_hand, _idx, 1);
+			array_push(enemy_gear_hand, noone);
+		},
+		
+		enemy_rmv_magic: function(_idx) {
+			if (enemy_magic_hand_size == 0) throw("Tried to remove enemy magic with empty hand");
+			enemy_magic_hand_size--;
+			array_delete(enemy_magic_hand, _idx, 1);
+			array_push(enemy_magic_hand, noone);
 		}
 		
 		#endregion

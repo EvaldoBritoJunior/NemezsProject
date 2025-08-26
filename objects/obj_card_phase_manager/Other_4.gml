@@ -1,4 +1,4 @@
 //randomize();
 //start_stage();
 
-coisa();
+test_act_menu();
