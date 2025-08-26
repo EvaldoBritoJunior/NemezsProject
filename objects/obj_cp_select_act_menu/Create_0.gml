@@ -49,18 +49,14 @@ check_point_over_surface = function() {
 mouse_check = function() {
 	if (selected.avail && mouse_check_button_pressed(mb_left)) {
 		var _func = selected.act_func;
-		if (selected.act_args != -1) {
-			script_execute_ext(_func, selected.act_args);
-		} else {
-			_func();
-		}
+		script_execute_ext(_func, selected.act_args);
 	}
 }
 
 custom_draw = function(_option, _point_over, _x1, _y1, _x2, _y2) {
 	var _avail = _option.avail;
 	var _fnt = fnt_main_25;
-	var _color = _point_over ? c_grey : c_white;
+	var _color = _point_over ? c_gray : c_white;
 	var _w = cel_w / 2;
 	var _h = cel_h / 2;
 	

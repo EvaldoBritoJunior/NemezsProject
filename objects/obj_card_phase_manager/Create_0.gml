@@ -116,7 +116,7 @@ act_stage_sort = function() {
 		if (_card_instance != noone) {
 			_owner_value = _turn_owner == _obj.card_owner ? 1 : 0;
 			_position = _obj.field_position;
-			_card_stat = _card_instance.stats[_terr.iniciative_stat];
+			_card_stat = _card_instance.stats[_terr.iniciative_stat].get_value();
 			
 			_initiative_value = _terr.iniciative_type == iniciative_types.BIGGER ? _card_stat * 100
 									: (10 - _card_stat) * 100;
@@ -423,54 +423,43 @@ end_stage = function () {
 
 coisa = function() {
 	data.player_gear_hand_size = 3;
-	data.player_gear_hand = array_create(3, global.gear_cards[0]);
+	data.player_gear_hand = [global.gear_cards[0], global.gear_cards[1], global.gear_cards[2]];
 	data.player_magic_hand_size = 3;
-	data.player_magic_hand = array_create(3, global.magic_cards[0]);
+	data.player_magic_hand = [global.magic_cards[0], global.magic_cards[1], global.magic_cards[2]];
 	var _this = self;
-	var _card_inst = new champ_instance(global.champ_cards[0]),
+	var _card_inst = new champ_instance(global.champ_cards[0]);
+	var _go_back = new act_option(global.language.act_return, act_menu_go_back, [], -1, [], act_menu_draw_champ, [_card_inst]);
 	
 	// Set equip gear act options
-	var _act_equip = new act_option(global.language.act_equip, 
-		create_act_sub_menu, 
-		[[]], 
-		noone, -1,
-		act_menu_draw_champ, [_card_inst]);
-		
+	var _act_equip = new act_option(
+		global.language.act_equip, 
+		create_act_sub_menu, [[]], 
+		check_any_avail, -1,
+		act_menu_draw_champ, [_card_inst]
+	);	
 	var _opt_array = _act_equip.act_args[0];
 	var _card = -1;
 	for (var i = 0; i < data.player_gear_hand_size; i++) {
 		_card = data.player_gear_hand[i];
 		if (_card != noone) {
 			array_push(_opt_array, 
-				new act_option(
-					_card.name,
-					noone, 
-					-1, 
-					noone, 
-					-1,
-					act_menu_draw_gear, [_card]
+				new act_option(	_card.name,
+								_card_inst.equip_gear, [_card_inst, _card, i, self],	
+								_card_inst.can_equip_gear, [_card_inst, _card],
+								act_menu_draw_gear, [_card]
 				)
 			);
 		}
 	}
-	array_push(_opt_array, new act_option(global.language.act_return, act_menu_go_back, -1, noone, -1, act_menu_draw_champ, [_card_inst]));	
-	
-	// Set use ability act options
-	var _act_ability = new act_option(global.language.act_ability, 
-		function(_self) {
-			// Use magic
-			self.manager_inst.show_cards_when_over = true;
-			self.return_func();
-			instance_destroy(self);
-		}, [self], 
-		noone, -1,
-		act_menu_draw_champ, [_card_inst]);
+	array_push(_opt_array, _go_back);	
+	_act_equip.avail_args = _act_equip.act_args;
+	_act_equip.avail = script_execute_ext(_act_equip.avail_func, _act_equip.avail_args);
 	
 	// Set use magic act options
-	var _act_magic = new act_option(global.language.act_magic, 
-		create_act_sub_menu, 
-		[[]], 
-		noone, -1,
+	var _act_magic = new act_option(
+		global.language.act_magic, 
+		create_act_sub_menu, [[]], 
+		check_any_avail, -1,
 		act_menu_draw_champ, [_card_inst]);
 		
 	_opt_array = _act_magic.act_args[0];
@@ -479,38 +468,40 @@ coisa = function() {
 		_card = data.player_magic_hand[i];
 		if (_card != noone) {
 			array_push(_opt_array, 
-				new act_option(
-					_card.name,
-					noone, 
-					-1, 
-					noone, 
-					-1,
-					act_menu_draw_magic, [_card]
+				new act_option(	_card.name,
+								_card_inst.use_magic, [_card_inst, _card, i, self],	// Change to spell function
+								_card_inst.can_use_magic, [_card_inst, _card],
+								act_menu_draw_magic, [_card]
 				)
 			);
 		}
 	}
-	array_push(_opt_array, new act_option(global.language.act_return, act_menu_go_back, -1, noone, -1, act_menu_draw_champ, [_card_inst]));	
+	array_push(_opt_array, _go_back);	
+	_act_magic.avail_args = _act_magic.act_args;
+	_act_magic.avail = script_execute_ext(_act_magic.avail_func, _act_magic.avail_args);
+	
+	// Set use ability act option
+	var _act_ability = new act_option(global.language.act_ability, 
+		_card_inst.use_ability, [_card_inst, self],
+		_card_inst.can_use_ability, [_card_inst],
+		act_menu_draw_champ, [_card_inst]);
+		
+	_act_ability.avail = script_execute_ext(_act_ability.avail_func, _act_ability.avail_args);
 	
 	// Set do nothing option
 	var _act_pass = new act_option(global.language.act_pass, 
-		function(_self) {
-			self.manager_inst.show_cards_when_over = true;
-			self.return_func();
-			instance_destroy(self);
-		}, [self], 
 		function() {
-			return true;
-		}, -1,
+			end_act_menu();
+		}, [self], 
+		-1, [],
 		act_menu_draw_champ, [_card_inst]);
-	
 	// Create select act menu
 	instance_create_layer(room_width / 2, room_height / 2, global.cp_layer_instances_above, obj_cp_select_act_menu,
 		{	
 			options_array: [
-				_act_equip,
-				_act_ability,		
+				_act_equip,		
 				_act_magic,
+				_act_ability,
 				_act_pass
 			],
 			card_inst: _card_inst,

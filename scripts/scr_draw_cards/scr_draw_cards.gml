@@ -33,7 +33,7 @@ function draw_card_inst_stats(_stats, _stats_orig, _x, _y) {
     var y_pos   = _y + 228;
 
     for (var i = 0; i < array_length(offsets); i++) {
-        var value = _stats[i];
+        var value = _stats[i].get_value();
         var value_orig = _stats_orig[i];
         var xpos = _x + offsets[i];
         
@@ -120,16 +120,16 @@ function draw_champ_card_instance(_card_inst, _x, _y){
 	
 	draw_card_inst_stats(_stats, _stats_orig, _x, _y);
 	
-	draw_card_type(_card_inst.type, _x, _y);
+	draw_card_type(_card_inst.type.get_value(), _x, _y);
 	
 	draw_middle_center_outline(_x - 75, _y - 225, "hp", font_card_text_10);
-	draw_middle_center_outline(_x - 117, _y - 232, _card.hp, font_card_text_20);
+	draw_middle_center_outline(_x - 117, _y - 232, _card_inst.hp.get_value(), font_card_text_20);
 	
 	draw_middle_center_outline(_x - 113, _y - 184, "gw", font_card_text_10);
 	draw_middle_center_outline(_x - 137, _y - 191, _card.gw, font_card_text_20);
 	
 	draw_middle_center_outline(_x - 113, _y - 143, "md", font_card_text_10);
-	draw_middle_center_outline(_x - 137, _y - 150, _card.md, font_card_text_20);
+	draw_middle_center_outline(_x - 137, _y - 150, _card_inst.md.get_value(), font_card_text_20);
 	
 }
 		

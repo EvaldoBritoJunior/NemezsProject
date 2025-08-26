@@ -60,8 +60,8 @@ draw_stats = function() {
 		
 		var _w = sprite_width;
 		var _h = sprite_height;
-		var _hp = _card_instance.hp;
-		var _max = _card.hp;
+		var _hp = _card_instance.hp.get_value();
+		var _max = _card_instance.hp.get_max_value();
 		var _fnt = _vanguard ? fnt_main_30 : fnt_main_20;
 		
 		var _x1 = x - (_w * 0.35);
@@ -73,7 +73,7 @@ draw_stats = function() {
 		var _y2_hp = _vanguard ? _y1 + 34 : _y1 + 25;
 
 
-		draw_middle_center_outline(_x1, _y1, _card_instance.hp, _fnt);
+		draw_middle_center_outline(_x1, _y1, _hp, _fnt);
 		draw_healthbar(_x1_hp, _y1_hp, _x2_hp, _y2_hp, 100 * _hp / _max, 
 		c_black, c_red, c_lime, 0, true, true);
 		
@@ -86,10 +86,10 @@ draw_stats = function() {
 			
 			if (_vanguard) {
 				draw_sprite_stretched(spr_card_stat, _terr_stat, _x1 - 30, _y1 - 30, 55, 55);
-				draw_middle_center_outline(_x1 + 45, _y1 - 5, card_stat_str(_card.stats[_terr_stat]), _fnt, _color);
+				draw_middle_center_outline(_x1 + 45, _y1 - 5, card_stat_str(_card_instance.stats[_terr_stat].get_value()), _fnt, _color);
 			} else {
 				draw_sprite(spr_card_stat, _terr_stat, _x1, _y1);
-				draw_middle_center_outline(_x1 + 27, _y1, card_stat_str(_card.stats[_terr_stat]), _fnt, _color);
+				draw_middle_center_outline(_x1 + 27, _y1, card_stat_str(_card_instance.stats[_terr_stat].get_value()), _fnt, _color);
 			}
 		}
 	}
@@ -123,7 +123,7 @@ fin_init_step = function(_array_response) {
 	var _selected_card = _array_response[0];
 	manager_inst.champ_card_selection_remove(_selected_card);
 	// Feather ignore once GM1041
-	update_card_instance(new champ_instance(_selected_card));
+	update_card_instance(new champ_instance(_selected_card, card_owner, field_position));
 	my_turn = false;
 	alarm[0] = 20;
 }

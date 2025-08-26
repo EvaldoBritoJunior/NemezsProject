@@ -17,14 +17,6 @@ enum card_positions {
 	VANGUARD, REARI, REARII, REARIII
 } 
 
-function champ_instance(_card) constructor {
-	hp = _card.hp;
-	stats = array_full_copy(_card.stats);
-	type = _card.type;
-	
-	card = _card;
-}
-
 function reset_card_phase_data(_champ_qty = 4) {
 	
 	global.card_phase_data = {

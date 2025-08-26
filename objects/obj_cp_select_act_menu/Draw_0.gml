@@ -4,7 +4,7 @@ if (show) {
 	draw_scroll_arrow();
 	if (selected == noone) {
 		draw_champ_card_instance(card_inst, 410, y + 30);
-	} else {
+	} else if (selected.draw_func != -1) {
 		script_execute_ext(selected.draw_func, selected.draw_args);
 	}
 	draw_middle_center(x, 50, global.language.select_act_title, fnt_main_30)

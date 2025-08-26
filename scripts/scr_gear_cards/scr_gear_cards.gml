@@ -4,7 +4,8 @@
 /// @param {array}  _stats  Card stats array [pwr, skl, wsd, dvt]
 /// @param {real}  _type  Card type (0, 3)
 function gear_card(_card_id, _name, _gw, _stats, _type,
-					_spr_card, _spr_cut_card, _spr_card_art) constructor {
+				   _spr_card, _spr_cut_card, _spr_card_art,
+				   _passive = -1) constructor {
 	card_id = _card_id;
 	name = _name;
 	gw = _gw;
@@ -14,7 +15,9 @@ function gear_card(_card_id, _name, _gw, _stats, _type,
 	
 	spr_card = _spr_card;
 	spr_cut_card = _spr_cut_card;
-	spr_card_art = _spr_card_art
+	spr_card_art = _spr_card_art;
+	
+	card_passive = _passive;
 }
 
 global.gear_cards = [
