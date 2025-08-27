@@ -420,6 +420,7 @@ end_stage = function () {
 
 #endregion
 
+
 data.player_gear_hand_size = 3;
 data.player_gear_hand = [global.gear_cards[0], global.gear_cards[1], global.gear_cards[2]];
 data.player_magic_hand_size = 3;
@@ -515,3 +516,4 @@ test_act_menu = function() {
 		}
 	)
 }
+

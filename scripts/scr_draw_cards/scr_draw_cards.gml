@@ -126,7 +126,7 @@ function draw_champ_card_instance(_card_inst, _x, _y){
 	draw_middle_center_outline(_x - 117, _y - 232, _card_inst.hp.get_value(), font_card_text_20);
 	
 	draw_middle_center_outline(_x - 113, _y - 184, "gw", font_card_text_10);
-	draw_middle_center_outline(_x - 137, _y - 191, _card.gw, font_card_text_20);
+	draw_middle_center_outline(_x - 137, _y - 191, _card_inst.gw.get_value(), font_card_text_20);
 	
 	draw_middle_center_outline(_x - 113, _y - 143, "md", font_card_text_10);
 	draw_middle_center_outline(_x - 137, _y - 150, _card_inst.md.get_value(), font_card_text_20);

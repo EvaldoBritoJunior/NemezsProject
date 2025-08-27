@@ -225,9 +225,18 @@ function reset_card_phase_data(_champ_qty = 4) {
 			enemy_magic_hand_size--;
 			array_delete(enemy_magic_hand, _idx, 1);
 			array_push(enemy_magic_hand, noone);
-		}
+		},
 		
 		#endregion
+		
+		#region Check Field Functions
+		apply_passives_all: function() {
+			var _size = champ_qty;
+			var _champ = -1;
+			for (var i = 0; i < champ_qty; i++) {
+				_champ = player_champs[0];
+			}
+		}
 	}
 	
 }

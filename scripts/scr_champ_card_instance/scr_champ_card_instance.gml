@@ -1,25 +1,3 @@
-enum champ_stat_type {
-    HP, GW, MD, TYPE, STR, SKL, INT, DVT, CAN_EQUIP, CAN_MAGIC, CAN_ABILITY
-}
-
-enum value_target {
-    BASE = -1, CURRENT = 0, MAX = 1, MIN = 2
-}
-
-enum math_ops {
-    ADD,
-    MULTIPLY,
-	EQUALS
-}
-
-function modifier(_stat, _value, _target = value_target.CURRENT, _math_operation = math_ops.ADD, _duration = -1) constructor {
-	stat = _stat;
-	value  = _value;
-	target = _target;
-	operation = _math_operation;
-	duration = _duration;
-}
-
 function champ_stat(_base, _max, _min = 0) constructor {
     base_value = _base;
 	current_value = _base;
@@ -32,22 +10,17 @@ function champ_stat(_base, _max, _min = 0) constructor {
 
     static add_modifier = function(_mod) {
 		if (_mod.target == value_target.BASE) {
+			get_value();
 			switch (_mod.operation) {
 	            case math_ops.ADD:
 	                base_value += _mod.value;
 	                break;
-	            case math_ops.MULTIPLY:
-	                base_value *= _mod.value;
-	                break;
-	            case math_ops.EQUALS:
-	                base_value = _mod.value;
-	                break;
 			}
-			if (base_value > max_value) {
-				base_value = max_value;
+			if (base_value > current_max_value) {
+				base_value = current_max_value;
 		    }
-		    if (base_value < min_value) {
-		        base_value = min_value;
+		    if (base_value < current_min_value) {
+		        base_value = current_min_value;
 		    }
 		} else {
 			array_push(modifiers, _mod);
@@ -59,14 +32,28 @@ function champ_stat(_base, _max, _min = 0) constructor {
 		var _m = -1;
 		var _rmvd = false;
 		var _size = array_length(modifiers);
-        for (var i = 0; i < _size; i++) {
-            _m = modifiers[i];
-            if (_m == _mod) {
-				array_delete(modifiers, i, 1);
-				_rmvd = true;
-				break;
+		if (_mod.target == value_target.BASE) {
+			switch (_mod.operation) {
+	            case math_ops.ADD:
+	                base_value -= _mod.value;
+	                break;
 			}
-        }
+			if (base_value > current_max_value) {
+				base_value = current_max_value;
+		    }
+		    if (base_value < current_min_value) {
+		        base_value = current_min_value;
+		    }
+		} else {
+	        for (var i = 0; i < _size; i++) {
+	            _m = modifiers[i];
+	            if (_m == _mod) {
+					array_delete(modifiers, i, 1);
+					_rmvd = true;
+					break;
+				}
+	        }
+		}
        if (_rmvd) altered = true;     // mark dirty so GetValue will recalc
     };
 
@@ -147,12 +134,14 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
     };
 	
 	static equip_gear = function(_card_inst, _gear, _idx) {
+		if (!_card_inst.can_equip_gear(_card_inst, _gear)) throw("Tried to equip gear when cant equip"); 
 		var _data = global.card_phase_data;
 		if (_card_inst.card_owner = card_owners.PLAYER) {
 			_data.player_rmv_gear(_idx);
 		} else {
 			_data.enemy_rmv_gear(_idx);
 		}
+		_card_inst.champ_add_modifier(_card_inst, new modifier(champ_stat_type.GW, _gear.gw, value_target.BASE))
 		array_push(_card_inst.gears, _gear);
 		redo_act_menu();
     };
@@ -167,6 +156,7 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
     };
 
 	static use_magic = function(_card_inst, _magic, _idx) {
+		if (!_card_inst.can_use_magic(_card_inst, _magic)) throw("Tried to use magic when cant use magic"); 
 		var _data = global.card_phase_data;
 		if (_card_inst.card_owner = card_owners.PLAYER) {
 			_data.player_rmv_magic(_idx);
@@ -184,6 +174,7 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
     };
 	
 	static use_ability = function(_card_inst) {
+		if (!_card_inst.can_use_ability(_card_inst)) throw("Tried to use ability when cant use ability"); 
 		script_execute_ext(_card_inst.card_ability.act_func, [_card_inst, self]);
     };
 	
@@ -267,10 +258,10 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 		}
     };
 		
-	static champ_apply_passive = function(_card_inst, _passive) {
-		if (_passive != noone) {
+	static champ_apply_passive = function(_card_inst, _passive, _gear = undefined) {
+		if (_passive != undefined) {
 			var _current_active = _passive.active;
-			var _new_active = _passive.active_func(_card_inst);
+			var _new_active = _passive.active_func(_card_inst, _gear);
 			var _modifiers = _passive.modifiers;
 			var _size = array_length(_modifiers);
 		
@@ -291,11 +282,13 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 	static champ_apply_passives = function(_card_inst) {
 		var _main_passive = _card_inst.card_passive;
 		var _gears = _card_inst.gears;
+		var _gear = undefined;
 		var _size = array_length(_gears);
 		
 		_card_inst.champ_apply_passive(_card_inst, _main_passive);
 		for (var i = 0; i < _size; i++) {
-			_card_inst.champ_apply_passive(_card_inst, _gears[i].card_passive);
+			_gear = _gears[i];
+			_card_inst.champ_apply_passive(_card_inst, _gear.card_passive, _gear);
 		}
 	}
 	

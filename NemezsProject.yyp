@@ -96,6 +96,7 @@
     {"id":{"name":"scr_act_menu","path":"scripts/scr_act_menu/scr_act_menu.yy",},},
     {"id":{"name":"scr_buttons","path":"scripts/scr_buttons/scr_buttons.yy",},},
     {"id":{"name":"scr_card_phase","path":"scripts/scr_card_phase/scr_card_phase.yy",},},
+    {"id":{"name":"scr_cards_common","path":"scripts/scr_cards_common/scr_cards_common.yy",},},
     {"id":{"name":"scr_champ_card_instance","path":"scripts/scr_champ_card_instance/scr_champ_card_instance.yy",},},
     {"id":{"name":"scr_champ_cards","path":"scripts/scr_champ_cards/scr_champ_cards.yy",},},
     {"id":{"name":"scr_draw_cards","path":"scripts/scr_draw_cards/scr_draw_cards.yy",},},

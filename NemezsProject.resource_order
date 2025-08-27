@@ -67,6 +67,7 @@
     {"name":"rm_opening_options","order":1,"path":"rooms/rm_opening_options/rm_opening_options.yy",},
     {"name":"scr_act_menu","order":10,"path":"scripts/scr_act_menu/scr_act_menu.yy",},
     {"name":"scr_buttons","order":1,"path":"scripts/scr_buttons/scr_buttons.yy",},
+    {"name":"scr_cards_common","order":6,"path":"scripts/scr_cards_common/scr_cards_common.yy",},
     {"name":"scr_champ_card_instance","order":5,"path":"scripts/scr_champ_card_instance/scr_champ_card_instance.yy",},
     {"name":"scr_draw_cards","order":3,"path":"scripts/scr_draw_cards/scr_draw_cards.yy",},
     {"name":"scr_gear_cards","order":1,"path":"scripts/scr_gear_cards/scr_gear_cards.yy",},

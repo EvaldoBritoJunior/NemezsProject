@@ -1,7 +1,3 @@
-enum card_stats {
-	PWR = 0, SKL = 1, INT = 2, DVT = 3
-} 
-
 enum iniciative_types {
 	BIGGER = 0, SMALLER = 1
 } 
