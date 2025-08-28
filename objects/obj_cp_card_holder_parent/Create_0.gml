@@ -1,3 +1,3 @@
 mouse_over = false;
-card = noone;
+card = undefined;
 data = global.card_phase_data;

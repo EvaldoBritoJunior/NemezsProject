@@ -28,9 +28,9 @@ function champ_card(_card_id, _name, _hp, _gw, _md, _stats, _type,
 
 var _20_dmg_func = function(_inst) {
 	var _data = global.card_phase_data;
-	var _card_t = _data.enemy_champs[0];
-	_inst.champ_add_modifier(_inst, new modifier(champ_stat_type.HP, -300, value_target.BASE));
-	end_act_menu();
+	var _card = global.card_phase_data.enemy_champs[0];
+	_card.champ_add_modifier(_card, new modifier(champ_stat_type.HP, -300, value_target.BASE));
+	end_act_menu(_inst);
 };
 
 var _modifiers = [	
@@ -47,7 +47,7 @@ global.champ_cards = [
 		new passive(_modifiers, _true), new ability(_20_dmg_func, _true)
 	), 
 	new champ_card(
-		1, "CHAMP NAME", 230, 3, 2, [3, 4, 5, 6], 1,
+		1, "CHAMP NAME", 230, 6, 2, [6, 6, 6, 6], 1,
 		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art
 	),
 	new champ_card(

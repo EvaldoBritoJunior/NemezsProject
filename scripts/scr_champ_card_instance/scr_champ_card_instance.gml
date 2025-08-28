@@ -110,20 +110,32 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 	gw = new champ_stat(0, _card.gw);
 	md = new champ_stat(_card.md, 9);
 	type = new champ_stat(_card.type, 3);
-	stats = [new champ_stat(_card.stats[0], 6),
-			 new champ_stat(_card.stats[1], 6),
-			 new champ_stat(_card.stats[2], 6),
-			 new champ_stat(_card.stats[3], 6)];
+	stats = [
+		new champ_stat(_card.stats[0], 6),
+		new champ_stat(_card.stats[1], 6),
+		new champ_stat(_card.stats[2], 6),
+		new champ_stat(_card.stats[3], 6)
+	];
+	type_dmg_incr = [
+		new champ_stat(0, 100, -100),
+		new champ_stat(0, 100, -100),
+		new champ_stat(0, 100, -100),
+		new champ_stat(0, 100, -100)
+	];
 			 
 	card_passive = _card.card_passive;
+	card_passive_state = false;
 	card_ability = _card.card_ability;
 	
 	can_equip_gears = new champ_stat(true, true);
 	can_use_magics = new champ_stat(true, true);
 	can_use_abilities = new champ_stat(true, true);
 	
-	condition = noone;
+	condition = undefined;
+	condition_state = false;
+	
 	gears = [];
+	gears_state = [];
 	
 	static can_equip_gear = function(_card_inst, _gear) {
 		var _champ_gw = _card_inst.gw.get_value();
@@ -143,7 +155,8 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 		}
 		_card_inst.champ_add_modifier(_card_inst, new modifier(champ_stat_type.GW, _gear.gw, value_target.BASE))
 		array_push(_card_inst.gears, _gear);
-		redo_act_menu();
+		array_push(_card_inst.gears_state, false);
+		redo_act_menu(_card_inst);
     };
 	
 	static can_use_magic = function(_card_inst, _magic) {
@@ -169,7 +182,7 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 	static can_use_ability = function(_card_inst) {
 		var _champ_ability = _card_inst.card_ability;
 		return (_card_inst.can_use_abilities.get_value()
-				&& _champ_ability != noone
+				&& _champ_ability != undefined
 				&& _champ_ability.avail_func(_card_inst));
     };
 	
@@ -212,6 +225,18 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 				break;
 			case champ_stat_type.CAN_ABILITY:
 				_card_inst.can_use_abilities.add_modifier(_modifier);
+				break;
+			case champ_stat_type.GRAY_DMG:
+				_card_inst.type_dmg_incr[card_types.GRAY].add_modifier(_modifier);
+				break;
+			case champ_stat_type.RED_DMG:
+				_card_inst.type_dmg_incr[card_types.RED].add_modifier(_modifier);
+				break;
+			case champ_stat_type.BLUE_DMG:
+				_card_inst.type_dmg_incr[card_types.BLUE].add_modifier(_modifier);
+				break;
+			case champ_stat_type.GOLD_DMG:
+				_card_inst.type_dmg_incr[card_types.GOLD].add_modifier(_modifier);
 				break;
 			default:
 				throw($"Invalid Champion Stat: {_modifier.stat}");
@@ -258,37 +283,89 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 		}
     };
 		
-	static champ_apply_passive = function(_card_inst, _passive, _gear = undefined) {
+	static champ_apply_passive = function(_card_inst, _passive, _current_state, _new_state, _gear = undefined) {
 		if (_passive != undefined) {
-			var _current_active = _passive.active;
-			var _new_active = _passive.active_func(_card_inst, _gear);
 			var _modifiers = _passive.modifiers;
 			var _size = array_length(_modifiers);
 		
-			if (_current_active != _new_active) {
+			if (_current_state != _new_state) {
 				for (var i = 0; i < _size; i++) {
-					if (_new_active) {
+					if (_new_state) {
 						champ_add_modifier(_card_inst, _modifiers[i]);
 					} else {
 						champ_remove_modifier(_card_inst, _modifiers[i]);
 					}
 				}
 			}
-		
-			_passive.active = _new_active;
 		}
     };
 	
 	static champ_apply_passives = function(_card_inst) {
-		var _main_passive = _card_inst.card_passive;
+		// Main Passive
+		var _passive = _card_inst.card_passive;
+		if (_passive != undefined) {
+			var _current_state = _card_inst.card_passive_state;
+			var _new_state = _passive.active_func(_card_inst);
+		
+			_card_inst.champ_apply_passive(_card_inst, _passive, _current_state, _new_state);
+		
+			_card_inst.card_passive_state = _new_state;
+		}
+		
+		// Gears Passives
 		var _gears = _card_inst.gears;
 		var _gear = undefined;
 		var _size = array_length(_gears);
 		
-		_card_inst.champ_apply_passive(_card_inst, _main_passive);
 		for (var i = 0; i < _size; i++) {
 			_gear = _gears[i];
-			_card_inst.champ_apply_passive(_card_inst, _gear.card_passive, _gear);
+			_passive = _gear.card_passive;
+			if (_passive != undefined) {
+				_current_state = _card_inst.gears_state[i];
+				_new_state = _passive.active_func(_card_inst, _gear);
+		
+				_card_inst.champ_apply_passive(_card_inst, _passive, _current_state, _new_state, _gear);
+		
+				_card_inst.gears_state[i] = _new_state;
+			}
+		}
+	}
+	
+	static champ_remove_passive = function(_card_inst, _passive, _current_state, _gear = undefined) {
+		if (_passive != undefined) {
+			var _new_state = false;
+			var _modifiers = _passive.modifiers;
+			var _size = array_length(_modifiers);
+		
+			if (_current_state != _new_state) {
+				for (var i = 0; i < _size; i++) {
+					champ_remove_modifier(_card_inst, _modifiers[i]);
+				}
+			}
+		}
+    };
+	
+	static remove_gear = function(_card_inst, _idx) {
+		var _gears = _card_inst.gears;
+		var _gears_state = gears_state[_idx];
+		var _gear = _gears[_idx];
+		var _passive = _gear.card_passive;
+		var _current_state = _gears_state[_idx];
+		
+		if (_passive != undefined) {
+			_card_inst.champ_remove_passive(_card_inst, _passive, _current_state, _gear);
+		}
+		
+		array_delete(_gears, _idx, 1);
+		array_delete(_gears_state, _idx, 1);
+	}
+	
+	static remove_gears = function(_card_inst) {
+		var _gears = _card_inst.gears;
+		var _size = array_length(_gears);
+		
+		for (var i = 0; i < _size; i++) {
+			_card_inst.remove_gear(_card_inst, i);
 		}
 	}
 	

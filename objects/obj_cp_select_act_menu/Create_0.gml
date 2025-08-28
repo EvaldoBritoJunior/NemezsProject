@@ -8,7 +8,7 @@ if (array_size == 0) {
 #region Variables
 
 options_stack = [options_array];
-selected = noone;
+selected = undefined;
 card_spr = card_inst.card.spr_card; 
 // Surface
 surface_w = sprite_get_width(card_spr);
@@ -114,7 +114,7 @@ draw_inventory = function() {
 				_point_over = point_in_rectangle(mouse_x - surface_x, mouse_y - surface_y, _x1, _y1, _x2, _y2);
 			}
 			
-			if (_cel_value != noone) {
+			if (_cel_value != undefined) {
 				if (_point_over) {
 					selected = _cel_value;
 					mouse_check();
@@ -164,7 +164,7 @@ draw_buttons = function() {
 			draw_sprite(spr_select_card_see_field, _spr_see_field, -3, -3);
 			draw_middle_center(1200 - 3, 660 - 3, "<");
 			if (mouse_check_button_pressed(mb_left)) {
-				selected = noone;
+				selected = undefined;
 				show = true;
 				manager_inst.show_cards_when_over = false;
 			}

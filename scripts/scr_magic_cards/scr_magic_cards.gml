@@ -18,20 +18,19 @@ function magic_card(_card_id, _name, _md,
 
 var _20_dmg_func = function(_inst) {
 	var _data = global.card_phase_data;
-	var _card_t = _data.enemy_champs[0];
 	_inst.champ_add_modifier(_inst, new modifier(champ_stat_type.HP, -20, value_target.BASE));
-	end_act_menu();
+	end_act_menu(_inst);
 };
 	
 var _select_20_dmg = function(_inst) {
-	var _act_pass = new act_option(global.language.act_pass, 
-		function() {
-			end_act_menu();
-		}, [self], 
-		-1, [],
-		-1, []);
+	var _act_pass = new act_option(
+		global.language.act_pass, 
+		end_act_menu, [_inst, self], 
+		undefined, [],
+		undefined, []
+	);
 	var _options = [_act_pass, _act_pass, _act_pass];
-	script_execute_ext(create_act_sub_menu, [_options]);
+	script_execute_ext(create_act_sub_menu, [_inst, _options]);
 };
 	
 var _true = function(_inst) {return true}
@@ -45,12 +44,12 @@ global.magic_cards = [
 	new magic_card(
 		1, "MAGIC NAME", 2,
 		spr_sample_magic, spr_sample_cut_magic, spr_sample_magic_art,
-		new ability(_20_dmg_func, _true)
+		new ability(_select_20_dmg, _true)
 	),
 	new magic_card(
 		2, "MAGIC NAME", 2,
 		spr_sample_magic, spr_sample_cut_magic, spr_sample_magic_art,
-		new ability(_20_dmg_func, _true)
+		new ability(_select_20_dmg, _true)
 	),
 	new magic_card(
 		3, "MAGIC NAME", 1,

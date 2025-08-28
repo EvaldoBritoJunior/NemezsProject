@@ -4,7 +4,7 @@ if (show) {
 
 	draw_middle_center(1052, 55, title, fnt_main_30);
 
-	if (selected != noone) {
+	if (selected != undefined) {
 		draw_func(selected, 1052, room_height / 2);
 	}
 }

@@ -125,12 +125,26 @@ function draw_champ_card_instance(_card_inst, _x, _y){
 	draw_middle_center_outline(_x - 75, _y - 225, "hp", font_card_text_10);
 	draw_middle_center_outline(_x - 117, _y - 232, _card_inst.hp.get_value(), font_card_text_20);
 	
-	draw_middle_center_outline(_x - 113, _y - 184, "gw", font_card_text_10);
-	draw_middle_center_outline(_x - 137, _y - 191, _card_inst.gw.get_value(), font_card_text_20);
+	draw_middle_center_outline(_x - 75, _y - 184, "gw", font_card_text_10);
+	draw_middle_center_outline(_x - 117, _y - 191, $"{_card_inst.gw.get_value()}/{_card.gw}", font_card_text_20);
 	
 	draw_middle_center_outline(_x - 113, _y - 143, "md", font_card_text_10);
 	draw_middle_center_outline(_x - 137, _y - 150, _card_inst.md.get_value(), font_card_text_20);
 	
+	var _x_dmg_t = _x + 145;
+	var _y_dmg_t = _y - 291;
+	var _array = _card_inst.type_dmg_incr;
+	var _op = -1;
+	var _color = -1;
+	var _value = -1;
+	for (var i = 0; i < 4; i++){
+		_y_dmg_t += 41;
+		_value = _card_inst.type_dmg_incr[i].get_value();
+		_color = global.card_type_colors[i];
+		_op = _value < 0 ? "-" : "+";
+		
+		draw_outline(_x_dmg_t, _y_dmg_t, $"{_op}{abs(_value)}", font_card_text_20, _color);
+	}
 }
 		
 function draw_gear_cut_card(_card, _x, _y, _w, _h){

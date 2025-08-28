@@ -1,6 +1,6 @@
 #region Variables
 
-selected = noone;
+selected = undefined;
 // Surface
 surface_w = sprite_get_width(spr_button_naked_half);
 surface_h = sprite_get_height(spr_button_naked_half) * 2.5;

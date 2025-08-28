@@ -16,6 +16,10 @@ enum card_owners {
 enum card_positions {
 	VANGUARD, REARI, REARII, REARIII
 } 
+	
+enum card_phase_winners {
+	NOBODY, PLAYER, ENEMY, DRAW
+} 
 
 function reset_card_phase_data(_champ_qty = 4) {
 	
@@ -23,17 +27,17 @@ function reset_card_phase_data(_champ_qty = 4) {
 		enemy_name: "Nemesis",
 		champ_qty: _champ_qty,
 		#region Field Vars
-		turn_owner: noone,
+		turn_owner: undefined,
 		turn_stage: card_phase_stages.INIT_STAGE,
-		current_territory: noone,
+		current_territory: undefined,
 		#endregion
 		
 		#region Player Vars
-		player_champs: array_create(_champ_qty, noone),
+		player_champs: array_create(_champ_qty, undefined),
 		player_gear_hand_size: 0,
-		player_gear_hand: array_create(max_gear_qty, noone),
+		player_gear_hand: array_create(max_gear_qty, undefined),
 		player_magic_hand_size: 0,
-		player_magic_hand: array_create(max_magic_qty, noone),
+		player_magic_hand: array_create(max_magic_qty, undefined),
 		
 		player_gear_orig_deck: [],
 		player_magic_orig_deck: [],
@@ -50,11 +54,11 @@ function reset_card_phase_data(_champ_qty = 4) {
 		#endregion
 		
 		#region Enemy Vars
-		enemy_champs: array_create(_champ_qty, noone),
+		enemy_champs: array_create(_champ_qty, undefined),
 		enemy_gear_hand_size: 0,
-		enemy_gear_hand: array_create(max_gear_qty, noone),
+		enemy_gear_hand: array_create(max_gear_qty, undefined),
 		enemy_magic_hand_size: 0,
-		enemy_magic_hand: array_create(max_magic_qty, noone),
+		enemy_magic_hand: array_create(max_magic_qty, undefined),
 		
 		enemy_gear_orig_deck: [],
 		enemy_magic_orig_deck: [],
@@ -72,7 +76,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 		
 		#region Draw Card Functions
 		player_draw_gear: function() {
-			var _response = noone;
+			var _response = undefined;
 			var _size = -1;
 			var _index = -1;
 			
@@ -94,7 +98,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 		},
 		
 		player_draw_magic: function() {
-		    var _response = noone;
+		    var _response = undefined;
 			var _size = -1;
 			var _index = -1;
 			
@@ -116,7 +120,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 		},
 		
 		player_draw_territory: function() {
-		    var _response = noone;
+		    var _response = undefined;
 			var _size = -1;
 			var _index = -1;
 
@@ -134,7 +138,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 		},
 		
 		enemy_draw_gear: function() {
-		    var _response = noone;
+		    var _response = undefined;
 			var _size = -1;
 			var _index = -1;
 			
@@ -156,7 +160,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 		},
 		
 		enemy_draw_magic: function() {
-		    var _response = noone;
+		    var _response = undefined;
 			var _size = -1;
 			var _index = -1;
 			
@@ -178,7 +182,7 @@ function reset_card_phase_data(_champ_qty = 4) {
 		},
 		
 		enemy_draw_territory: function() {
-		    var _response = noone;
+		    var _response = undefined;
 			var _size = -1;
 			var _index = -1;
 
@@ -199,43 +203,119 @@ function reset_card_phase_data(_champ_qty = 4) {
 		
 		#region Remove Card Functions
 		
+		player_rmv_champ: function(_idx) {
+			var _champ = player_champs[_idx];
+			_champ.remove_gears(_champ);
+			array_push(player_champs_gyd, _champ);
+			player_champs[_idx] = undefined;
+		},
+		
 		player_rmv_gear: function(_idx) {
 			if (player_gear_hand_size == 0) throw("Tried to remove player gear with empty hand");
 			player_gear_hand_size--;
 			array_delete(player_gear_hand, _idx, 1);
-			array_push(player_gear_hand, noone);
+			array_push(player_gear_hand, undefined);
 		},
 		
 		player_rmv_magic: function(_idx) {
-			if (player_magic_hand_size == 0) throw("Tried to remove player magic with empty hand");
+			if (player_magic_hand_size <= _idx) throw($"Tried to remove player magic {_idx} with hand size {player_magic_hand_size}");
+			var _magic = player_magic_hand[_idx];
 			player_magic_hand_size--;
 			array_delete(player_magic_hand, _idx, 1);
-			array_push(player_magic_hand, noone);
+			array_push(player_magic_hand, undefined);
+			array_push(player_magic_gyd, _magic);
+		},
+		
+		enemy_rmv_champ: function(_idx) {
+			var _champ = enemy_champs[_idx];
+			_champ.remove_gears(_champ);
+			array_push(enemy_champs_gyd, _champ);
+			enemy_champs[_idx] = undefined;
 		},
 		
 		enemy_rmv_gear: function(_idx) {
 			if (enemy_gear_hand_size == 0) throw("Tried to remove enemy gear with empty hand");
 			enemy_gear_hand_size--;
 			array_delete(enemy_gear_hand, _idx, 1);
-			array_push(enemy_gear_hand, noone);
+			array_push(enemy_gear_hand, undefined);
 		},
 		
 		enemy_rmv_magic: function(_idx) {
-			if (enemy_magic_hand_size == 0) throw("Tried to remove enemy magic with empty hand");
+			if (enemy_magic_hand_size <= _idx) throw($"Tried to remove enemy magic {_idx} with hand size {enemy_magic_hand_size}");
+			var _magic = enemy_magic_hand[_idx];
 			enemy_magic_hand_size--;
 			array_delete(enemy_magic_hand, _idx, 1);
-			array_push(enemy_magic_hand, noone);
+			array_push(enemy_magic_hand, undefined);
+			array_push(enemy_magic_gyd, _magic);
 		},
 		
 		#endregion
 		
 		#region Check Field Functions
+		
 		apply_passives_all: function() {
 			var _size = champ_qty;
 			var _champ = -1;
 			for (var i = 0; i < champ_qty; i++) {
-				_champ = player_champs[0];
+				_champ = player_champs[i];
+				if (_champ != undefined) _champ.champ_apply_passives(_champ);
+				
+				_champ = enemy_champs[i];
+				if (_champ != undefined) _champ.champ_apply_passives(_champ);
 			}
+		},
+		
+		check_champs_hp: function() {
+			var _size = champ_qty;
+			var _champ = -1;
+			var _return = false;
+			
+			for (var i = 0; i < champ_qty; i++) {
+				_champ = player_champs[i];
+				if (_champ != undefined && _champ.hp.get_value() == 0) {
+					player_rmv_champ(i);
+					_return = true;
+				}
+				
+				_champ = enemy_champs[i];
+				if (_champ != undefined && _champ.hp.get_value() == 0) {
+					enemy_rmv_champ(i);
+					_return = true;
+				}
+			}
+			
+			return _return;
+		},
+			
+		check_victory: function() {
+			var _size = champ_qty;
+			var _player_lost = true;
+			var _enemy_lost = true;
+			var _return = card_phase_winners.NOBODY;
+			
+			for (var i = 0; i < champ_qty; i++) {
+				if (player_champs[i] != undefined) {
+					_player_lost = false;
+					break;
+				}
+			}
+			
+			for (var i = 0; i < champ_qty; i++) {
+				if (enemy_champs[i] != undefined) {
+					_enemy_lost = false;
+					break;
+				}
+			}
+			
+			if (_player_lost && _enemy_lost) {
+				_return = card_phase_winners.DRAW;
+			} else if (_player_lost) {
+				_return = card_phase_winners.ENEMY;
+			} else if (_enemy_lost) {
+				_return = card_phase_winners.PLAYER;
+			}
+			
+			return _return;
 		}
 	}
 	

@@ -1,4 +1,6 @@
-//randomize();
-//start_stage();
-
-test_act_menu();
+if(!test_act) {
+	randomize();
+	start_stage();
+} else {
+	set_test_act();
+}

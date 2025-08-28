@@ -1,5 +1,5 @@
 if (check_point_over_surface()) {
-	if (selected != noone) {
+	if (selected != undefined) {
 		global.language = selected;
 	}
 }

@@ -1,3 +1,5 @@
+global.card_type_colors = [ #71797e, #b90e01, #26619c, #ffba00 ];
+
 enum card_types {
 	GRAY = 0, RED = 1, BLUE = 2, GOLD = 3
 } 
@@ -7,7 +9,10 @@ enum card_stats {
 } 
 
 enum champ_stat_type {
-    HP, GW, MD, TYPE, STR, SKL, INT, DVT, CAN_EQUIP, CAN_MAGIC, CAN_ABILITY
+    HP, GW, MD, TYPE, 
+	STR, SKL, INT, DVT, 
+	CAN_EQUIP, CAN_MAGIC, CAN_ABILITY,
+	GRAY_DMG, RED_DMG, BLUE_DMG, GOLD_DMG
 }
 
 enum value_target {
@@ -31,7 +36,6 @@ function modifier(_stat_type, _value, _target = value_target.CURRENT, _math_oper
 function passive(_modifiers, _active_func) constructor {
 	modifiers  = _modifiers;
 	active_func = _active_func;
-    active = false;
 }
 
 function ability(_act_func, _avail_func) constructor {

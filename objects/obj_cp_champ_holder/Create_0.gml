@@ -10,7 +10,7 @@ update_sprite = function() {
 			: data.enemy_champs[field_position];
 	card = _card_instance;
 	
-	if (_card_instance == noone) {
+	if (_card_instance == undefined) {
 		sprite_index = -1;
 	} else if (field_position == 0){
 		sprite_index = _card_instance.card.spr_card_art;
@@ -33,7 +33,7 @@ draw_card = function() {
 	var _card_instance = card;
 	var _w = sprite_width;
 	
-	if (_card_instance != noone) {
+	if (_card_instance != undefined) {
 		if (card_owner == card_owners.PLAYER){
 			draw_champ_card_instance(_card_instance, x + _w, room_height / 2);
 		} else {
@@ -44,7 +44,7 @@ draw_card = function() {
 
 draw_stats = function() {
 	var _card_instance = card;
-	if (_card_instance != noone) {
+	if (_card_instance != undefined) {
 		var _vanguard = field_position == card_positions.VANGUARD;
 		var _card = _card_instance.card;
 		var _terr = data.current_territory;
@@ -68,7 +68,7 @@ draw_stats = function() {
 		draw_healthbar(_x1_hp, _y1_hp, _x2_hp, _y2_hp, 100 * _hp / _max, 
 		c_black, c_red, c_lime, 0, true, true);
 		
-		if (!has_acted && _terr != noone) {
+		if (!has_acted && _terr != undefined) {
 			var _terr_stat = _terr.iniciative_stat;
 			var _color = my_turn ? c_yellow : c_silver;
 			_x1 = x + (_w * 0.31);

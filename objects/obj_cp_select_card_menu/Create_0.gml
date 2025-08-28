@@ -7,7 +7,7 @@ if (array_size == 0 || array_size < select_amount) {
 
 #region Variables
 
-selected = noone;
+selected = undefined;
 selected_array = array_create(array_size, false);
 selected_amount = 0;
 // Surface
@@ -87,7 +87,7 @@ fill_grid = function(_grid) {
 			if (_position < array_size) {
 				_grid[# j, i] = card_array[_position];
 			} else {
-				_grid[# j, i] = noone;
+				_grid[# j, i] = undefined;
 			}
 		}
 	}
@@ -117,7 +117,7 @@ draw_inventory = function() {
 				_point_over = point_in_rectangle(mouse_x - surface_x, mouse_y - surface_y, _x1, _y1, _x2, _y2);
 			}
 			
-			if (_cel_value != noone) {
+			if (_cel_value != undefined) {
 				if (_point_over) {
 					selected = _cel_value;
 					mouse_check(_array_pos);
@@ -196,7 +196,7 @@ draw_buttons = function() {
 			draw_sprite(spr_select_card_see_field, _spr_see_field, -3, -3);
 			draw_middle_center(1200 - 3, 660 - 3, "<");
 			if (mouse_check_button_pressed(mb_left)) {
-				selected = noone;
+				selected = undefined;
 				show = true;
 				manager_inst.show_cards_when_over = false;
 			}

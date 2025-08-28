@@ -30,9 +30,11 @@ var _gear_common_active_func = function(_inst, _gear) {
 	);
 }
 
-var _modifiers = [	new modifier(champ_stat_type.HP, 20, value_target.BASE, math_ops.ADD), 
-					new modifier(champ_stat_type.HP, 20, value_target.MAX, math_ops.ADD)
-				];
+var _modifiers = [	
+	new modifier(champ_stat_type.HP, 20, value_target.MAX, math_ops.ADD),
+	new modifier(champ_stat_type.HP, 20, value_target.BASE, math_ops.ADD)
+];
+
 
 global.gear_cards = [
 	new gear_card(
