@@ -1,7 +1,10 @@
 #region Variables
 
 data = global.card_phase_data;
+winner = card_phase_winners.NOBODY;
 default_background = spr_field_default;
+enemy_ia_inst = undefined;
+
 objects_step_order = array_create(data.champ_qty * 2, undefined); // Champ holders
 player_gear_holders = array_create(global.max_gear_qty, undefined);
 player_magic_holders = array_create(global.max_magic_qty, undefined);
@@ -118,15 +121,16 @@ act_stage_sort = function() {
 			_position = _obj.field_position;
 			_card_stat = _card_instance.stats[_terr.iniciative_stat].get_value();
 			
-			_initiative_value = _terr.iniciative_type == iniciative_types.BIGGER ? _card_stat * 100
-									: (10 - _card_stat) * 100;
+			_initiative_value = _card_instance.has_acted ? 1000 : 0;
+			_initiative_value += _terr.iniciative_type == iniciative_types.BIGGER ? _card_stat * 100
+																				: (10 - _card_stat) * 100;
 			_initiative_value += (data.champ_qty - _position) * 10;
 			_initiative_value += _owner_value;
 		}
 		_obj.initiative_value = _initiative_value;
 	}
 	
-	stage_sort(current_step, _max_i);
+	stage_sort(0, _max_i);
 }
 
 #endregion
@@ -176,7 +180,7 @@ create_objects = function() {
 	var _this = self;
 	
 	// Enemy IA
-	enemy_ia_inst = instance_create_layer(x, y, "Instances", obj_cp_enemy_ia);
+	enemy_ia_inst = instance_create_layer(x, y, "Instances", obj_cp_enemy_ia, {manager_inst: _this});
 	
 	// Champ holders
 	for (var _i = 0; _i < array_length(objects_step_order); _i++) {
@@ -261,10 +265,100 @@ draw_stage_draws = function() {
 	}
 }
 
-set_has_acted= function() {
+set_has_acted = function() {
 	var _size = array_length(objects_step_order);
+	var _card = -1;
 	for (var _i = 0; _i < _size; _i++) {
-		objects_step_order[_i].has_acted = false;
+		_card = objects_step_order[_i].card;
+		if (_card != undefined) _card.has_acted = false;
+	}
+}
+
+update_all_sprites = function() {
+	// Champ holders
+	for (var _i = 0; _i < array_length(objects_step_order); _i++) {
+		objects_step_order[_i].update_sprite();
+	}
+	
+	// Player gear holders
+	for (var _i = 0; _i < array_length(player_gear_holders); _i++) {
+		player_gear_holders[_i].update_sprite();
+	}
+	
+	// Player magic holders
+	for (var _i = 0; _i < array_length(player_magic_holders); _i++) {
+		player_magic_holders[_i].update_sprite();
+	}
+	
+	// Enemy gear holders
+	for (var _i = 0; _i < array_length(enemy_gear_holders); _i++) {
+		enemy_gear_holders[_i].update_sprite();
+	}
+	
+	// Enemy magic holders
+	for (var _i = 0; _i < array_length(enemy_magic_holders); _i++) {
+		enemy_magic_holders[_i].update_sprite();
+	}
+	
+	// Territory holder
+	territory_holder.update_sprite();
+}
+
+check_game_state = function(_func) {
+	if (data.check_champs_hp()) {
+		var _winner = data.check_victory()
+		if (_winner != card_phase_winners.NOBODY) {
+			game_end();
+		} else {
+			enemy_set_vanguard(self.player_set_vanguard, _func);
+		}
+	} else {
+		_func();
+	}
+}
+
+enemy_set_vanguard = function(_func, _arg) {
+	var _champ_array = data.enemy_champs;
+	var _size = array_length(_champ_array);
+	var _champ = _champ_array[0];
+	var _opt_array = []
+	if (_champ == undefined) {
+		enemy_ia_inst.choose_new_vanguard(_func, _arg);
+	} else {
+		_func(_arg);
+	}
+}
+
+player_set_vanguard = function(_func) {
+	var _this = self;
+	var _champ_array = data.player_champs;
+	var _size = array_length(_champ_array);
+	var _champ = _champ_array[0];
+	var _opt_array = []
+	if (_champ == undefined) {
+		for (var i = 1; i < _size; i++) {
+			_champ = _champ_array[i];
+			if (_champ != undefined) {
+				array_push(_opt_array, 
+					new act_option(	_champ.name,
+									data.switch_player_champs, [data, 0, i, true, self],	
+									undefined, [],
+									act_menu_draw_champ, [_champ]
+					)
+				);
+			}
+		}
+	
+		instance_create_layer(room_width / 2, room_height / 2, global.cp_layer_instances_above, obj_cp_select_act_menu,
+			{	
+				title: global.language.select_vanguard_title,
+				options_array: _opt_array,
+				manager_inst: _this,
+				return_func : _func
+			}
+		);
+	} else {
+		_func();
 	}
 }
 
@@ -398,7 +492,13 @@ init_stage_step = function() {
 
 act_stage_step = function() {
 	current_step++;
-	if (current_step < array_length(objects_step_order)) {
+	update_all_sprites();
+	check_game_state(self.act_stage_stepII);
+}
+
+act_stage_stepII = function() {
+	update_all_sprites();
+	if (current_step < array_length(objects_step_order) && objects_step_order[current_step].card != undefined) {
 		act_stage_sort();
 		objects_step_order[current_step].start_act_step();
 	} else {
@@ -420,9 +520,9 @@ end_stage = function () {
 
 #endregion
 
-
-test_act = true;
-winner = card_phase_winners.NOBODY;
+test_act = false;
+/*
+#region Test Act Stage
 
 set_test_act = function() {
 	data.player_gear_hand_size = 3;
@@ -642,3 +742,6 @@ enemy_select_action = function(_options_array) {
 	var _args = _option.act_args;
 	script_execute_ext(_func, _args);
 }
+	
+#endregion
+*/

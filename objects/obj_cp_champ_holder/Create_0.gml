@@ -68,7 +68,7 @@ draw_stats = function() {
 		draw_healthbar(_x1_hp, _y1_hp, _x2_hp, _y2_hp, 100 * _hp / _max, 
 		c_black, c_red, c_lime, 0, true, true);
 		
-		if (!has_acted && _terr != undefined) {
+		if (!_card_instance.has_acted && _terr != undefined) {
 			var _terr_stat = _terr.iniciative_stat;
 			var _color = my_turn ? c_yellow : c_silver;
 			_x1 = x + (_w * 0.31);
@@ -84,6 +84,88 @@ draw_stats = function() {
 			}
 		}
 	}
+}
+
+#endregion
+
+#region Set Act Step Function
+
+set_act_step = function() {
+	// Start	
+	var _card_inst = card;
+	var _go_back = new act_option(global.language.act_return, act_menu_go_back, [], undefined, [], act_menu_draw_champ, [_card_inst]);
+	var _owner_is_player = (card_owner == card_owners.PLAYER);
+	var _gear_hand_size = _owner_is_player ? data.player_gear_hand_size : data.enemy_gear_hand_size;
+	var _gear_hand = _owner_is_player ? data.player_gear_hand : data.enemy_gear_hand;
+	var _magic_hand_size = _owner_is_player ? data.player_magic_hand_size : data.enemy_magic_hand_size;
+	var _magic_hand = _owner_is_player ? data.player_magic_hand : data.enemy_magic_hand;
+	
+	// Set equip gear act options
+	var _act_equip = new act_option(
+		global.language.act_equip, 
+		create_act_sub_menu, [_card_inst, []], 
+		check_any_avail, undefined,
+		act_menu_draw_champ, [_card_inst]
+	);
+	var _opt_array = _act_equip.act_args[1];
+	var _card = -1;
+	for (var i = 0; i < _gear_hand_size; i++) {
+		_card = _gear_hand[i];
+		if (_card != undefined) {
+			array_push(_opt_array, 
+				new act_option(	_card.name,
+								_card_inst.equip_gear, [_card_inst, _card, i, self],	
+								_card_inst.can_equip_gear, [_card_inst, _card],
+								act_menu_draw_gear, [_card]
+				)
+			);
+		}
+	}
+	array_push(_opt_array, _go_back);	
+	_act_equip.avail_args = _act_equip.act_args;
+	_act_equip.avail = script_execute_ext(_act_equip.avail_func, _act_equip.avail_args);
+	
+	// Set use magic act options
+	var _act_magic = new act_option(
+		global.language.act_magic, 
+		create_act_sub_menu, [_card_inst, []], 
+		check_any_avail, undefined,
+		act_menu_draw_champ, [_card_inst]);
+		
+	_opt_array = _act_magic.act_args[1];
+	_card = -1;
+	for (var i = 0; i < _magic_hand_size; i++) {
+		_card = _magic_hand[i];
+		if (_card != undefined) {
+			array_push(_opt_array, 
+				new act_option(	_card.name,
+								_card_inst.use_magic, [_card_inst, _card, i, self],	// Change to spell function
+								_card_inst.can_use_magic, [_card_inst, _card],
+								act_menu_draw_magic, [_card]
+				)
+			);
+		}
+	}
+	array_push(_opt_array, _go_back);	
+	_act_magic.avail_args = _act_magic.act_args;
+	_act_magic.avail = script_execute_ext(_act_magic.avail_func, _act_magic.avail_args);
+	
+	// Set use ability act option
+	var _act_ability = new act_option(global.language.act_ability, 
+		_card_inst.use_ability, [_card_inst, self],
+		_card_inst.can_use_ability, [_card_inst],
+		act_menu_draw_champ, [_card_inst]);
+		
+	_act_ability.avail = script_execute_ext(_act_ability.avail_func, _act_ability.avail_args);
+	
+	// Set do nothing option
+	var _act_pass = new act_option(global.language.act_pass, 
+		end_act_menu, [_card_inst, self], 
+		undefined, [],
+		act_menu_draw_champ, [_card_inst]);
+		
+	// Create select act menu
+	return [_act_equip,	_act_magic, _act_ability, _act_pass];
 }
 
 #endregion
@@ -121,10 +203,30 @@ fin_init_step = function(_array_response) {
 
 start_act_step = function() {
 	my_turn = true;
-	fin_act_step();
+	data.apply_passives_all();
+	var _this = self;
+	var _card_inst = card;
+	var _options_array = set_act_step();
+	if (card_owner == card_owners.PLAYER) {
+		instance_create_layer(room_width / 2, room_height / 2, global.cp_layer_instances_above, obj_cp_select_act_menu,
+			{	
+				title: global.language.select_act_title,
+				options_array: _options_array,
+				card_inst: _card_inst,
+				manager_inst: _this.manager_inst,
+				redo_func : _this.start_act_step,
+				return_func : _this.fin_act_step
+			}
+		);
+	} else {
+		manager_inst.enemy_ia_inst.enemy_prepare_action(
+			_options_array, _card_inst, _this.start_act_step, _this.fin_act_step
+		);
+	}
 }
 
 fin_act_step = function() {
+	data.apply_passives_all();
 	alarm[1] = 120;
 }
 

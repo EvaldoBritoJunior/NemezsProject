@@ -26,6 +26,7 @@ global.eng_texts = {
 	select_card_territories: "Territory Deck",
 	
 	select_act_title: "Select Action:",
+	select_vanguard_title: "Select Next Vanguard:",
 	act_equip: "Equip Gear",
 	act_ability: "Use Ability",
 	act_magic: "Use Magic",

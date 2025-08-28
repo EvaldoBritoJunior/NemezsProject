@@ -137,6 +137,8 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 	gears = [];
 	gears_state = [];
 	
+	has_acted = false;
+	
 	static can_equip_gear = function(_card_inst, _gear) {
 		var _champ_gw = _card_inst.gw.get_value();
 		var _champ_max_gw = _card_inst.gw.get_max_value();
@@ -165,6 +167,7 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 		var _magic_md = _magic.md;
 		return (_card_inst.can_use_magics.get_value()
 				&& _magic_md <= _champ_md
+				&& _magic_ability != undefined
 				&& _magic_ability.avail_func(_card_inst));
     };
 
@@ -347,7 +350,7 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 	
 	static remove_gear = function(_card_inst, _idx) {
 		var _gears = _card_inst.gears;
-		var _gears_state = gears_state[_idx];
+		var _gears_state = _card_inst.gears_state;
 		var _gear = _gears[_idx];
 		var _passive = _gear.card_passive;
 		var _current_state = _gears_state[_idx];

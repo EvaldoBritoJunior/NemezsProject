@@ -201,6 +201,38 @@ function reset_card_phase_data(_champ_qty = 4) {
 		
 		#endregion
 		
+		#region Switch Cards Functions
+		
+		switch_player_champs: function(_data, _pos1, _pos2, _bool_end_select = false) {
+			var _champs = _data.player_champs;
+			var _c1 = _champs[_pos1];
+			var _c2 = _champs[_pos2];
+			
+			if (_c1 != undefined) _c1.card_pos = _pos2;
+			if (_c2 != undefined) _c2.card_pos = _pos1;
+			
+			_champs[_pos1] = _c2;
+			_champs[_pos2] = _c1;
+			
+			if (_bool_end_select) end_act_menu(_c2);
+		},
+		
+		switch_enemy_champs: function(_data, _pos1, _pos2, _bool_end_select = false) {
+			var _champs = _data.enemy_champs;
+			var _c1 = _champs[_pos1];
+			var _c2 = _champs[_pos2];
+			
+			if (_c1 != undefined) _c1.card_pos = _pos2;
+			if (_c2 != undefined) _c2.card_pos = _pos1;
+			
+			_champs[_pos1] = _c2;
+			_champs[_pos2] = _c1;
+			
+			if (_bool_end_select) end_act_menu(_c2);
+		},
+		
+		#endregion
+		
 		#region Remove Card Functions
 		
 		player_rmv_champ: function(_idx) {
@@ -317,6 +349,8 @@ function reset_card_phase_data(_champ_qty = 4) {
 			
 			return _return;
 		}
+			
+		#endregion
 	}
 	
 }
