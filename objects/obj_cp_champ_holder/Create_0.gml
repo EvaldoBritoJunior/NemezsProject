@@ -203,7 +203,11 @@ fin_init_step = function(_array_response) {
 
 start_act_step = function() {
 	my_turn = true;
+	if (card.has_acted) {
+		throw("Card has already acted!");
+	}
 	data.apply_passives_all();
+
 	var _this = self;
 	var _card_inst = card;
 	var _options_array = set_act_step();
@@ -226,7 +230,6 @@ start_act_step = function() {
 }
 
 fin_act_step = function() {
-	data.apply_passives_all();
 	alarm[1] = 120;
 }
 

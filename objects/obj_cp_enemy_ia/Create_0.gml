@@ -104,7 +104,7 @@ choose_new_vanguard = function(_func, _arg) {
 	}
 	
 	_size = array_length(_avail_options);
-	var _selected = irandom(_size - 1);
+	var _selected = _avail_options[irandom(_size - 1)];
 	data.switch_enemy_champs(data, 0, _selected);
 	
 	_func(_arg);

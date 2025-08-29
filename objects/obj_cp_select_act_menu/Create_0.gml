@@ -9,7 +9,7 @@ if (array_size == 0) {
 
 options_stack = [options_array];
 selected = undefined;
-card_spr = card_inst.card.spr_card; 
+card_spr = card_inst != undefined ? card_inst.card.spr_card : spr_sample_card; 
 // Surface
 surface_w = sprite_get_width(card_spr);
 surface_h = sprite_get_height(card_spr) - 50;

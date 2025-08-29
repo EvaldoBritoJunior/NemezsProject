@@ -286,7 +286,6 @@ function reset_card_phase_data(_champ_qty = 4) {
 		#region Check Field Functions
 		
 		apply_passives_all: function() {
-			var _size = champ_qty;
 			var _champ = -1;
 			for (var i = 0; i < champ_qty; i++) {
 				_champ = player_champs[i];
@@ -298,7 +297,6 @@ function reset_card_phase_data(_champ_qty = 4) {
 		},
 		
 		check_champs_hp: function() {
-			var _size = champ_qty;
 			var _champ = -1;
 			var _return = false;
 			
@@ -320,7 +318,6 @@ function reset_card_phase_data(_champ_qty = 4) {
 		},
 			
 		check_victory: function() {
-			var _size = champ_qty;
 			var _player_lost = true;
 			var _enemy_lost = true;
 			var _return = card_phase_winners.NOBODY;

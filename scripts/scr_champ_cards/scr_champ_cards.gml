@@ -30,6 +30,8 @@ var _20_dmg_func = function(_inst) {
 	var _data = global.card_phase_data;
 	var _card = global.card_phase_data.enemy_champs[0];
 	_card.champ_add_modifier(_card, new modifier(champ_stat_type.HP, -300, value_target.BASE));
+	var _card = global.card_phase_data.player_champs[0];
+	_card.champ_add_modifier(_card, new modifier(champ_stat_type.HP, -300, value_target.BASE));
 	end_act_menu(_inst);
 };
 
@@ -42,7 +44,7 @@ var _true = function(_inst) {return true}
 
 global.champ_cards = [
 	new champ_card(
-		0, "CHAMP NAME", 230, 2, 2, [5, 5, 4, 3], 0,
+		0, "CHAMP Problemn", 230, 2, 2, [5, 5, 4, 3], 0,
 		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art,
 		new passive(_modifiers, _true), new ability(_20_dmg_func, _true)
 	), 

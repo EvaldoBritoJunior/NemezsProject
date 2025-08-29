@@ -5,7 +5,8 @@ winner = card_phase_winners.NOBODY;
 default_background = spr_field_default;
 enemy_ia_inst = undefined;
 
-objects_step_order = array_create(data.champ_qty * 2, undefined); // Champ holders
+champ_holders = array_create(data.champ_qty * 2, undefined);
+objects_step_order = [];
 player_gear_holders = array_create(global.max_gear_qty, undefined);
 player_magic_holders = array_create(global.max_magic_qty, undefined);
 enemy_gear_holders = array_create(global.max_gear_qty, undefined);
@@ -53,9 +54,9 @@ champ_card_selection_remove = function(_card) {
 
 #region Sort Functions
 
-stage_sort = function(_start, _end) {
+stage_sort = function(_start, _end, _array = objects_step_order) {
     // clamp to array size
-    var len = array_length(objects_step_order);
+    var len = array_length(_array);
     _start = clamp(_start, 0, len - 1);
     _end = clamp(_end, 0, len - 1);
 
@@ -67,19 +68,19 @@ stage_sort = function(_start, _end) {
     // slice the subarray
     var sub = array_create(_end - _start + 1);
     for (var i = 0; i <= _end - _start; i++) {
-        sub[i] = objects_step_order[_start + i];
+        sub[i] = _array[_start + i];
     }
 
     // sort only that subarray
     array_sort(sub, function(left, right) {
-        if (left.initiative_value < right.initiative_value) return 1;
-        if (left.initiative_value > right.initiative_value) return -1;
+        if (left.initiative_value > right.initiative_value) return 1;
+        if (left.initiative_value < right.initiative_value) return -1;
         return 0;
     });
 
     // put back into the main array
     for (var i = 0; i <= _end - _start; i++) {
-        objects_step_order[_start + i] = sub[i];
+        _array[_start + i] = sub[i];
     }
 };
 
@@ -116,13 +117,14 @@ act_stage_sort = function() {
 	for (var _i = current_step; _i <= _max_i; _i++) {
 		_obj = objects_step_order[_i];
 		_card_instance = _obj.card;
+		_initiative_value = 1000;
 		if (_card_instance != undefined) {
 			_owner_value = _turn_owner == _obj.card_owner ? 1 : 0;
 			_position = _obj.field_position;
 			_card_stat = _card_instance.stats[_terr.iniciative_stat].get_value();
 			
-			_initiative_value = _card_instance.has_acted ? 1000 : 0;
-			_initiative_value += _terr.iniciative_type == iniciative_types.BIGGER ? _card_stat * 100
+			if (_card_instance.has_acted) throw("Calculating initiative value for card that already acted");
+			_initiative_value = _terr.iniciative_type == iniciative_types.BIGGER ? _card_stat * 100
 																				: (10 - _card_stat) * 100;
 			_initiative_value += (data.champ_qty - _position) * 10;
 			_initiative_value += _owner_value;
@@ -183,8 +185,8 @@ create_objects = function() {
 	enemy_ia_inst = instance_create_layer(x, y, "Instances", obj_cp_enemy_ia, {manager_inst: _this});
 	
 	// Champ holders
-	for (var _i = 0; _i < array_length(objects_step_order); _i++) {
-		objects_step_order[_i] = instance_create_layer(
+	for (var _i = 0; _i < array_length(champ_holders); _i++) {
+		champ_holders[_i] = instance_create_layer(
 			instances_positions[_i][0], instances_positions[_i][1], "Instances", obj_cp_champ_holder,
 			{
 				card_owner : (_i % 2),
@@ -266,18 +268,18 @@ draw_stage_draws = function() {
 }
 
 set_has_acted = function() {
-	var _size = array_length(objects_step_order);
+	var _size = array_length(champ_holders);
 	var _card = -1;
 	for (var _i = 0; _i < _size; _i++) {
-		_card = objects_step_order[_i].card;
+		_card = champ_holders[_i].card;
 		if (_card != undefined) _card.has_acted = false;
 	}
 }
 
 update_all_sprites = function() {
 	// Champ holders
-	for (var _i = 0; _i < array_length(objects_step_order); _i++) {
-		objects_step_order[_i].update_sprite();
+	for (var _i = 0; _i < array_length(champ_holders); _i++) {
+		champ_holders[_i].update_sprite();
 	}
 	
 	// Player gear holders
@@ -305,7 +307,8 @@ update_all_sprites = function() {
 }
 
 check_game_state = function(_func) {
-	if (data.check_champs_hp()) {
+	var _result = data.check_champs_hp();
+	if (_result) {
 		var _winner = data.check_victory()
 		if (_winner != card_phase_winners.NOBODY) {
 			game_end();
@@ -319,9 +322,7 @@ check_game_state = function(_func) {
 
 enemy_set_vanguard = function(_func, _arg) {
 	var _champ_array = data.enemy_champs;
-	var _size = array_length(_champ_array);
 	var _champ = _champ_array[0];
-	var _opt_array = []
 	if (_champ == undefined) {
 		enemy_ia_inst.choose_new_vanguard(_func, _arg);
 	} else {
@@ -340,10 +341,11 @@ player_set_vanguard = function(_func) {
 			_champ = _champ_array[i];
 			if (_champ != undefined) {
 				array_push(_opt_array, 
-					new act_option(	_champ.name,
-									data.switch_player_champs, [data, 0, i, true, self],	
-									undefined, [],
-									act_menu_draw_champ, [_champ]
+					new act_option(	
+						_champ.card.name,
+						data.switch_player_champs, [data, 0, i, true, self],	
+						undefined, [],
+						act_menu_draw_champ, [_champ]
 					)
 				);
 			}
@@ -361,6 +363,33 @@ player_set_vanguard = function(_func) {
 		_func();
 	}
 }
+
+check_step_order = function() {
+    var _size = array_length(champ_holders);
+    var _inst, _card, _pos, _last;
+
+    for (var i = 0; i < _size; i++) {
+        _inst = champ_holders[i];
+        _card = _inst.card;
+
+        if (_card != undefined && !_card.has_acted) {
+            // ensure it's in the list
+            if (!array_contains(objects_step_order, _inst)) {
+                array_push(objects_step_order, _inst);
+            }
+        } else {
+            // remove if it shouldn't be there
+            _pos = array_index_of(objects_step_order, _inst);
+            if (_pos != -1) {
+                _last = array_length(objects_step_order) - 1;
+                if (_pos != _last) {
+                    objects_step_order[_pos] = objects_step_order[_last];
+                }
+                array_pop(objects_step_order);
+            }
+        }
+    }
+};
 
 #endregion
 
@@ -456,6 +485,7 @@ start_stage = function () {
 		var _first = irandom(1); //choose(card_owners.PLAYER, card_owners.ENEMY);
 		data.turn_owner = _first;
 		create_objects();
+		objects_step_order = array_full_copy(champ_holders);
 		init_stage_sort();
 		init_stage_step();
 		
@@ -470,6 +500,7 @@ start_stage = function () {
 		}
 		data.current_territory = _terr_card;
 		territory_holder.update_sprite();
+		objects_step_order = array_full_copy(champ_holders);
 		set_has_acted();
 		//act_stage_step
 		act_stage_step();
@@ -483,24 +514,38 @@ start_stage = function () {
 
 init_stage_step = function() {
 	current_step++;
-	if (current_step < array_length(objects_step_order)) {
-		objects_step_order[current_step].start_init_step(champ_card_selection);
+	var _size = array_length(objects_step_order);
+	if (_size != 0) {
+		array_pop(objects_step_order).start_init_step(champ_card_selection);
 	} else {
 		end_stage();
 	}
 }
 
-act_stage_step = function() {
+act_stage_step = function(bool_check_game = true) {
 	current_step++;
-	update_all_sprites();
-	check_game_state(self.act_stage_stepII);
+	if (bool_check_game) {
+		update_all_sprites();
+		check_game_state(self.act_stage_stepII);
+	} else {
+		act_stage_stepII(false);
+	}
 }
 
-act_stage_stepII = function() {
-	update_all_sprites();
-	if (current_step < array_length(objects_step_order) && objects_step_order[current_step].card != undefined) {
+act_stage_stepII = function(bool_check_game = true) {
+	if (bool_check_game) {
+		update_all_sprites();
+		check_step_order();
+	}
+	var _size = array_length(objects_step_order);
+	if (_size != 0) {
 		act_stage_sort();
-		objects_step_order[current_step].start_act_step();
+		if (objects_step_order[_size - 1].card == undefined) {
+			array_pop(objects_step_order);
+			act_stage_step(false);
+		} else {
+			array_pop(objects_step_order).start_act_step();
+		}
 	} else {
 		end_stage();
 	}
@@ -521,9 +566,9 @@ end_stage = function () {
 #endregion
 
 test_act = false;
-/*
-#region Test Act Stage
 
+#region Test Act Stage
+/*
 set_test_act = function() {
 	data.player_gear_hand_size = 3;
 	data.player_gear_hand = [global.gear_cards[0], global.gear_cards[1], global.gear_cards[2]];
@@ -742,6 +787,5 @@ enemy_select_action = function(_options_array) {
 	var _args = _option.act_args;
 	script_execute_ext(_func, _args);
 }
-	
-#endregion
 */
+#endregion

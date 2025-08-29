@@ -71,3 +71,13 @@ function array_full_copy(_array) {
 	
 	return _response;
 }
+
+function array_index_of(arr, value) {
+    var _size = array_length(arr);
+    for (var i = 0; i < _size; i++) {
+        if (arr[i] == value) {
+            return i;
+        }
+    }
+    return -1;
+}

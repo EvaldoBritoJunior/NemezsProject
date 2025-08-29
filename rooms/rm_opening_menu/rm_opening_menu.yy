@@ -6,8 +6,8 @@
   "inheritCreationOrder":false,
   "inheritLayers":false,
   "instanceCreationOrder":[
-    {"name":"inst_3D7766E5","path":"rooms/rm_opening_menu/rm_opening_menu.yy",},
     {"name":"inst_6C30E39A","path":"rooms/rm_opening_menu/rm_opening_menu.yy",},
+    {"name":"inst_3D7766E5","path":"rooms/rm_opening_menu/rm_opening_menu.yy",},
   ],
   "isDnd":false,
   "layers":[
