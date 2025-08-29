@@ -72,6 +72,7 @@
     {"id":{"name":"font_card_text_20","path":"fonts/font_card_text_20/font_card_text_20.yy",},},
     {"id":{"name":"font_card_text_23","path":"fonts/font_card_text_23/font_card_text_23.yy",},},
     {"id":{"name":"font_card_text_25","path":"fonts/font_card_text_25/font_card_text_25.yy",},},
+    {"id":{"name":"obj_bp_player_character","path":"objects/obj_bp_player_character/obj_bp_player_character.yy",},},
     {"id":{"name":"obj_button_end_options","path":"objects/obj_button_end_options/obj_button_end_options.yy",},},
     {"id":{"name":"obj_button_language","path":"objects/obj_button_language/obj_button_language.yy",},},
     {"id":{"name":"obj_button_parent","path":"objects/obj_button_parent/obj_button_parent.yy",},},
@@ -92,6 +93,7 @@
     {"id":{"name":"obj_input_name","path":"objects/obj_input_name/obj_input_name.yy",},},
     {"id":{"name":"obj_language_menu","path":"objects/obj_language_menu/obj_language_menu.yy",},},
     {"id":{"name":"obj_menu","path":"objects/obj_menu/obj_menu.yy",},},
+    {"id":{"name":"obj_solid","path":"objects/obj_solid/obj_solid.yy",},},
     {"id":{"name":"rm_battle_phase","path":"rooms/rm_battle_phase/rm_battle_phase.yy",},},
     {"id":{"name":"rm_card_phase","path":"rooms/rm_card_phase/rm_card_phase.yy",},},
     {"id":{"name":"rm_opening_main","path":"rooms/rm_opening_main/rm_opening_main.yy",},},
@@ -165,11 +167,11 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
+    {"roomId":{"name":"rm_battle_phase","path":"rooms/rm_battle_phase/rm_battle_phase.yy",},},
     {"roomId":{"name":"rm_card_phase","path":"rooms/rm_card_phase/rm_card_phase.yy",},},
     {"roomId":{"name":"rm_opening_options","path":"rooms/rm_opening_options/rm_opening_options.yy",},},
     {"roomId":{"name":"rm_opening_main","path":"rooms/rm_opening_main/rm_opening_main.yy",},},
     {"roomId":{"name":"rm_opening_menu","path":"rooms/rm_opening_menu/rm_opening_menu.yy",},},
-    {"roomId":{"name":"rm_battle_phase","path":"rooms/rm_battle_phase/rm_battle_phase.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

@@ -64,6 +64,7 @@
     {"name":"obj_cp_select_card_menu","order":1,"path":"objects/obj_cp_select_card_menu/obj_cp_select_card_menu.yy",},
     {"name":"obj_cp_territory_holder","order":5,"path":"objects/obj_cp_territory_holder/obj_cp_territory_holder.yy",},
     {"name":"obj_language_menu","order":2,"path":"objects/obj_language_menu/obj_language_menu.yy",},
+    {"name":"obj_solid","order":1,"path":"objects/obj_solid/obj_solid.yy",},
     {"name":"rm_battle_phase","order":5,"path":"rooms/rm_battle_phase/rm_battle_phase.yy",},
     {"name":"rm_card_phase","order":4,"path":"rooms/rm_card_phase/rm_card_phase.yy",},
     {"name":"rm_opening_main","order":2,"path":"rooms/rm_opening_main/rm_opening_main.yy",},
