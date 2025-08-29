@@ -28,7 +28,7 @@ function champ_stat(_base, _max, _min = 0) constructor {
         altered = true;     // mark dirty so GetValue will recalc
     };
 	
-	static remove_modifier = function(_mod) {
+	static remove_modifier = function(_mod, _idx = -1) {
 		var _m = -1;
 		var _rmvd = false;
 		var _size = array_length(modifiers);
@@ -44,15 +44,21 @@ function champ_stat(_base, _max, _min = 0) constructor {
 		    if (base_value < current_min_value) {
 		        base_value = current_min_value;
 		    }
+			_rmvd = true;
 		} else {
-	        for (var i = 0; i < _size; i++) {
-	            _m = modifiers[i];
-	            if (_m == _mod) {
-					array_delete(modifiers, i, 1);
-					_rmvd = true;
-					break;
-				}
-	        }
+			if (_idx != -1) {
+				array_delete(modifiers, _idx, 1);
+				_rmvd = true;
+			} else {
+		        for (var i = 0; i < _size; i++) {
+		            _m = modifiers[i];
+		            if (_m == _mod) {
+						array_delete(modifiers, i, 1);
+						_rmvd = true;
+						break;
+					}
+		        }
+			}
 		}
        if (_rmvd) altered = true;     // mark dirty so GetValue will recalc
     };
@@ -98,6 +104,28 @@ function champ_stat(_base, _max, _min = 0) constructor {
 		if (!altered) return current_max_value;
 		get_value();
 		return current_max_value;
+	}
+		
+	static reduce_modifiers_duration = function() {
+		var _remove = [];
+		var _size = array_length(modifiers);
+		var _m;
+
+	    for (var i = 0; i < _size; i++) {
+	        _m = modifiers[i];
+	        if (_m.duration != -1) {
+				_m.duration--;
+				if (_m.duration == 0) {
+					array_push(_remove, _m);
+				}
+			}
+	    }
+		
+		_size = array_length(_remove);
+		for (var i = 0; i < _size; i++) {
+	        _m = _remove[i];
+			remove_modifier(_m, i);
+	    }
 	}
 }
 
@@ -285,6 +313,24 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 				throw($"Invalid Champion Stat: {_modifier.stat}");
 		}
     };
+		
+	static champ_reduce_modifiers_duration = function(_card_inst) {
+		_card_inst.hp.reduce_modifiers_duration();
+		_card_inst.gw.reduce_modifiers_duration();
+		_card_inst.md.reduce_modifiers_duration();
+		_card_inst.type.reduce_modifiers_duration();
+		_card_inst.stats[0].reduce_modifiers_duration();
+		_card_inst.stats[1].reduce_modifiers_duration();
+		_card_inst.stats[2].reduce_modifiers_duration();
+		_card_inst.stats[3].reduce_modifiers_duration();
+		_card_inst.can_equip_gears.reduce_modifiers_duration();
+		_card_inst.can_use_magics.reduce_modifiers_duration();
+		_card_inst.can_use_abilities.reduce_modifiers_duration();
+		_card_inst.type_dmg_incr[card_types.GRAY].reduce_modifiers_duration();
+		_card_inst.type_dmg_incr[card_types.RED].reduce_modifiers_duration();
+		_card_inst.type_dmg_incr[card_types.BLUE].reduce_modifiers_duration();
+		_card_inst.type_dmg_incr[card_types.GOLD].reduce_modifiers_duration();
+	}
 		
 	static champ_apply_passive = function(_card_inst, _passive, _current_state, _new_state, _gear = undefined) {
 		if (_passive != undefined) {

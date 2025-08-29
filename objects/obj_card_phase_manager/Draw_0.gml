@@ -1,12 +1,5 @@
 draw_data();
 
-var _size = array_length(objects_step_order);
-var obj = -1;
-for (var i = 0; i < _size; i++) {
-	obj = objects_step_order[i];
-	draw_middle_center(225, 50 + (i * 50), obj.initiative_value, undefined, c_red)
-}
-
 if (test_act){
 	draw_middle_center(200, 150, 
 						$"P Magic Hand:\nSize:{data.player_magic_hand_size}\nTrueSize:{array_length(data.player_magic_hand)}\np1:{data.player_magic_hand[0] != undefined}\np2:{data.player_magic_hand[1] != undefined}\np3:{data.player_magic_hand[2] != undefined}", 

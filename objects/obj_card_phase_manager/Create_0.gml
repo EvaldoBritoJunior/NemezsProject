@@ -554,7 +554,9 @@ act_stage_stepII = function(bool_check_game = true) {
 end_stage = function () {
 	if (data.turn_stage == card_phase_stages.INIT_STAGE) {
 		set_gear_decks();
+		
 	} else if (data.turn_stage == card_phase_stages.ACT_STAGE) {
+		transition_start(rm_temporary, sq_out_to_battle, sq_into_battle);
 		
 	} else if (data.turn_stage == card_phase_stages.END_STAGE) {
 		
