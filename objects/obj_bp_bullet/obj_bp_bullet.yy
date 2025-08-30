@@ -13,7 +13,10 @@
     "name":"BattlePhase",
     "path":"folders/Objects/BattlePhase.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_bp_enemy_char_parent",
+    "path":"objects/obj_bp_enemy_char_parent/obj_bp_enemy_char_parent.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
