@@ -50,16 +50,16 @@ step_timer = 0;
 can_min_jump = true;
 #endregion
 
-#region Functions
+#region Movement Functions
 function char_attack_anim(_char_spr_attack, _char_spr_attack_hb) constructor {
 	char_spr_attack = _char_spr_attack;
 	char_spr_attack_hb = _char_spr_attack_hb;
 }
 
-attack = [ new char_attack_anim(spr_stand_shoot_1, char_spr_attack_hb) ];
-attacks = [ new char_attack_anim(spr_stand_shoot_1, spr_stand_shoot_2), 
-			new char_attack_anim(spr_stand_shoot_2, spr_stand_shoot_1), 
-			new char_attack_anim(spr_stand_shoot_1, spr_stand_shoot_2)
+attack = [ new char_attack_anim(spr_char_sword_atk_1, spr_sword_atk_1) ];
+attacks = [ new char_attack_anim(spr_char_sword_atk_1, spr_sword_atk_1), 
+			new char_attack_anim(spr_stand_shoot_2, spr_sword_atk_1), 
+			new char_attack_anim(spr_char_sword_atk_1, spr_sword_atk_1)
 		];
 
 check_animation_end = function() {
@@ -83,7 +83,7 @@ create_attack = function(_attack) {
 		image_index = 0;
 	}
 	var _xscale = image_xscale
-	instance_create_layer(x, y + 100, "Instances", obj_bp_player_attack, {attack: _attack, image_xscale: _xscale});
+	instance_create_layer(x, y, global.cp_layer_instances_above, obj_bp_player_attack, {attack: _attack, image_xscale: _xscale});
 }
 
 char_attack = function(_attack_anim_seq) {

@@ -44,8 +44,8 @@
   },
   "origin":4,
   "parent":{
-    "name":"Battle",
-    "path":"folders/Sprites/Temporary/Battle.yy",
+    "name":"Battle Phase",
+    "path":"folders/Sprites/Battle Phase.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
