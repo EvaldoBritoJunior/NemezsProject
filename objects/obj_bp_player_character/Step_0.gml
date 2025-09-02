@@ -8,10 +8,10 @@ press_down		= keyboard_check_pressed(vk_down);
 
 switch (state) {
 	case char_state.ATTACK:
-		char_attack(attacks);
+		char_attack(attack_chain);
 		break;
 	case char_state.ATTACKING:
-		char_attacking(attacks);
+		char_attacking(attack_chain);
 		break;
 	default:
 		char_movement();

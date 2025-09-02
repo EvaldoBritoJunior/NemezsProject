@@ -44,8 +44,8 @@
   },
   "origin":4,
   "parent":{
-    "name":"Battle Phase",
-    "path":"folders/Sprites/Battle Phase.yy",
+    "name":"Masks",
+    "path":"folders/Sprites/Battle Phase/Masks.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

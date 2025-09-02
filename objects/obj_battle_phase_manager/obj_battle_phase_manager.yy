@@ -1,9 +1,11 @@
 {
   "$GMObject":"",
-  "%Name":"obj_solid",
-  "eventList":[],
+  "%Name":"obj_battle_phase_manager",
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
-  "name":"obj_solid",
+  "name":"obj_battle_phase_manager",
   "overriddenProperties":[],
   "parent":{
     "name":"BattlePhase",
@@ -26,11 +28,8 @@
   "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
-  "solid":true,
-  "spriteId":{
-    "name":"Sprite55",
-    "path":"sprites/Sprite55/Sprite55.yy",
-  },
+  "solid":false,
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

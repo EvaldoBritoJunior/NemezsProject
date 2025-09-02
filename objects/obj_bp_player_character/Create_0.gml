@@ -39,8 +39,6 @@ char_spr_step = spr_step;
 char_spr_jump = spr_jump;
 char_spr_walk = spr_walk;
 char_spr_slide = spr_slide;
-char_spr_attack = spr_stand_shoot;
-char_spr_attack_hb = spr_mask_slide;
 
 //ETC
 ground = true;
@@ -51,16 +49,6 @@ can_min_jump = true;
 #endregion
 
 #region Movement Functions
-function char_attack_anim(_char_spr_attack, _char_spr_attack_hb) constructor {
-	char_spr_attack = _char_spr_attack;
-	char_spr_attack_hb = _char_spr_attack_hb;
-}
-
-attack = [ new char_attack_anim(spr_char_sword_atk_1, spr_sword_atk_1) ];
-attacks = [ new char_attack_anim(spr_char_sword_atk_1, spr_sword_atk_1), 
-			new char_attack_anim(spr_stand_shoot_2, spr_sword_atk_1), 
-			new char_attack_anim(spr_char_sword_atk_1, spr_sword_atk_1)
-		];
 
 check_animation_end = function() {
 	var _sprite = sprite_index;
@@ -86,16 +74,23 @@ create_attack = function(_attack) {
 	instance_create_layer(x, y, global.cp_layer_instances_above, obj_bp_player_attack, {attack: _attack, image_xscale: _xscale});
 }
 
-char_attack = function(_attack_anim_seq) {
-	gravity = 0;
-	vspeed = 0;
+char_attack = function(_attack_anim_chain) {
+	if (_attack_anim_chain.avail) {
+		var _attack_anim_seq = _attack_anim_chain.attacks;
+		gravity = 0;
+		vspeed = 0;
 	
-	create_attack(_attack_anim_seq[attack_step]);
-	state = char_state.ATTACKING;
+		create_attack(_attack_anim_seq[attack_step]);
+		state = char_state.ATTACKING;
+	} else {
+		state = char_state.FREE;
+	}
 }
 
-char_attacking = function(_attack_anim_seq) {
+char_attacking = function(_attack_anim_chain) {
+	var _attack_anim_seq = _attack_anim_chain.attacks;
 	var _size = array_length(_attack_anim_seq);
+	
 	if (press_attack) press_attack_holder = true;
 	if (check_animation_end()) {
 		if (press_attack_holder && attack_step < _size - 1) {
@@ -103,6 +98,8 @@ char_attacking = function(_attack_anim_seq) {
 			attack_step++;
 		} else {
 			attack_step = 0;
+			_attack_anim_chain.avail = false;
+			time_source_start(_attack_anim_chain.timer);
 			sprite_index = char_spr_stand;
 			state = char_state.FREE;
 		}

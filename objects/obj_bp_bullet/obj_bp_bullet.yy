@@ -10,8 +10,8 @@
   "name":"obj_bp_bullet",
   "overriddenProperties":[],
   "parent":{
-    "name":"BattlePhase",
-    "path":"folders/Objects/BattlePhase.yy",
+    "name":"Enemy",
+    "path":"folders/Objects/BattlePhase/Enemy.yy",
   },
   "parentObjectId":{
     "name":"obj_bp_enemy_char_parent",

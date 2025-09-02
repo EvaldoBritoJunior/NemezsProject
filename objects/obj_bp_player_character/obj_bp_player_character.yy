@@ -13,8 +13,8 @@
   "name":"obj_bp_player_character",
   "overriddenProperties":[],
   "parent":{
-    "name":"BattlePhase",
-    "path":"folders/Objects/BattlePhase.yy",
+    "name":"Player",
+    "path":"folders/Objects/BattlePhase/Player.yy",
   },
   "parentObjectId":{
     "name":"obj_bp_player_char_parent",
