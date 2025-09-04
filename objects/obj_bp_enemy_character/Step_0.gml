@@ -2,8 +2,8 @@ var _hp = char.hp;
 
 if (_hp > 0 ) {
 	// Input
-	check_right		= keyboard_check(vk_right);
-	check_left		= keyboard_check(vk_left);
+	check_right		= keyboard_check(vk_left);
+	check_left		= keyboard_check(vk_right);
 	check_up		= keyboard_check(vk_up);
 	press_attack	= keyboard_check_pressed(ord("D"));
 	press_equip_atk = keyboard_check_pressed(ord("S"));

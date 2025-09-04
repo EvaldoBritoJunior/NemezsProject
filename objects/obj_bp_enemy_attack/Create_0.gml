@@ -23,7 +23,7 @@ check_animation_end = function() {
 
 process_attack = function() {
 	var _tgt_hit_by_attack_now = ds_list_create();
-	var _hits = instance_place_list(x, y, obj_bp_enemy_char_parent, _tgt_hit_by_attack_now, false);
+	var _hits = instance_place_list(x, y, obj_bp_player_char_parent, _tgt_hit_by_attack_now, false);
 
 	for (var i = 0; i < _hits; i++) {
 		var _hitID = ds_list_find_value(_tgt_hit_by_attack_now, i);

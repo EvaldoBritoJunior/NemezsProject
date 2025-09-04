@@ -9,7 +9,7 @@ dying = false;
 // Directions
 left = 1;
 right = -1;
-image_xscale = right;
+image_xscale = left;
 
 // Input
 check_right = false;
@@ -66,38 +66,6 @@ sth_equip = function() {
 	}
 }
 
-draw_attacks = function() {
-	var _sprite = champ_attack.spr_icon;;
-	var _sec = ceil(time_source_get_time_remaining(champ_attack.timer));
-	var _x = 173;
-	var _y = 633;
-	// Champ Attack
-	draw_sprite_stretched(_sprite, 0, _x, _y, 68, 68);
-	if (time_source_get_state(champ_attack.timer) != time_source_state_active) {
-		draw_middle_center_outline(_x + 37, _y + 32, "D", fnt_main_30);
-	} else {
-		draw_middle_center_outline(_x + 37, _y + 32, _sec, fnt_main_30);
-	}
-	
-	// Equip Attack
-	if (gears_size != 0) {
-		_sprite = gears_attacks[selected_gear].spr_icon;
-		_sec = ceil(time_source_get_time_remaining(gears_attacks[selected_gear].timer));
-		_x = 80;
-		var _y = 667;
-		
-		draw_sprite(_sprite, 0, _x, _y);
-		if (gears_size > 1) {
-			draw_middle_center_outline(_x - 60, _y - 3, "<", fnt_main_25);
-		}
-		if (time_source_get_state(gears_attacks[selected_gear].timer) != time_source_state_active) {
-			draw_middle_center_outline(_x + 2, _y - 3, "S", fnt_main_30);
-		} else {
-			draw_middle_center_outline(_x + 2, _y - 3, _sec, fnt_main_30);
-		}
-	}
-}
-
 check_animation_end = function() {
 	var _sprite = sprite_index;
 	var _image = image_index;
@@ -124,7 +92,7 @@ create_attack = function(_attack_chain, _attack_step) {
 		image_index = 0;
 	}
 	var _xscale = image_xscale
-	instance_create_layer(x, y, global.cp_layer_instances_above, obj_bp_player_attack, 
+	instance_create_layer(x, y, global.cp_layer_instances_above, obj_bp_enemy_attack, 
 	{attack_chain: _attack_chain, attack: _attack, image_xscale: _xscale});
 }
 
@@ -145,7 +113,7 @@ char_attacking = function(_attack_chain) {
 	var _size = array_length(_attack_anim_seq);
 	
 	if (press_attack && selected_attack_orig == attack_orig.CHAMPION 
-	 || press_equip_atk && selected_attack_orig == attack_orig.GEAR) press_attack_holder = true;
+	|| press_equip_atk && selected_attack_orig == attack_orig.GEAR) press_attack_holder = true;
 	
 	if (check_animation_end()) {
 		if (press_attack_holder && attack_step < _size - 1) {

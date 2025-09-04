@@ -1,6 +1,6 @@
 {
   "$GMObject":"",
-  "%Name":"obj_bp_player_character",
+  "%Name":"obj_bp_enemy_character",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
@@ -10,15 +10,15 @@
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":1,"eventType":2,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_bp_player_character",
+  "name":"obj_bp_enemy_character",
   "overriddenProperties":[],
   "parent":{
-    "name":"Player",
-    "path":"folders/Objects/BattlePhase/Player.yy",
+    "name":"Enemy",
+    "path":"folders/Objects/BattlePhase/Enemy.yy",
   },
   "parentObjectId":{
-    "name":"obj_bp_player_char_parent",
-    "path":"objects/obj_bp_player_char_parent/obj_bp_player_char_parent.yy",
+    "name":"obj_bp_enemy_char_parent",
+    "path":"objects/obj_bp_enemy_char_parent/obj_bp_enemy_char_parent.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

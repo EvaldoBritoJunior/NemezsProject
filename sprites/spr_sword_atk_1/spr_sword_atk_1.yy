@@ -29,8 +29,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Attacks",
-    "path":"folders/Sprites/Battle Phase/Attacks.yy",
+    "name":"Attack Animation",
+    "path":"folders/Sprites/Battle Phase/Attack Animation.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
