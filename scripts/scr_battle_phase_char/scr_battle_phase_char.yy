@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_battle_phase_char",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_battle_phase_char",
+  "parent":{
+    "name":"Phases",
+    "path":"folders/Scripts/Phases.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

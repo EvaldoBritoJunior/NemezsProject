@@ -1,5 +1,8 @@
-player_card = new champ_instance(global.champ_cards[0], card_owners.PLAYER, 0);
-enemy_card = new champ_instance(global.champ_cards[1], card_owners.ENEMY, 0);
+//player_card = new champ_instance(global.champ_cards[0], card_owners.PLAYER, 0);
+//enemy_card = new champ_instance(global.champ_cards[1], card_owners.ENEMY, 0);
+
+player_card = global.card_phase_data.player_champs[0];
+enemy_card = global.card_phase_data.enemy_champs[0];
 
 player_char = new battle_character(player_card);
 enemy_char = new battle_character(enemy_card);
@@ -19,7 +22,11 @@ start = function() {
 }
 
 end_battle = function() {
-	game_end();
+	global.card_phase_data.turn_stage = card_phase_stages.END_STAGE;
+	
+	object_set_sprite(obj_sq_util, player_card.card.spr_card_art);
+	object_set_sprite(obj_sq_util_II, enemy_card.card.spr_card_art);
+	transition_start(rm_card_phase, sq_into_battle, sq_out_battle);
 }
 
 draw_stats = function() {
@@ -49,3 +56,5 @@ draw_stats = function() {
 		(100 * enemy_char.hp) / enemy_char.max_hp, c_black, c_lime, c_lime, 0, true, true);
 	
 }
+	
+set_card_phase_data(player_char, enemy_char);

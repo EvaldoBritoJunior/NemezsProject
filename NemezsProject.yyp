@@ -115,6 +115,7 @@
     {"id":{"name":"rm_opening_options","path":"rooms/rm_opening_options/rm_opening_options.yy",},},
     {"id":{"name":"rm_temporary","path":"rooms/rm_temporary/rm_temporary.yy",},},
     {"id":{"name":"scr_act_menu","path":"scripts/scr_act_menu/scr_act_menu.yy",},},
+    {"id":{"name":"scr_battle_phase_char","path":"scripts/scr_battle_phase_char/scr_battle_phase_char.yy",},},
     {"id":{"name":"scr_battle_phase","path":"scripts/scr_battle_phase/scr_battle_phase.yy",},},
     {"id":{"name":"scr_buttons","path":"scripts/scr_buttons/scr_buttons.yy",},},
     {"id":{"name":"scr_card_phase","path":"scripts/scr_card_phase/scr_card_phase.yy",},},
@@ -198,8 +199,8 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
-    {"roomId":{"name":"rm_battle_phase","path":"rooms/rm_battle_phase/rm_battle_phase.yy",},},
     {"roomId":{"name":"rm_card_phase","path":"rooms/rm_card_phase/rm_card_phase.yy",},},
+    {"roomId":{"name":"rm_battle_phase","path":"rooms/rm_battle_phase/rm_battle_phase.yy",},},
     {"roomId":{"name":"rm_opening_options","path":"rooms/rm_opening_options/rm_opening_options.yy",},},
     {"roomId":{"name":"rm_opening_main","path":"rooms/rm_opening_main/rm_opening_main.yy",},},
     {"roomId":{"name":"rm_opening_menu","path":"rooms/rm_opening_menu/rm_opening_menu.yy",},},

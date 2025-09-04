@@ -345,9 +345,19 @@ function reset_card_phase_data(_champ_qty = 4) {
 			}
 			
 			return _return;
-		}
+		},
 			
 		#endregion
+		
+		apply_battle_result: function() {
+			var _battle_data = global.battle_phase_data;
+			if (_battle_data.player_char.hp <= 0) {
+				player_rmv_champ(0);
+			}
+			if (_battle_data.enemy_char.hp <= 0) {
+				enemy_rmv_champ(0);
+			}
+		}
 	}
 	
 }

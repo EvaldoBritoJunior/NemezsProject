@@ -2,7 +2,9 @@
 
 data = global.card_phase_data;
 winner = card_phase_winners.NOBODY;
+check_battle_result = false;
 default_background = spr_field_default;
+
 enemy_ia_inst = undefined;
 
 champ_holders = array_create(data.champ_qty * 2, undefined);
@@ -307,8 +309,14 @@ update_all_sprites = function() {
 }
 
 check_game_state = function(_func) {
-	var _result = data.check_champs_hp();
-	if (_result) {
+	var _check_result = false;
+	if (check_battle_result) {
+		_check_result = true;
+		check_battle_result = false;
+	}
+	if (!_check_result) _check_result = data.check_champs_hp();
+	
+	if (_check_result) {
 		var _winner = data.check_victory()
 		if (_winner != card_phase_winners.NOBODY) {
 			game_end();
@@ -506,7 +514,10 @@ start_stage = function () {
 		act_stage_step();
 		
 	} else if (data.turn_stage == card_phase_stages.END_STAGE) {
-		
+		create_objects();
+		check_battle_result = true;
+		data.apply_battle_result();
+		check_game_state(self.end_stage);
 	} else {
 		
 	}
@@ -556,12 +567,16 @@ end_stage = function () {
 		set_gear_decks();
 		
 	} else if (data.turn_stage == card_phase_stages.ACT_STAGE) {
-		transition_start(rm_temporary, sq_out_to_battle, sq_into_battle);
-		
+		object_set_sprite(obj_sq_util, data.player_champs[0].card.spr_card_art);
+		object_set_sprite(obj_sq_util_II, data.enemy_champs[0].card.spr_card_art);
+		transition_start(rm_battle_phase, sq_into_battle, sq_out_battle);
 	} else if (data.turn_stage == card_phase_stages.END_STAGE) {
-		
+		update_all_sprites();
+		data.turn_owner = data.turn_owner == card_owners.PLAYER ? card_owners.ENEMY : card_owners.PLAYER;
+		data.turn_stage = card_phase_stages.ACT_STAGE;
+		start_stage();
 	} else {
-		
+		throw($"Invalid Stage {data.turn_stage}")
 	}
 }
 
