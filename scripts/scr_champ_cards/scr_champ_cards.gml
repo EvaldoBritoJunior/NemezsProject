@@ -14,7 +14,7 @@ function champ_card(_card_id, _name, _hp, _gw, _md, _stats, _type,
 	gw = _gw;
 	md = _md;
 	stats = _stats;
-	type = _type;
+	card_type = _type;
 	description = format_description("A mina aqui no baile, se prepara pra sentar, rebolando desse jeito, vai me fazer delirar");
 	
 	spr_card = _spr_card;

@@ -328,7 +328,7 @@ char_movement = function() {
 #region Dmg Functions
 
 apply_dmg = function(_attack_chain, _attack) {
-	var _type = _attack_chain.type;
+	var _type = _attack_chain.card_type;
 	var _dmg = _attack.dmg;
 	var _dmg_incr = enemy.dmg_incr[_type];
 	

@@ -107,7 +107,7 @@ function draw_cut_card_type(_type, _x, _y, _w, _h) {
 function draw_champ_cut_card(_card, _x, _y, _w, _h){
 	draw_sprite_stretched(_card.spr_cut_card, 0, _x, _y, _w, _h);
 	draw_cut_card_name(_card.name, _x, _y, _w, _h);
-	draw_cut_card_type(_card.type, _x, _y, _w, _h);
+	draw_cut_card_type(_card.card_type, _x, _y, _w, _h);
 	
 	draw_middle_center_outline(_x + 50, _y + 25, $"{_card.hp}hp", font_card_text_10);
 	draw_middle_center_outline(_x + 40, _y + 25 + 23, $"{_card.gw}gw", font_card_text_10);
@@ -119,7 +119,7 @@ function draw_champ_card(_card, _x, _y){
 	draw_card_name(_card.name, _x, _y);
 	draw_card_description(_card, _x, _y);
 	draw_card_stats(_card.stats, _x, _y);
-	draw_card_type(_card.type, _x, _y);
+	draw_card_type(_card.card_type, _x, _y);
 	
 	draw_middle_center_outline(_x - 75, _y - 225, "hp", font_card_text_10);
 	draw_middle_center_outline(_x - 117, _y - 232, _card.hp, font_card_text_20);
@@ -142,7 +142,7 @@ function draw_champ_card_instance(_card_inst, _x, _y){
 	
 	draw_card_inst_stats(_stats, _stats_orig, _x, _y);
 	
-	draw_card_type(_card_inst.type.get_value(), _x, _y);
+	draw_card_type(_card_inst.card_type.get_value(), _x, _y);
 	
 	draw_middle_center_outline(_x - 75, _y - 225, "hp", font_card_text_10);
 	draw_middle_center_outline(_x - 117, _y - 232, _card_inst.hp.get_value(), font_card_text_20);
@@ -172,7 +172,7 @@ function draw_champ_card_instance(_card_inst, _x, _y){
 function draw_gear_cut_card(_card, _x, _y, _w, _h){
 	draw_sprite_stretched(_card.spr_cut_card, 0, _x, _y, _w, _h);
 	draw_cut_card_name(_card.name, _x, _y, _w, _h);
-	draw_cut_card_type(_card.type, _x, _y, _w, _h);
+	draw_cut_card_type(_card.card_type, _x, _y, _w, _h);
 	
 	draw_middle_center_outline(_x + 40, _y + 25, $"{_card.gw}gw", font_card_text_10);
 }
@@ -182,7 +182,7 @@ function draw_gear_card(_card, _x, _y){
 	draw_card_name(_card.name, _x, _y);
 	draw_card_description(_card, _x, _y);
 	draw_card_stats(_card.stats, _x, _y);
-	draw_card_type(_card.type, _x, _y);
+	draw_card_type(_card.card_type, _x, _y);
 	
 	draw_middle_center_outline(_x - 113, _y - 225, "gw", font_card_text_10);
 	draw_middle_center_outline(_x - 137, _y - 232, _card.gw, font_card_text_20);
@@ -193,7 +193,7 @@ function draw_equipped_gear_card(_champ_inst, _card, _x, _y){
 	draw_card_name(_card.name, _x, _y);
 	draw_card_description(_card, _x, _y);
 	draw_equipped_gear_stats(_champ_inst.stats, _card.stats, _x, _y);
-	draw_card_type(_card.type, _x, _y);
+	draw_card_type(_card.card_type, _x, _y);
 	
 	draw_middle_center_outline(_x - 113, _y - 225, "gw", font_card_text_10);
 	draw_middle_center_outline(_x - 137, _y - 232, _card.gw, font_card_text_20);

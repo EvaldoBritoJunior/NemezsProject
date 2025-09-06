@@ -137,7 +137,7 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 	hp = new champ_stat(_card.hp, _card.hp);
 	gw = new champ_stat(0, _card.gw);
 	md = new champ_stat(_card.md, 9);
-	type = new champ_stat(_card.type, 3);
+	card_type = new champ_stat(_card.card_type, 3);
 	stats = [
 		new champ_stat(_card.stats[0], 6),
 		new champ_stat(_card.stats[1], 6),
@@ -234,7 +234,7 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 				_card_inst.md.add_modifier(_modifier);
 				break;
 			case champ_stat_type.TYPE:
-				_card_inst.type.add_modifier(_modifier);
+				_card_inst.card_type.add_modifier(_modifier);
 				break;
 			case champ_stat_type.STR:
 				_card_inst.stats[0].add_modifier(_modifier);
@@ -286,7 +286,7 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 				_card_inst.md.remove_modifier(_modifier);
 				break;
 			case champ_stat_type.TYPE:
-				_card_inst.type.remove_modifier(_modifier);
+				_card_inst.card_type.remove_modifier(_modifier);
 				break;
 			case champ_stat_type.STR:
 				_card_inst.stats[0].remove_modifier(_modifier);
@@ -318,7 +318,7 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 		_card_inst.hp.reduce_modifiers_duration();
 		_card_inst.gw.reduce_modifiers_duration();
 		_card_inst.md.reduce_modifiers_duration();
-		_card_inst.type.reduce_modifiers_duration();
+		_card_inst.card_type.reduce_modifiers_duration();
 		_card_inst.stats[0].reduce_modifiers_duration();
 		_card_inst.stats[1].reduce_modifiers_duration();
 		_card_inst.stats[2].reduce_modifiers_duration();
@@ -420,7 +420,7 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 		
 	static gen_champ_attack = function(_card_inst) {
 		var _card = _card_inst.card;
-		return _card.generate_attack(_card, _card_inst.type.get_value());
+		return _card.generate_attack(_card, _card_inst.card_type.get_value());
 	}
 	
 	static gen_gears_attacks = function(_card_inst) {

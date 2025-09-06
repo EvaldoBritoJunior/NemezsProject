@@ -1,4 +1,4 @@
-type = attack_chain.type;
+card_type = attack_chain.card_type;
 tgt_hit_by_attack = ds_list_create();
 sprite_index = attack.char_spr_attack_hb;
 

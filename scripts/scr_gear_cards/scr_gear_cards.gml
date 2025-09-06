@@ -10,7 +10,7 @@ function gear_card(_card_id, _name, _gw, _stats, _type,
 	name = _name;
 	gw = _gw;
 	stats = _stats;
-	type = _type;
+	card_type = _type;
 	description = $"Descricao :{_card_id}.";
 	
 	spr_card = _spr_card;
@@ -41,7 +41,7 @@ var _modifiers = [
 
 // For attack
 var _generate_attack = function(_inst, _gear) {
-	var _type = _gear.type;
+	var _type = _gear.card_type;
 	
 	var _weak_attack = [ 
 		new char_attack_anim(spr_char_sword_atk_1, spr_sword_atk_1)

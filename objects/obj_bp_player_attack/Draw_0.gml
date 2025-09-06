@@ -2,7 +2,7 @@
 var _old_blend = image_blend;
 var _old_alpha = image_alpha;
 
-image_blend = global.card_type_colors[type];   // any color you want; multiplies the sprite’s pixels
+image_blend = global.card_type_colors[card_type];   // any color you want; multiplies the sprite’s pixels
 image_alpha = 1;          // keep your alpha (optional)
 
 draw_self();

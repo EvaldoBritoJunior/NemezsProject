@@ -25,7 +25,7 @@ function char_attack_chain(
 	_check_requirements = function() {return true}
 ) constructor {
 	attacks = _attacks;
-	type = _type;
+	card_type = _type;
 	spr_icon = _spr_icon;
 	avail = true;
 	timer = time_source_create(time_source_game, _recharge_sec, time_source_units_seconds,
