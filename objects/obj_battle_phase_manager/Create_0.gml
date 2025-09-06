@@ -11,14 +11,28 @@ start = function() {
 	var _this = self;
 	var _x = 135;
 	var _y = 515;
-
-	instance_create_depth(_x, _y, depth - 1, obj_bp_player_character, 
-		{char: player_char, enemy: enemy_char, manager_inst: _this});
-
-	instance_create_depth(room_width - _x, _y, depth - 2, obj_bp_enemy_character, 
-		{char: enemy_char, enemy: player_char, manager_inst: _this});
+	var _card_instance = global.card_phase_data.current_territory;
+    var _background_id = layer_get_id("Background");
+    var _background_element_id = layer_background_get_id(_background_id);
+	
+	if (_card_instance == undefined) {
+		layer_background_sprite(_background_element_id, spr_field_default);
+	} else {
+		layer_background_sprite(_background_element_id, _card_instance.spr_card_art);
+	}
 	
 	instance_create_layer(640, 360, "Instances", obj_solid);
+	
+	var _enemy_ia_inst = instance_create_layer(x, y, "Instances", obj_bp_enemy_ia);
+
+	var _player_char_inst = instance_create_depth(_x, _y, depth - 1, obj_bp_player_character, 
+		{char: player_char, enemy: enemy_char, manager_inst: _this});
+
+	var _enemy_char_inst = instance_create_depth(room_width - _x, _y, depth - 2, obj_bp_enemy_character, 
+		{char: enemy_char, enemy: player_char, manager_inst: _this, ia: _enemy_ia_inst});
+		
+	_enemy_ia_inst.player_char = _player_char_inst;
+	_enemy_ia_inst.enemy_char = _enemy_char_inst;
 }
 
 end_battle = function() {
@@ -53,7 +67,7 @@ draw_stats = function() {
 	draw_sprite(enemy_card.card.spr_cut_card_art, 0, _width - _x_spr, _y_spr);
 	draw_right_outline(_width - _x_name, _y_name, enemy_card.card.name, fnt_main_25);
 	draw_healthbar(_width - _x_hp_2 - 1, _y_hp_1, _width - _x_hp_1 - 1, _y_hp_2, 
-		(100 * enemy_char.hp) / enemy_char.max_hp, c_black, c_lime, c_lime, 0, true, true);
+		(100 * enemy_char.hp) / enemy_char.max_hp, c_black, c_green, c_lime, 0, true, true);
 	
 }
 	

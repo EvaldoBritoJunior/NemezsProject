@@ -410,12 +410,32 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 	}
 	
 	static remove_gears = function(_card_inst) {
-		var _gears = _card_inst.gears;
-		var _size = array_length(_gears);
+	    var _gears = _card_inst.gears;
+	    var _size = array_length(_gears);
+    
+	    for (var i = _size - 1; i >= 0; i--) {
+	        _card_inst.remove_gear(_card_inst, i);
+	    }
+	}
 		
-		for (var i = 0; i < _size; i++) {
-			_card_inst.remove_gear(_card_inst, i);
-		}
+	static gen_champ_attack = function(_card_inst) {
+		var _card = _card_inst.card;
+		return _card.generate_attack(_card, _card_inst.type.get_value());
 	}
 	
+	static gen_gears_attacks = function(_card_inst) {
+		var _return = [];
+		var _gears = _card_inst.gears;
+		var _size = array_length(_gears);
+		var _gear = -1;
+		var _attack = -1;
+		
+		for (var i = 0; i < _size; i++) {
+			_gear = _gears[i];
+			_attack = _gear.generate_attack(_card_inst, _gear);
+			array_push(_return, _attack);
+		}
+		
+		return _return;
+	}
 }

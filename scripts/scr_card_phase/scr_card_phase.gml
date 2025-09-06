@@ -285,17 +285,6 @@ function reset_card_phase_data(_champ_qty = 4) {
 		
 		#region Check Field Functions
 		
-		apply_passives_all: function() {
-			var _champ = -1;
-			for (var i = 0; i < champ_qty; i++) {
-				_champ = player_champs[i];
-				if (_champ != undefined) _champ.champ_apply_passives(_champ);
-				
-				_champ = enemy_champs[i];
-				if (_champ != undefined) _champ.champ_apply_passives(_champ);
-			}
-		},
-		
 		check_champs_hp: function() {
 			var _champ = -1;
 			var _return = false;
@@ -348,16 +337,53 @@ function reset_card_phase_data(_champ_qty = 4) {
 		},
 			
 		#endregion
+		apply_passives_all: function() {
+			var _champ = -1;
+			for (var i = 0; i < champ_qty; i++) {
+				_champ = player_champs[i];
+				if (_champ != undefined) _champ.champ_apply_passives(_champ);
+				
+				_champ = enemy_champs[i];
+				if (_champ != undefined) _champ.champ_apply_passives(_champ);
+			}
+		},
+		
+		reduce_modifiers_duration_all: function() {
+			var _champ = -1;
+			for (var i = 0; i < champ_qty; i++) {
+				_champ = player_champs[i];
+				if (_champ != undefined) _champ.champ_reduce_modifiers_duration(_champ);
+				
+				_champ = enemy_champs[i];
+				if (_champ != undefined) _champ.champ_reduce_modifiers_duration(_champ);
+			}
+		},
 		
 		apply_battle_result: function() {
 			var _battle_data = global.battle_phase_data;
+			var _champ = -1;
+			var _curr_hp = -1;
+			
 			if (_battle_data.player_char.hp <= 0) {
 				player_rmv_champ(0);
+			} else {
+				_champ = player_champs[0];
+				_curr_hp = _champ.hp.get_value();
+				_champ.champ_add_modifier(
+					_champ, new modifier(champ_stat_type.HP, _battle_data.player_char.hp - _curr_hp, value_target.BASE)
+				);
 			}
 			if (_battle_data.enemy_char.hp <= 0) {
 				enemy_rmv_champ(0);
+			} else {
+				_champ = enemy_champs[0];
+				_curr_hp = _champ.hp.get_value();
+				_champ.champ_add_modifier(
+					_champ, new modifier(champ_stat_type.HP, _battle_data.enemy_char.hp - _curr_hp, value_target.BASE)
+				);
 			}
 		}
+			
 	}
 	
 }
@@ -378,4 +404,4 @@ function get_position_name(_pos) {
 	}
 }
 
-reset_card_phase_data();
+reset_card_phase_data(2);

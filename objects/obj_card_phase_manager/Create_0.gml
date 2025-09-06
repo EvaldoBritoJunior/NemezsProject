@@ -507,6 +507,7 @@ start_stage = function () {
 			_terr_card = data.enemy_draw_territory();
 		}
 		data.current_territory = _terr_card;
+		if (!(_terr_card.effect == undefined)) _terr_card.effect();
 		territory_holder.update_sprite();
 		objects_step_order = array_full_copy(champ_holders);
 		set_has_acted();
@@ -519,7 +520,7 @@ start_stage = function () {
 		data.apply_battle_result();
 		check_game_state(self.end_stage);
 	} else {
-		
+		throw($"Invalid Stage {data.turn_stage}")
 	}
 }
 
@@ -570,7 +571,10 @@ end_stage = function () {
 		object_set_sprite(obj_sq_util, data.player_champs[0].card.spr_card_art);
 		object_set_sprite(obj_sq_util_II, data.enemy_champs[0].card.spr_card_art);
 		transition_start(rm_battle_phase, sq_into_battle, sq_out_battle);
+		
 	} else if (data.turn_stage == card_phase_stages.END_STAGE) {
+		data.reduce_modifiers_duration_all();
+		data.apply_passives_all();
 		update_all_sprites();
 		data.turn_owner = data.turn_owner == card_owners.PLAYER ? card_owners.ENEMY : card_owners.PLAYER;
 		data.turn_stage = card_phase_stages.ACT_STAGE;

@@ -10,7 +10,7 @@ update_sprite = function() {
 	if (_card_instance == undefined) {
 		visible = false;
 		layer_set_visible(_assets_below_id, true);
-		layer_background_sprite(_background_element_id, spr_field_default);
+		layer_background_sprite(_background_element_id, manager_inst.default_background);
 	} else {
 		visible = true;
 		layer_set_visible(_assets_below_id, false);

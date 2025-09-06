@@ -34,4 +34,16 @@ global.eng_texts = {
 	act_return: "Return"
 	
 	#endregion
+	
+	#region Champ Cards
+	#endregion
+	
+	#region Gear Cards
+	#endregion
+	
+	#region Magic Cards
+	#endregion
+	
+	#region Territory Cards
+	#endregion
 }

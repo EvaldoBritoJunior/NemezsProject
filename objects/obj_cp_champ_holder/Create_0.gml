@@ -1,9 +1,9 @@
 // Inherit the parent event
 event_inherited();
-
+equip_holders = [];
 my_turn = false;
 
-#region Utility Functions
+#region Update Functions
 update_sprite = function() {
 	var _card_instance = 
 		card_owner == card_owners.PLAYER ? data.player_champs[field_position] 
@@ -17,6 +17,8 @@ update_sprite = function() {
 	} else {
 		sprite_index = _card_instance.card.spr_cut_card_art;
 	}
+	
+	update_gears(_card_instance);
 }
 
 update_card_instance = function(_card_instance) {
@@ -28,6 +30,60 @@ update_card_instance = function(_card_instance) {
 	}
 	update_sprite();
 }
+
+update_gears = function(_card_instance) {
+	var _size_holders = array_length(equip_holders);
+	var _size_gears   = (_card_instance == undefined) ? 0 : array_length(_card_instance.gears);
+	var _manager_inst = manager_inst;
+	
+	
+	if (_card_instance == undefined && _size_holders != 0) {
+		for (var i = _size_holders - 1; i >= 0; i--) {
+			if (instance_exists(equip_holders[i])) {
+				instance_destroy(equip_holders[i]);
+			}
+		}
+		equip_holders = [];
+	} 
+	
+	else if (_size_holders < _size_gears) {
+		var _x = x - (sprite_width / 2) + 22;
+		var _y = y + (sprite_height / 2) + 30;
+
+		for (var i = _size_holders; i < _size_gears; i++) {
+			
+			var holder = instance_create_layer(_x + (40 * i), _y, "Instances", obj_cp_champ_gear_holder,
+				{	
+					position: i,
+					champ_inst: _card_instance,
+					manager_inst: _manager_inst
+				});
+			array_push(equip_holders, holder);
+		}
+	} 
+	
+	else if (_size_holders > _size_gears) {
+		for (var i = _size_holders - 1; i >= _size_gears; i--) {
+			if (instance_exists(equip_holders[i])) {
+				instance_destroy(equip_holders[i]);
+			}
+			array_pop(equip_holders);
+		}
+	}
+	
+	// Update gear holders
+	for (var i = 0; i < array_length(equip_holders); i++) {
+		if (instance_exists(equip_holders[i])) {
+			var holder = equip_holders[i];
+			holder.champ_inst = _card_instance;
+			holder.update_sprite();
+		}
+	}
+}
+
+#endregion
+
+#region Draw Functions
 
 draw_card = function() {
 	var _card_instance = card;
@@ -46,7 +102,6 @@ draw_stats = function() {
 	var _card_instance = card;
 	if (_card_instance != undefined) {
 		var _vanguard = field_position == card_positions.VANGUARD;
-		var _card = _card_instance.card;
 		var _terr = data.current_territory;
 		
 		var _w = sprite_width;
@@ -207,6 +262,7 @@ start_act_step = function() {
 		throw("Card has already acted!");
 	}
 	data.apply_passives_all();
+	manager_inst.update_all_sprites();
 
 	var _this = self;
 	var _card_inst = card;

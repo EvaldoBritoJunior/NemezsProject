@@ -2,14 +2,14 @@ var _hp = char.hp;
 
 if (_hp > 0 ) {
 	// Input
-	check_right		= keyboard_check(vk_left);
-	check_left		= keyboard_check(vk_right);
-	check_up		= keyboard_check(vk_up);
-	press_attack	= keyboard_check_pressed(ord("D"));
-	press_equip_atk = keyboard_check_pressed(ord("S"));
-	press_sth_equip = keyboard_check_pressed(ord("A"));
-	press_up		= keyboard_check_pressed(vk_up);
-	press_down		= keyboard_check_pressed(vk_down);
+	check_right		= ia.check_right();
+	check_left		= ia.check_left();
+	check_up		= ia.check_up();
+	press_attack	= ia.press_attack();
+	press_equip_atk = ia.press_equip_atk();
+	press_sth_equip = ia.press_sth_equip();
+	press_up		= ia.press_up();
+	press_down		= ia.press_down();
 
 	// Act
 

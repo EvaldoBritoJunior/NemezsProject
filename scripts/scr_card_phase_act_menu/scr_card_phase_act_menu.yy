@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_act_menu",
+  "%Name":"scr_card_phase_act_menu",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_act_menu",
+  "name":"scr_card_phase_act_menu",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"Phases",
+    "path":"folders/Scripts/Phases.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -19,13 +19,6 @@ function char_attack_anim(
 	projectile = _projectile;
 	sturdy = _sturdy;
 }
-
-attack = [ new char_attack_anim(spr_char_sword_atk_1, spr_sword_atk_1, 15, true) ];
-attacks = [ new char_attack_anim(spr_char_sword_atk_1, spr_sword_atk_1)
-			, new char_attack_anim(spr_char_sword_atk_1, spr_sword_atk_1)
-			, new char_attack_anim(spr_char_sword_atk_1, spr_sword_atk_1, 15, true)
-		];
-		
 		
 function char_attack_chain(
 	_attacks, _recharge_sec = 5, _type = 0, _spr_icon = spr_sample_card_art,
@@ -43,11 +36,6 @@ function char_attack_chain(
 	check_requirements = _check_requirements;
 }
 		
-global.attack_chain = new char_attack_chain(attack, 3, 0);
-global.attacks_chain = new char_attack_chain(attacks, 3, 1, spr_sample_gear_art);
-global.attacks_chain1 = new char_attack_chain(attacks, 3, 2, spr_sample_gear_art);
-global.attacks_chain2 = new char_attack_chain(attacks, 3, 3, spr_sample_gear_art);
-
 function battle_character(_champ_card_inst) constructor {
 	hp = _champ_card_inst.hp.get_value();
 	max_hp = _champ_card_inst.hp.get_max_value();
@@ -59,8 +47,8 @@ function battle_character(_champ_card_inst) constructor {
 		_champ_card_inst.type_dmg_incr[card_types.GOLD].get_value()
 	];
 	
-	champ_attack = global.attack_chain;
-	gears_attacks = [global.attacks_chain, global.attacks_chain1, global.attacks_chain2];
+	champ_attack = _champ_card_inst.gen_champ_attack(_champ_card_inst);
+	gears_attacks =  _champ_card_inst.gen_gears_attacks(_champ_card_inst);
 	
 	char_spr_stand = spr_stand;
 	char_spr_step = spr_step;

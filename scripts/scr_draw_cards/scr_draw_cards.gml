@@ -27,6 +27,28 @@ function draw_card_stats(_stats, _x, _y) {
 	draw_middle_center_outline(_x + 52, _y + 228, card_stat_str(_stats[2]), font_card_text_25);
 	draw_middle_center_outline(_x + 116, _y + 228, card_stat_str(_stats[3]), font_card_text_25);
 }
+	
+function draw_equipped_gear_stats(_champ_stats, _stats, _x, _y)  {
+	var _champ_stat = _champ_stats[0].get_value();
+	var _stat = _stats[0];
+	var _color = _stat > _champ_stat ? c_red : c_lime;
+	draw_middle_center_outline(_x - 85, _y + 228, card_stat_str(_stat), font_card_text_25, _color);
+	
+	_champ_stat = _champ_stats[1].get_value();
+	_stat = _stats[1];
+	_color = _stat > _champ_stat ? c_red : c_lime;
+	draw_middle_center_outline(_x - 16, _y + 228, card_stat_str(_stat), font_card_text_25, _color);
+	
+	_champ_stat = _champ_stats[1].get_value();
+	_stat = _stats[1];
+	_color = _stat > _champ_stat ? c_red : c_lime;
+	draw_middle_center_outline(_x + 52, _y + 228, card_stat_str(_stat), font_card_text_25, _color);
+	
+	_champ_stat = _champ_stats[1].get_value();
+	_stat = _stats[1];
+	_color = _stat > _champ_stat ? c_red : c_lime;
+	draw_middle_center_outline(_x + 116, _y + 228, card_stat_str(_stat), font_card_text_25, _color);
+}
 
 function draw_card_inst_stats(_stats, _stats_orig, _x, _y) {
     var offsets = [-85, -16, 52, 116];
@@ -39,7 +61,7 @@ function draw_card_inst_stats(_stats, _stats_orig, _x, _y) {
         
         var col = undefined;
         if (value > value_orig) {
-            col = c_green;
+            col = c_lime;
         } else if (value < value_orig) {
             col = c_red;
         }
@@ -160,6 +182,17 @@ function draw_gear_card(_card, _x, _y){
 	draw_card_name(_card.name, _x, _y);
 	draw_card_description(_card, _x, _y);
 	draw_card_stats(_card.stats, _x, _y);
+	draw_card_type(_card.type, _x, _y);
+	
+	draw_middle_center_outline(_x - 113, _y - 225, "gw", font_card_text_10);
+	draw_middle_center_outline(_x - 137, _y - 232, _card.gw, font_card_text_20);
+}
+
+function draw_equipped_gear_card(_champ_inst, _card, _x, _y){
+	draw_sprite(_card.spr_card, 0, _x, _y);
+	draw_card_name(_card.name, _x, _y);
+	draw_card_description(_card, _x, _y);
+	draw_equipped_gear_stats(_champ_inst.stats, _card.stats, _x, _y);
 	draw_card_type(_card.type, _x, _y);
 	
 	draw_middle_center_outline(_x - 113, _y - 225, "gw", font_card_text_10);
