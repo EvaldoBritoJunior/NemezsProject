@@ -31,6 +31,9 @@
     "name":"spr_mask_ground",
     "path":"sprites/spr_mask_ground/spr_mask_ground.yy",
   },
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"spr_mask_ground",
+    "path":"sprites/spr_mask_ground/spr_mask_ground.yy",
+  },
   "visible":true,
 }
