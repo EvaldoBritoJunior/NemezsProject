@@ -79,8 +79,7 @@ function draw_card_name(_text, _x, _y) {
 	draw_line_width(_x - 130, _y + 38, _x + 130, _y + 38, 3);
 }
 
-function draw_card_description(_card, _x, _y) {
-	var _text = _card.description;
+function draw_card_description(_text, _x, _y) {
 	draw_outline(_x - 135, _y + 125, _text, font_card_text_10);
 }
 
@@ -106,7 +105,9 @@ function draw_cut_card_type(_type, _x, _y, _w, _h) {
 
 function draw_champ_cut_card(_card, _x, _y, _w, _h){
 	draw_sprite_stretched(_card.spr_cut_card, 0, _x, _y, _w, _h);
-	draw_cut_card_name(_card.name, _x, _y, _w, _h);
+	
+	var _name = global.language.champ_names[_card.card_id];
+	draw_cut_card_name(_name, _x, _y, _w, _h);
 	draw_cut_card_type(_card.card_type, _x, _y, _w, _h);
 	
 	draw_middle_center_outline(_x + 50, _y + 25, $"{_card.hp}hp", font_card_text_10);
@@ -116,8 +117,10 @@ function draw_champ_cut_card(_card, _x, _y, _w, _h){
 
 function draw_champ_card(_card, _x, _y){
 	draw_sprite(_card.spr_card, 0, _x, _y);
-	draw_card_name(_card.name, _x, _y);
-	draw_card_description(_card, _x, _y);
+	var _name = global.language.champ_names[_card.card_id];
+	var _description = global.language.champ_descriptions[_card.card_id];
+	draw_card_name(_name, _x, _y);
+	draw_card_description(_description, _x, _y);
 	draw_card_stats(_card.stats, _x, _y);
 	draw_card_type(_card.card_type, _x, _y);
 	
@@ -137,8 +140,10 @@ function draw_champ_card_instance(_card_inst, _x, _y){
 	var _stats_orig = _card.stats;
 	
 	draw_sprite(_card.spr_card, 0, _x, _y);
-	draw_card_name(_card.name, _x, _y);
-	draw_card_description(_card, _x, _y);
+	var _name = global.language.champ_names[_card.card_id];
+	var _description = global.language.champ_descriptions[_card.card_id];
+	draw_card_name(_name, _x, _y);
+	draw_card_description(_description, _x, _y);
 	
 	draw_card_inst_stats(_stats, _stats_orig, _x, _y);
 	
@@ -161,7 +166,7 @@ function draw_champ_card_instance(_card_inst, _x, _y){
 	var _value = -1;
 	for (var i = 0; i < 4; i++){
 		_y_dmg_t += 41;
-		_value = _card_inst.type_dmg_incr[i].get_value();
+		_value = _array[i].get_value();
 		_color = global.card_type_colors[i];
 		_op = _value < 0 ? "-" : "+";
 		
@@ -171,7 +176,9 @@ function draw_champ_card_instance(_card_inst, _x, _y){
 		
 function draw_gear_cut_card(_card, _x, _y, _w, _h){
 	draw_sprite_stretched(_card.spr_cut_card, 0, _x, _y, _w, _h);
-	draw_cut_card_name(_card.name, _x, _y, _w, _h);
+	
+	var _name = global.language.gear_names[_card.card_id];
+	draw_cut_card_name(_name, _x, _y, _w, _h);
 	draw_cut_card_type(_card.card_type, _x, _y, _w, _h);
 	
 	draw_middle_center_outline(_x + 40, _y + 25, $"{_card.gw}gw", font_card_text_10);
@@ -179,8 +186,12 @@ function draw_gear_cut_card(_card, _x, _y, _w, _h){
 
 function draw_gear_card(_card, _x, _y){
 	draw_sprite(_card.spr_card, 0, _x, _y);
-	draw_card_name(_card.name, _x, _y);
-	draw_card_description(_card, _x, _y);
+	
+	var _name = global.language.gear_names[_card.card_id];
+	var _description = global.language.gear_descriptions[_card.card_id];
+	draw_card_name(_name, _x, _y);
+	draw_card_description(_description, _x, _y);
+	
 	draw_card_stats(_card.stats, _x, _y);
 	draw_card_type(_card.card_type, _x, _y);
 	
@@ -190,8 +201,12 @@ function draw_gear_card(_card, _x, _y){
 
 function draw_equipped_gear_card(_champ_inst, _card, _x, _y){
 	draw_sprite(_card.spr_card, 0, _x, _y);
-	draw_card_name(_card.name, _x, _y);
-	draw_card_description(_card, _x, _y);
+	
+	var _name = global.language.gear_names[_card.card_id];
+	var _description = global.language.gear_descriptions[_card.card_id];
+	draw_card_name(_name, _x, _y);
+	draw_card_description(_description, _x, _y);
+	
 	draw_equipped_gear_stats(_champ_inst.stats, _card.stats, _x, _y);
 	draw_card_type(_card.card_type, _x, _y);
 	
@@ -201,15 +216,20 @@ function draw_equipped_gear_card(_champ_inst, _card, _x, _y){
 
 function draw_magic_cut_card(_card, _x, _y, _w, _h){
 	draw_sprite_stretched(_card.spr_cut_card, 0, _x, _y, _w, _h);
-	draw_cut_card_name(_card.name, _x, _y, _w, _h);
+	
+	var _name = global.language.magic_names[_card.card_id];
+	draw_cut_card_name(_name, _x, _y, _w, _h);
 
 	draw_middle_center_outline(_x + 40, _y + 25, $"{_card.md}md", font_card_text_10);
 }
 
 function draw_magic_card(_card, _x, _y){
 	draw_sprite(_card.spr_card, 0, _x, _y);
-	draw_card_name(_card.name, _x, _y);
-	draw_card_description(_card, _x, _y);
+	
+	var _name = global.language.magic_names[_card.card_id];
+	var _description = global.language.magic_descriptions[_card.card_id];
+	draw_card_name(_name, _x, _y);
+	draw_card_description(_description, _x, _y);
 	
 	draw_middle_center_outline(_x - 113, _y - 225, "md", font_card_text_10);
 	draw_middle_center_outline(_x - 137, _y - 232, _card.md, font_card_text_20);
@@ -217,13 +237,18 @@ function draw_magic_card(_card, _x, _y){
 	
 function draw_territory_cut_card(_card, _x, _y, _w, _h){
 	draw_sprite_stretched(_card.spr_cut_card, 0, _x, _y, _w, _h);
-	draw_cut_card_name(_card.name, _x, _y, _w, _h);
+	
+	var _name = global.language.territory_names[_card.card_id];
+	draw_cut_card_name(_name, _x, _y, _w, _h);
 }
 
 function draw_territory_card(_card, _x, _y){
 	draw_sprite(_card.spr_card, 0, _x, _y);
-	draw_card_name(_card.name, _x, _y);
-	draw_card_description(_card, _x, _y);
+	
+	var _name = global.language.territory_names[_card.card_id];
+	var _description = global.language.territory_descriptions[_card.card_id];
+	draw_card_name(_name, _x, _y);
+	draw_card_description(_description, _x, _y);
 }	
 
 #endregion

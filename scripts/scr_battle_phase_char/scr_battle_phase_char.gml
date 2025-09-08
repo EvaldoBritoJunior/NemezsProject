@@ -50,9 +50,9 @@ function battle_character(_champ_card_inst) constructor {
 	champ_attack = _champ_card_inst.gen_champ_attack(_champ_card_inst);
 	gears_attacks =  _champ_card_inst.gen_gears_attacks(_champ_card_inst);
 	
-	char_spr_stand = spr_stand;
-	char_spr_step = spr_step;
-	char_spr_jump = spr_jump;
-	char_spr_walk = spr_walk;
-	char_spr_slide = spr_slide;
+	char_spr_stand = spr_stand_0;
+	char_spr_step = spr_step_0;
+	char_spr_jump = spr_jump_0;
+	char_spr_walk = spr_walk_0;
+	char_spr_slide = spr_slide_0;
 }

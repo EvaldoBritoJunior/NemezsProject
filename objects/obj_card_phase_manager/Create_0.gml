@@ -319,7 +319,7 @@ check_game_state = function(_func) {
 	if (_check_result) {
 		var _winner = data.check_victory()
 		if (_winner != card_phase_winners.NOBODY) {
-			game_end();
+			transition_start(rm_opening_menu, sq_fade_out, sq_fade_in);
 		} else {
 			enemy_set_vanguard(self.player_set_vanguard, _func);
 		}
@@ -349,8 +349,8 @@ player_set_vanguard = function(_func) {
 			_champ = _champ_array[i];
 			if (_champ != undefined) {
 				array_push(_opt_array, 
-					new act_option(	
-						_champ.card.name,
+					new act_option(
+						global.language.champ_names[_champ.card.card_id],
 						data.switch_player_champs, [data, 0, i, true, self],	
 						undefined, [],
 						act_menu_draw_champ, [_champ]
@@ -508,7 +508,7 @@ start_stage = function () {
 		}
 		data.current_territory = _terr_card;
 		if (!(_terr_card.effect == undefined)) _terr_card.effect();
-		territory_holder.update_sprite();
+		update_all_sprites();
 		objects_step_order = array_full_copy(champ_holders);
 		set_has_acted();
 		//act_stage_step

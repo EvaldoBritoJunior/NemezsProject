@@ -3,15 +3,13 @@
 /// @param {real}  _gw  Card gear weight
 /// @param {array}  _stats  Card stats array [pwr, skl, wsd, dvt]
 /// @param {real}  _type  Card type (0, 3)
-function gear_card(_card_id, _name, _gw, _stats, _type,
+function gear_card(_card_id, _gw, _stats, _type,
 				   _spr_card, _spr_cut_card, _spr_card_art,
 				   _passive = undefined, _generate_attack = undefined) constructor {
 	card_id = _card_id;
-	name = _name;
 	gw = _gw;
 	stats = _stats;
 	card_type = _type;
-	description = $"Descricao :{_card_id}.";
 	
 	spr_card = _spr_card;
 	spr_cut_card = _spr_cut_card;
@@ -58,57 +56,127 @@ var _generate_attack = function(_inst, _gear) {
 	return new char_attack_chain(_attacks, 3, _type, _gear.spr_card_art);
 }
 
+var _passive = new passive(_modifiers, gear_common_active_func)
 // Cards
 
-global.gear_cards = [
-	new gear_card(
-		0, "GEAR NAME", 1, [0, 0, 0, 0], 0,
-		spr_sample_gear, spr_sample_cut_gear, spr_sample_gear_art,
-		new passive(_modifiers, gear_common_active_func), _generate_attack
-	), 
-	new gear_card(
-		1, "GEAR NAME", 2, [6, 6, 6, 6], 1,
-		spr_sample_gear, spr_sample_cut_gear, spr_sample_gear_art,
-		new passive(_modifiers, gear_common_active_func), _generate_attack
-	),
-	new gear_card(
-		2, "GEAR NAME", 3, [1, 2, 3, 4], 2,
-		spr_sample_gear, spr_sample_cut_gear, spr_sample_gear_art,
-		new passive(_modifiers, gear_common_active_func), _generate_attack
-	),
-	new gear_card(
-		3, "GEAR NAME", 3, [6, 5, 4, 3], 3,
-		spr_sample_gear, spr_sample_cut_gear, spr_sample_gear_art,
-		new passive(_modifiers, gear_common_active_func), _generate_attack
-	),
-	new gear_card(
-		4, "GEAR NAME", 2, [3, 4, 5, 6], 3,
-		spr_sample_gear, spr_sample_cut_gear, spr_sample_gear_art,
-		new passive(_modifiers, gear_common_active_func), _generate_attack
-	),
-	new gear_card(
-		5, "GEAR NAME", 1, [1, 1, 2, 3], 2,
-		spr_sample_gear, spr_sample_cut_gear, spr_sample_gear_art,
-		new passive(_modifiers, gear_common_active_func), _generate_attack
-	),
-	new gear_card(
-		6, "GEAR NAME", 1, [5, 5, 0, 0], 1,
-		spr_sample_gear, spr_sample_cut_gear, spr_sample_gear_art,
-		new passive(_modifiers, gear_common_active_func), _generate_attack
-	),
-	new gear_card(
-		7, "GEAR NAME", 2, [1, 5, 4, 3], 0,
-		spr_sample_gear, spr_sample_cut_gear, spr_sample_gear_art,
-		new passive(_modifiers, gear_common_active_func), _generate_attack
-	),
-	new gear_card(
-		8, "GEAR NAME", 3, [6, 1, 4, 1], 0,
-		spr_sample_gear, spr_sample_cut_gear, spr_sample_gear_art,
-		new passive(_modifiers, gear_common_active_func), _generate_attack
-	),
-	new gear_card(
-		9, "GEAR NAME", 2, [6, 5, 0, 0], 1,
-		spr_sample_gear, spr_sample_cut_gear, spr_sample_gear_art,
-		new passive(_modifiers, gear_common_active_func), _generate_attack
-	)
-];
+global.gear_cards = [];
+
+#region Card 0
+
+var _passive = undefined;
+var _generate_attack = undefined;
+
+var _card = new gear_card(
+		0, 1, [0, 0, 4, 2], card_types.BLUE,
+		spr_gear_0, spr_gear_cut_0, spr_gear_art_0,
+		_passive, _generate_attack
+	);
+
+array_push(global.gear_cards, _card);
+
+#endregion
+
+#region Card 1
+
+_passive = undefined;
+_generate_attack = undefined;
+
+_card = new gear_card(
+		1, 1, [0, 0, 1, 4], card_types.GOLD,
+		spr_gear_1, spr_gear_cut_1, spr_gear_art_1,
+		_passive, _generate_attack
+	);
+
+array_push(global.gear_cards, _card);
+
+#endregion
+
+#region Card 2
+
+_passive = undefined;
+_generate_attack = undefined;
+
+_card = new gear_card(
+		2, 1, [3, 4, 0, 0], card_types.GRAY,
+		spr_gear_2, spr_gear_cut_2, spr_gear_art_2,
+		_passive, _generate_attack
+	);
+
+array_push(global.gear_cards, _card);
+
+#endregion
+
+#region Card 3
+
+_passive = undefined;
+_generate_attack = undefined;
+
+_card = new gear_card(
+		3, 1, [2, 4, 4, 0], card_types.RED,
+		spr_gear_3, spr_gear_cut_3, spr_gear_art_3,
+		_passive, _generate_attack
+	);
+
+array_push(global.gear_cards, _card);
+
+#endregion
+
+#region Card 4
+
+_passive = undefined;
+_generate_attack = undefined;
+
+_card = new gear_card(
+		4, 1, [5, 2, 0, 0], card_types.GRAY,
+		spr_gear_4, spr_gear_cut_4, spr_gear_art_4,
+		_passive, _generate_attack
+	);
+
+array_push(global.gear_cards, _card);
+
+#endregion
+
+#region Card 5
+
+_passive = undefined;
+_generate_attack = undefined;
+
+_card = new gear_card(
+		5, 1, [4, 3, 0, 4], card_types.GOLD,
+		spr_gear_5, spr_gear_cut_5, spr_gear_art_5,
+		_passive, _generate_attack
+	);
+
+array_push(global.gear_cards, _card);
+
+#endregion
+
+#region Card 6
+
+_passive = undefined;
+_generate_attack = undefined;
+
+_card = new gear_card(
+		6, 1, [4, 4, 3, 0], card_types.BLUE,
+		spr_gear_6, spr_gear_cut_6, spr_gear_art_6,
+		_passive, _generate_attack
+	);
+
+array_push(global.gear_cards, _card);
+
+#endregion
+
+#region Card 7
+
+_passive = undefined;
+_generate_attack = undefined;
+
+_card = new gear_card(
+		7, 1, [4, 3, 0, 3], card_types.RED,
+		spr_gear_7, spr_gear_cut_7, spr_gear_art_7,
+		_passive, _generate_attack
+	);
+
+array_push(global.gear_cards, _card);
+
+#endregion

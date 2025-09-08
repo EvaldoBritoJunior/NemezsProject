@@ -35,9 +35,9 @@ function reset_card_phase_data(_champ_qty = 4) {
 		#region Player Vars
 		player_champs: array_create(_champ_qty, undefined),
 		player_gear_hand_size: 0,
-		player_gear_hand: array_create(max_gear_qty, undefined),
+		player_gear_hand: array_create(global.max_gear_qty, undefined),
 		player_magic_hand_size: 0,
-		player_magic_hand: array_create(max_magic_qty, undefined),
+		player_magic_hand: array_create(global.max_magic_qty, undefined),
 		
 		player_gear_orig_deck: [],
 		player_magic_orig_deck: [],
@@ -56,9 +56,9 @@ function reset_card_phase_data(_champ_qty = 4) {
 		#region Enemy Vars
 		enemy_champs: array_create(_champ_qty, undefined),
 		enemy_gear_hand_size: 0,
-		enemy_gear_hand: array_create(max_gear_qty, undefined),
+		enemy_gear_hand: array_create(global.max_gear_qty, undefined),
 		enemy_magic_hand_size: 0,
-		enemy_magic_hand: array_create(max_magic_qty, undefined),
+		enemy_magic_hand: array_create(global.max_magic_qty, undefined),
 		
 		enemy_gear_orig_deck: [],
 		enemy_magic_orig_deck: [],

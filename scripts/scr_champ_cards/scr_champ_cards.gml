@@ -5,17 +5,16 @@
 /// @param {real}  _md  Card magic degree
 /// @param {array}  _stats  Card stats array [pwr, skl, wsd, dvt]
 /// @param {real}  _type  Card type (0, 3)
-function champ_card(_card_id, _name, _hp, _gw, _md, _stats, _type,
+function champ_card(_card_id, _hp, _gw, _md, _stats, _type,
 					_spr_card, _spr_cut_card, _spr_card_art, _spr_cut_card_art,
-					_passive = undefined, _ability = undefined, _generate_attack = undefined) constructor {
+					_passive = undefined, _ability = undefined, 
+					_generate_attack = undefined, _battle_sprites = undefined) constructor {
 	card_id = _card_id;
-	name = _name;
 	hp = _hp;
 	gw = _gw;
 	md = _md;
 	stats = _stats;
 	card_type = _type;
-	description = format_description("A mina aqui no baile, se prepara pra sentar, rebolando desse jeito, vai me fazer delirar");
 	
 	spr_card = _spr_card;
 	spr_cut_card = _spr_cut_card;
@@ -25,8 +24,10 @@ function champ_card(_card_id, _name, _hp, _gw, _md, _stats, _type,
 	card_passive = _passive;
 	card_ability = _ability;
 	generate_attack = _generate_attack;
+	battle_sprites = _battle_sprites;
 }
 
+#region Util
 // For ability
 var _20_dmg_func = function(_inst) {
 	var _data = global.card_phase_data;
@@ -47,56 +48,146 @@ var _modifiers = [
 var _true = function(_inst) {return true}
 
 // For attack
-var _generate_attack = function(_card, _type) {
+var _generate_attack_I = function(_card, _type) {
 	var _attacks = [ 
-		new char_attack_anim(spr_char_sword_atk_1, spr_sword_atk_1), 
-		new char_attack_anim(spr_char_sword_atk_1, spr_sword_atk_1), 
-		new char_attack_anim(spr_char_sword_atk_1, spr_sword_atk_1, 15, true)
+		new char_attack_anim(spr_atk_sword_0, spr_sword_atk_1), 
+		new char_attack_anim(spr_atk_sword_0, spr_sword_atk_1), 
+		new char_attack_anim(spr_atk_sword_0, spr_sword_atk_1, 15, true)
 	];
 
 	return new char_attack_chain(_attacks, 3, _type, _card.spr_card_art);
 }
+#endregion
 
 // Cards
-global.champ_cards = [
-	new champ_card(
-		0, "CHAMP Problemn", 230, 2, 2, [5, 5, 4, 3], 0,
-		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art,
-		undefined, new ability(_20_dmg_func, _true), _generate_attack
-	), 
-	new champ_card(
-		1, "CHAMP NAME", 230, 6, 2, [6, 6, 6, 6], 1,
-		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art,
-		undefined, new ability(_20_dmg_func, _true), _generate_attack
-	),
-	new champ_card(
-		2, "CHAMP NAME", 230, 3, 2, [0, 1, 2, 3], 2,
-		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art,
-		undefined, new ability(_20_dmg_func, _true), _generate_attack
-	),
-	new champ_card(
-		3, "CHAMP NAME", 230, 3, 2, [3, 2, 1, 0], 3,
-		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art,
-		undefined, new ability(_20_dmg_func, _true), _generate_attack
-	),
-	new champ_card(
-		4, "CHAMP NAME", 230, 3, 2, [6, 5, 4, 3], 3,
-		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art,
-		new passive(_modifiers, _true), undefined, _generate_attack
-	),
-	new champ_card(
-		5, "CHAMP NAME", 230, 3, 2, [6, 5, 4, 3], 0,
-		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art,
-		new passive(_modifiers, _true), undefined, _generate_attack
-	),
-	new champ_card(
-		6, "CHAMP NAME", 230, 3, 2, [6, 5, 4, 3], 1,
-		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art,
-		new passive(_modifiers, _true), undefined, _generate_attack
-	),
-	new champ_card(
-		7, "CHAMP NAME", 230, 3, 2, [6, 5, 4, 3], 2,
-		spr_sample_card, spr_sample_cut_card, spr_sample_card_art, spr_sample_half_art,
-		new passive(_modifiers, _true), undefined, _generate_attack
+global.champ_cards = [];
+
+var _battle_sprites = undefined;
+
+#region Card 0
+
+var _passive = undefined;
+var _ability = undefined;
+var _generate_attack = undefined;
+
+var _card = new champ_card(
+		0, 240, 2, 2, [5, 4, 3, 3], card_types.GRAY,
+		spr_champ_0, spr_champ_cut_0, spr_champ_art_0, spr_champ_half_art_0,
+		_passive, _ability, _generate_attack_I, _battle_sprites
 	)
-];
+
+array_push(global.champ_cards, _card);
+
+#endregion
+
+#region Card 1
+
+_passive = undefined;
+_ability = undefined;
+_generate_attack = undefined;
+
+_card = new champ_card(
+		1, 280, 2, 1, [4, 3, 2, 3], card_types.GRAY,
+		spr_champ_1, spr_champ_cut_1, spr_champ_art_1, spr_champ_half_art_1,
+		_passive, _ability, _generate_attack_I, _battle_sprites
+	)
+
+array_push(global.champ_cards, _card);
+
+#endregion
+
+#region Card 2
+
+_passive = undefined;
+_ability = undefined;
+_generate_attack = undefined;
+
+_card = new champ_card(
+		2, 200, 2, 0, [3, 6, 2, 2], card_types.RED,
+		spr_champ_2, spr_champ_cut_2, spr_champ_art_2, spr_champ_half_art_2,
+		_passive, _ability, _generate_attack, _battle_sprites
+	)
+
+array_push(global.champ_cards, _card);
+
+#endregion
+
+#region Card 3
+
+_passive = undefined;
+_ability = undefined;
+_generate_attack = undefined;
+
+_card = new champ_card(
+		3, 220, 2, 2, [2, 4, 5, 4], card_types.BLUE,
+		spr_champ_3, spr_champ_cut_3, spr_champ_art_3, spr_champ_half_art_3,
+		_passive, _ability, _generate_attack, _battle_sprites
+	)
+
+array_push(global.champ_cards, _card);
+
+#endregion
+
+#region Card 4
+
+_passive = undefined;
+_ability = undefined;
+_generate_attack = undefined;
+
+_card = new champ_card(
+		4, 260, 3, 0, [6, 3, 2, 2], card_types.GOLD,
+		spr_champ_4, spr_champ_cut_4, spr_champ_art_4, spr_champ_half_art_4,
+		_passive, _ability, _generate_attack, _battle_sprites
+	)
+
+array_push(global.champ_cards, _card);
+
+#endregion
+
+#region Card 5
+
+_passive = undefined;
+_ability = undefined;
+_generate_attack = undefined;
+
+_card = new champ_card(
+		5, 200, 1, 3, [3, 3, 6, 4], card_types.GOLD,
+		spr_champ_5, spr_champ_cut_5, spr_champ_art_5, spr_champ_half_art_5,
+		_passive, _ability, _generate_attack, _battle_sprites
+	)
+
+array_push(global.champ_cards, _card);
+
+#endregion
+
+#region Card 6
+
+_passive = undefined;
+_ability = undefined;
+_generate_attack = undefined;
+
+_card = new champ_card(
+		6, 200, 1, 3, [2, 3, 6, 6], card_types.BLUE,
+		spr_champ_6, spr_champ_cut_6, spr_champ_art_6, spr_champ_half_art_6,
+		_passive, _ability, _generate_attack, _battle_sprites
+	)
+
+array_push(global.champ_cards, _card);
+
+#endregion
+
+#region Card 7
+
+_passive = undefined;
+_ability = undefined;
+_generate_attack = undefined;
+
+_card = new champ_card(
+		7, 220, 2, 2, [4, 5, 1, 4], card_types.RED,
+		spr_champ_7, spr_champ_cut_7, spr_champ_art_7, spr_champ_half_art_7,
+		_passive, _ability, _generate_attack_I, _battle_sprites
+	)
+
+array_push(global.champ_cards, _card);
+
+#endregion

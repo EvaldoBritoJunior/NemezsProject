@@ -1,8 +1,8 @@
-//player_card = new champ_instance(global.champ_cards[0], card_owners.PLAYER, 0);
-//enemy_card = new champ_instance(global.champ_cards[1], card_owners.ENEMY, 0);
+player_card = new champ_instance(global.champ_cards[0], card_owners.PLAYER, 0);
+enemy_card = new champ_instance(global.champ_cards[7], card_owners.ENEMY, 0);
 
-player_card = global.card_phase_data.player_champs[0];
-enemy_card = global.card_phase_data.enemy_champs[0];
+//player_card = global.card_phase_data.player_champs[0];
+//enemy_card = global.card_phase_data.enemy_champs[0];
 
 player_char = new battle_character(player_card);
 enemy_char = new battle_character(enemy_card);
@@ -12,16 +12,17 @@ start = function() {
 	var _x = 135;
 	var _y = 515;
 	var _card_instance = global.card_phase_data.current_territory;
+	if (_card_instance == undefined) var _card_instance = global.territory_cards[0];
     var _background_id = layer_get_id("Background");
     var _background_element_id = layer_background_get_id(_background_id);
 	
 	if (_card_instance == undefined) {
 		layer_background_sprite(_background_element_id, spr_field_default);
+		instance_create_layer(640, 360, "Instances", obj_solid);
 	} else {
 		layer_background_sprite(_background_element_id, _card_instance.spr_card_art);
+		instance_create_layer(640, 360, "Instances", obj_solid, {sprite_index: _card_instance.spr_card_ground});
 	}
-	
-	instance_create_layer(640, 360, "Instances", obj_solid);
 	
 	var _enemy_ia_inst = instance_create_layer(x, y, "Instances", obj_bp_enemy_ia);
 
@@ -59,13 +60,19 @@ draw_stats = function() {
 	
 	// Player info
 	draw_sprite(player_card.card.spr_cut_card_art, 0, _x_spr, _y_spr);
-	draw_outline(_x_name, _y_name, player_card.card.name, fnt_main_25);
+	
+	var _name = global.language.champ_names[player_card.card.card_id];
+	draw_outline(_x_name, _y_name, _name, fnt_main_25);
+	
 	draw_healthbar(_x_hp_1, _y_hp_1, _x_hp_2, _y_hp_2, 
 		(100 * player_char.hp) / player_char.max_hp, c_black, c_green, c_lime, 0, true, true);
 	
 	// Enemy Info
 	draw_sprite(enemy_card.card.spr_cut_card_art, 0, _width - _x_spr, _y_spr);
-	draw_right_outline(_width - _x_name, _y_name, enemy_card.card.name, fnt_main_25);
+	
+	_name = global.language.champ_names[enemy_card.card.card_id];
+	draw_right_outline(_width - _x_name, _y_name, _name, fnt_main_25);
+	
 	draw_healthbar(_width - _x_hp_2 - 1, _y_hp_1, _width - _x_hp_1 - 1, _y_hp_2, 
 		(100 * enemy_char.hp) / enemy_char.max_hp, c_black, c_green, c_lime, 0, true, true);
 	

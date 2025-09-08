@@ -168,7 +168,7 @@ set_act_step = function() {
 		_card = _gear_hand[i];
 		if (_card != undefined) {
 			array_push(_opt_array, 
-				new act_option(	_card.name,
+				new act_option(	global.language.gear_names[_card.card_id],
 								_card_inst.equip_gear, [_card_inst, _card, i, self],	
 								_card_inst.can_equip_gear, [_card_inst, _card],
 								act_menu_draw_gear, [_card]
@@ -193,7 +193,7 @@ set_act_step = function() {
 		_card = _magic_hand[i];
 		if (_card != undefined) {
 			array_push(_opt_array, 
-				new act_option(	_card.name,
+				new act_option(	global.language.magic_names[_card.card_id],
 								_card_inst.use_magic, [_card_inst, _card, i, self],	// Change to spell function
 								_card_inst.can_use_magic, [_card_inst, _card],
 								act_menu_draw_magic, [_card]
