@@ -1,7 +1,6 @@
 #region Variables
 
 data = global.card_phase_data;
-winner = card_phase_winners.NOBODY;
 check_battle_result = false;
 default_background = spr_field_default;
 
@@ -317,9 +316,10 @@ check_game_state = function(_func) {
 	if (!_check_result) _check_result = data.check_champs_hp();
 	
 	if (_check_result) {
-		var _winner = data.check_victory()
+		var _winner = data.check_victory();
 		if (_winner != card_phase_winners.NOBODY) {
-			transition_start(rm_opening_menu, sq_fade_out, sq_fade_in);
+			update_all_sprites();
+			alarm[0] = 300;
 		} else {
 			enemy_set_vanguard(self.player_set_vanguard, _func);
 		}

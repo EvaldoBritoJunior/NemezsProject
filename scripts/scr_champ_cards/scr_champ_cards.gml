@@ -17,7 +17,6 @@ function card_sprites(
 }
 
 /// @param {real}  _card_id  Unique ID
-/// @param {string}  _name  Card name
 /// @param {real}  _hp  Card health points
 /// @param {real}  _gw  Card gear weight
 /// @param {real}  _md  Card magic degree
@@ -56,15 +55,6 @@ var _20_dmg_func = function(_inst) {
 	end_act_menu(_inst);
 };
 
-// For passive
-var _modifiers = [	
-	new modifier(champ_stat_type.HP, 20, value_target.MAX, math_ops.ADD),
-	new modifier(champ_stat_type.HP, 20, value_target.BASE, math_ops.ADD)
-];
-
-// For avail func
-var _true = function(_inst) {return true}
-
 #endregion
 
 global.champ_cards = [];
@@ -83,9 +73,13 @@ var _modifiers = [
 	new modifier(champ_stat_type.INT, 1, value_target.CURRENT, math_ops.ADD),
 	new modifier(champ_stat_type.DVT, 1, value_target.CURRENT, math_ops.ADD)
 ];
-var _active_func = function(_inst) {return true}
+var _active_func = function(_inst) {
+	return array_length(_inst.gears) > 1;
+}
 var _passive = new passive(_modifiers, _active_func);
 //Ability
+var _act_func = undefined;
+var _avail_func = undefined;
 var _ability = undefined;
 //Attack
 var _generate_attack = function(_card, _type) {
@@ -142,9 +136,45 @@ array_push(global.champ_cards, _card);
 #endregion
 
 #region Card 2 - Archer
-
+// Passive
 _passive = undefined;
-_ability = undefined;
+//Ability
+_act_func = function(_inst) {
+	var _data = global.card_phase_data;
+	var _player_card = (_inst.card_owner == card_owners.PLAYER);
+	var _options = [];
+	var _card = -1;
+	var _act = -1;
+	var _name = -1;
+	
+	var _20_dmg_func = function(_card_inst, _card_target) {
+		var _value = min(0, -10 - _card_inst.type_dmg_incr[card_types.RED].get_value());
+		_card_target.champ_add_modifier(
+			_card_target, new modifier(champ_stat_type.HP, _value, value_target.BASE, math_ops.ADD)
+		);
+		end_act_menu(_card_inst);
+	};
+	
+	for (var i = 0; i < _data.champ_qty; i++) {
+		_card = _player_card ? _data.enemy_champs[i] : _data.player_champs[i];
+		if (_card == undefined) continue;
+		_name = global.language.champ_names[_card.card.card_id];
+		_act = new act_option(
+			_name,
+			_20_dmg_func, [_inst, _card, self], 
+			undefined, [],
+			act_menu_draw_champ, [_card]
+		);
+		
+		array_push(_options, _act);
+	}
+	
+	script_execute_ext(create_act_sub_menu, [_inst, _options]);
+};
+
+_avail_func = function(_inst) {return true}
+_ability = new ability(_act_func, _avail_func);
+// Atk
 _generate_attack = function(_card, _type) {
 	var _spr_atk = _card.card_sprs.char_atk_bow;
 	var _atk_anim = spr_bow_atk;
@@ -166,7 +196,6 @@ array_push(global.champ_cards, _card);
 #endregion
 
 #region Card 3 - Apprentice
-
 //Passive
 _modifiers = [	
 	new modifier(champ_stat_type.MD, 2, value_target.CURRENT, math_ops.ADD)
@@ -199,9 +228,21 @@ array_push(global.champ_cards, _card);
 #endregion
 
 #region Card 4 - Enginner
-
+// Passive
 _passive = undefined;
-_ability = undefined;
+//Ability
+_act_func = function(_inst) {
+	var _data = global.card_phase_data;
+	if (_inst.card_owner == card_owners.PLAYER) {
+		_data.player_draw_gear();
+	} else {
+		_data.enemy_draw_gear();
+	}
+	end_act_menu(_inst);
+};
+_avail_func = function(_inst) {return true}
+_ability = new ability(_act_func, _avail_func);
+// Atk
 _generate_attack = function(_card, _type) {
 	var _spr_atk = _card.card_sprs.char_atk_shield;
 	var _atk_anim = spr_shield_atk;
@@ -223,9 +264,45 @@ array_push(global.champ_cards, _card);
 #endregion
 
 #region Card 5 - Mage
-
+// Passive
 _passive = undefined;
-_ability = undefined;
+//Ability
+_act_func = function(_inst) {
+	var _data = global.card_phase_data;
+	var _player_card = (_inst.card_owner == card_owners.PLAYER);
+	var _options = [];
+	var _card = -1;
+	var _act = -1;
+	var _name = -1;
+	
+	var _heal_func = function(_card_inst, _card_target) {
+		var _value = max(0, 10 + _card_inst.type_dmg_incr[card_types.GOLD].get_value());
+		_card_target.champ_add_modifier(
+			_card_target, new modifier(champ_stat_type.HP, _value, value_target.BASE, math_ops.ADD)
+		);
+		end_act_menu(_card_inst);
+	};
+	
+	for (var i = 0; i < _data.champ_qty; i++) {
+		_card = _player_card ? _data.player_champs[i] : _data.enemy_champs[i];
+		if (_card == undefined) continue;
+		_name = global.language.champ_names[_card.card.card_id];
+		_act = new act_option(
+			_name,
+			_heal_func, [_inst, _card, self], 
+			undefined, [],
+			act_menu_draw_champ, [_card]
+		);
+		
+		array_push(_options, _act);
+	}
+	
+	script_execute_ext(create_act_sub_menu, [_inst, _options]);
+};
+
+_avail_func = function(_inst) {return true}
+_ability = new ability(_act_func, _avail_func);
+// Atk
 _generate_attack = function(_card, _type) {
 	var _spr_atk = _card.card_sprs.char_atk_book_str;
 	var _atk_anim = spr_book_atk_str;
@@ -248,8 +325,21 @@ array_push(global.champ_cards, _card);
 
 #region Card 6 - Wizard
 
+// Passive
 _passive = undefined;
-_ability = undefined;
+//Ability
+_act_func = function(_inst) {
+	var _data = global.card_phase_data;
+	if (_inst.card_owner == card_owners.PLAYER) {
+		_data.player_draw_magic();
+	} else {
+		_data.enemy_draw_magic();
+	}
+	end_act_menu(_inst);
+};
+_avail_func = function(_inst) {return true}
+_ability = new ability(_act_func, _avail_func);
+// Atk
 _generate_attack = function(_card, _type) {
 	var _spr_atk = _card.card_sprs.char_atk_book_str;
 	var _atk_anim = spr_book_atk_str;

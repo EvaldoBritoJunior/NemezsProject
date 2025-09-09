@@ -1,5 +1,4 @@
 /// @param {real}  _card_id  Unique ID
-/// @param {string}  _name  Card name
 /// @param {real}  _gw  Card gear weight
 /// @param {array}  _stats  Card stats array [pwr, skl, wsd, dvt]
 /// @param {real}  _type  Card type (0, 3)
@@ -157,6 +156,12 @@ _generate_attack = function(_inst, _gear) {
 
 	return new char_attack_chain(_attacks, _cooldown, _type, _gear.spr_card_art);
 }
+
+_card = new gear_card(
+		3, 1, [3, 4, 0, 0], card_types.RED,
+		spr_gear_3, spr_gear_cut_3, spr_gear_art_3,
+		_passive, _generate_attack
+	);
 
 array_push(global.gear_cards, _card);
 

@@ -51,7 +51,7 @@ global.ptbr_texts = {
 		"[PASSIVA] Se esta carta tiver dois ou mais Gears equipados, aumenta cada Stat em um",
 		"[PASSIVA] Se esta carta estiver na posicao Vanguard, ganha 20 HP total",
 		"[HABILIDADE] Selecione um Champion inimigo e cause 10 dmg mais o bonus de dmg Red desta carta",
-		"[PASSIVA] Se esta carta nao estiver na posicao Vanguard, ganha 1 MD",
+		"[PASSIVA] Se esta carta nao estiver na posicao Vanguard, ganha 2 MD",
 		"[HABILIDADE] Compre uma carta de Gear",
 		"[HABILIDADE] Selecione um Champion aliado e cure 10 HP mais o bonus de dmg Gold desta carta",
 		"[HABILIDADE] Compre uma carta de Magia",
@@ -61,11 +61,11 @@ global.ptbr_texts = {
 	
 	#region Gear Cards
 	gear_names: [
-		"LIVRO DA ACADEMIA",
-		"LIVRO DE ORACOES",
+		"LIVRO ACADEMICO",
+		"LIVRO SAGRADO",
 		"ARCO DO VENTO",
 		"ARCO DO OUTONO",
-		"ESCUDO MANDIBULA",
+		"ESCUDO OSSO",
 		"ESCUDO SANCTUS",
 		"ESPADA MAGICA",
 		"ESPADA DE FOGO"
@@ -119,8 +119,8 @@ global.ptbr_texts = {
 	
 	territory_descriptions: [
 		"No inicio do turno, cada jogador compra um Gear e uma Magia adicionais",
-		"No inicio do turno, todos os Champions perdem uma Skill ate o fim do turno",
-		"NO INICIO DO TURNO, CHAMPIONS FORA DE VANGUARD TEM SUA HABILIDADE BLOQUEADA ATE O FIM DO TURNO",
+		"No inicio do turno, todos os Champions perdem um ponto em Skill ate o fim do turno",
+		"No inicio do turno, Champions fora de Vanguard tem sua HABILIDADE bloqueada ate o fim do turno",
 		"No inicio do turno, Champions fora de Vanguard sao bloqueados de equipar Gear ate o fim do turno"
 	]
 	#endregion

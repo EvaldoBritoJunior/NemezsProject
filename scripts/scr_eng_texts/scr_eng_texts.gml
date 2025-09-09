@@ -51,7 +51,7 @@ global.eng_texts = {
 		"[PASSIVE] If this card has two or more Gears equipped, increases each Stat by one",
 		"[PASSIVE] If this card is in the Vanguard position, gains 20 total HP",
 		"[ABILITY] Select a enemy Champion and inflict 10 dmg plus this card Red dmg bonus",
-		"[PASSIVE] If this card is not in the Vanguard position, gains 1 MD",
+		"[PASSIVE] If this card is not in the Vanguard position, gains 2 MD",
 		"[ABILITY] Draw a Gear card",
 		"[ABILITY] Select a ally Champion and heal 10 HP plus this card Gold dmg bonus",
 		"[ABILITY] Draw a Magic card",
@@ -74,12 +74,12 @@ global.eng_texts = {
 	gear_descriptions: [
 		"The equipped Champion gains 1 MD",
 		"The equipped Champion gains 1 MD",
-		"The equipped Champion gains 10 Gray dmg bonus",
-		"The equipped Champion gains 10 Red dmg bonus",
+		"The equipped Champion gains 15 Gray dmg bonus",
+		"The equipped Champion gains 15 Red dmg bonus",
 		"The equipped Champion gains 15 total HP",
 		"The equipped Champion gains 15 total HP",
-		"The equipped Champion gains 3 dmg bonus for all types",
-		"The equipped Champion gains 3 dmg bonus for all types"
+		"The equipped Champion gains 5 dmg bonus for all types",
+		"The equipped Champion gains 5 dmg bonus for all types"
 	],
 	
 	#endregion

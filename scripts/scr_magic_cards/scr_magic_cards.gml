@@ -1,5 +1,4 @@
 /// @param {real}  _card_id  Unique ID
-/// @param {string}  _name  Card name
 /// @param {real}  _md  Card magic degree
 function magic_card(_card_id, _md,
 					_spr_card, _spr_cut_card, _spr_card_art, 

@@ -9,7 +9,7 @@ update_sprite = function() {
 draw_card = function() {
 	var _card_instance = card;
 	var _w = sprite_width + 160;
-	
+	if (champ_inst.card_owner == card_owners.ENEMY) _w = -_w;
 	if (_card_instance != undefined) {
 		draw_equipped_gear_card(champ_inst, _card_instance, x + _w, room_height / 2);
 	}

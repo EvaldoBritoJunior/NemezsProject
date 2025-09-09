@@ -1,9 +1,9 @@
-player_card = new champ_instance(global.champ_cards[1], card_owners.PLAYER, 0);
-player_card.gears = global.gear_cards;
-enemy_card = new champ_instance(global.champ_cards[4], card_owners.ENEMY, 0);
+//player_card = new champ_instance(global.champ_cards[1], card_owners.PLAYER, 0);
+//player_card.gears = global.gear_cards;
+//enemy_card = new champ_instance(global.champ_cards[4], card_owners.ENEMY, 0);
 
-//player_card = global.card_phase_data.player_champs[0];
-//enemy_card = global.card_phase_data.enemy_champs[0];
+player_card = global.card_phase_data.player_champs[0];
+enemy_card = global.card_phase_data.enemy_champs[0];
 
 player_char = new battle_character(player_card);
 enemy_char = new battle_character(enemy_card);

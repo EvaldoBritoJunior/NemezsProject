@@ -337,11 +337,11 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
-    {"roomId":{"name":"rm_battle_phase","path":"rooms/rm_battle_phase/rm_battle_phase.yy",},},
+    {"roomId":{"name":"rm_card_phase","path":"rooms/rm_card_phase/rm_card_phase.yy",},},
     {"roomId":{"name":"rm_opening_options","path":"rooms/rm_opening_options/rm_opening_options.yy",},},
     {"roomId":{"name":"rm_opening_main","path":"rooms/rm_opening_main/rm_opening_main.yy",},},
     {"roomId":{"name":"rm_opening_menu","path":"rooms/rm_opening_menu/rm_opening_menu.yy",},},
-    {"roomId":{"name":"rm_card_phase","path":"rooms/rm_card_phase/rm_card_phase.yy",},},
+    {"roomId":{"name":"rm_battle_phase","path":"rooms/rm_battle_phase/rm_battle_phase.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[
