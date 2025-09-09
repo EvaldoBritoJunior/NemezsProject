@@ -1,3 +1,21 @@
+function card_sprites(
+	_char_stand, _char_step, _char_walk, _char_jump, _char_slide,
+	_char_atk_sword, _char_atk_bow, _char_atk_shield, _char_atk_book_str, _char_atk_book_weak
+) constructor {
+	char_stand = _char_stand;
+	char_step = _char_step;
+	char_walk = _char_walk;
+	char_jump = _char_jump;
+	char_slide = _char_slide;
+	
+	char_atk_sword = _char_atk_sword;
+	char_atk_bow = _char_atk_bow;
+	char_atk_shield = _char_atk_shield;
+	char_atk_book_str = _char_atk_book_str;
+	char_atk_book_weak = _char_atk_book_weak;
+	
+}
+
 /// @param {real}  _card_id  Unique ID
 /// @param {string}  _name  Card name
 /// @param {real}  _hp  Card health points
@@ -8,7 +26,7 @@
 function champ_card(_card_id, _hp, _gw, _md, _stats, _type,
 					_spr_card, _spr_cut_card, _spr_card_art, _spr_cut_card_art,
 					_passive = undefined, _ability = undefined, 
-					_generate_attack = undefined, _battle_sprites = undefined) constructor {
+					_generate_attack = undefined, _card_sprs = undefined) constructor {
 	card_id = _card_id;
 	hp = _hp;
 	gw = _gw;
@@ -24,7 +42,7 @@ function champ_card(_card_id, _hp, _gw, _md, _stats, _type,
 	card_passive = _passive;
 	card_ability = _ability;
 	generate_attack = _generate_attack;
-	battle_sprites = _battle_sprites;
+	card_sprs = _card_sprs;
 }
 
 #region Util
@@ -47,60 +65,95 @@ var _modifiers = [
 // For avail func
 var _true = function(_inst) {return true}
 
-// For attack
-var _generate_attack_I = function(_card, _type) {
+#endregion
+
+global.champ_cards = [];
+
+var _battle_sprites = new card_sprites(
+	spr_stand_0, spr_step_0, spr_walk_0, spr_jump_0, spr_slide_0,
+	spr_atk_sword_0, spr_atk_bow_0, spr_atk_shield_0, spr_atk_book_str_0, spr_atk_book_weak_0
+);
+
+#region Card 0 - Squire
+
+//Passive
+var _modifiers = [	
+	new modifier(champ_stat_type.STR, 1, value_target.CURRENT, math_ops.ADD),
+	new modifier(champ_stat_type.SKL, 1, value_target.CURRENT, math_ops.ADD),
+	new modifier(champ_stat_type.INT, 1, value_target.CURRENT, math_ops.ADD),
+	new modifier(champ_stat_type.DVT, 1, value_target.CURRENT, math_ops.ADD)
+];
+var _active_func = function(_inst) {return true}
+var _passive = new passive(_modifiers, _active_func);
+//Ability
+var _ability = undefined;
+//Attack
+var _generate_attack = function(_card, _type) {
+	var _char_atk = _card.card_sprs.char_atk_sword;
+	var _atk_anim = spr_sword_atk_1;
 	var _attacks = [ 
-		new char_attack_anim(spr_atk_sword_0, spr_sword_atk_1), 
-		new char_attack_anim(spr_atk_sword_0, spr_sword_atk_1), 
-		new char_attack_anim(spr_atk_sword_0, spr_sword_atk_1, 15, true)
+		new char_attack_anim(_char_atk, _atk_anim, 10, false, 3), 
+		new char_attack_anim(_char_atk, _atk_anim, 10, false, 3), 
+		new char_attack_anim(_char_atk, _atk_anim, 14, false, 3)
 	];
 
 	return new char_attack_chain(_attacks, 3, _type, _card.spr_card_art);
 }
-#endregion
-
-// Cards
-global.champ_cards = [];
-
-var _battle_sprites = undefined;
-
-#region Card 0
-
-var _passive = undefined;
-var _ability = undefined;
-var _generate_attack = undefined;
-
+// Card
 var _card = new champ_card(
 		0, 240, 2, 2, [5, 4, 3, 3], card_types.GRAY,
 		spr_champ_0, spr_champ_cut_0, spr_champ_art_0, spr_champ_half_art_0,
-		_passive, _ability, _generate_attack_I, _battle_sprites
+		_passive, _ability, _generate_attack, _battle_sprites
 	)
 
 array_push(global.champ_cards, _card);
 
 #endregion
 
-#region Card 1
-
-_passive = undefined;
+#region Card 1 - Knight
+//Passive
+_modifiers = [	
+	new modifier(champ_stat_type.HP, 20, value_target.MAX, math_ops.ADD),
+	new modifier(champ_stat_type.HP, 20, value_target.BASE, math_ops.ADD)
+];
+_active_func = function(_inst) {return _inst.card_pos == 0}
+_passive = new passive(_modifiers, _active_func);
+//Ability
 _ability = undefined;
-_generate_attack = undefined;
+//Attack
+_generate_attack = function(_card, _type) {
+	var _spr_atk = _card.card_sprs.char_atk_shield;
+	var _atk_anim = spr_shield_atk;
+	var _attacks = [ 
+		new char_attack_anim(_spr_atk, _atk_anim, 20, false, 4)
+	];
 
+	return new char_attack_chain(_attacks, 2, _type, _card.spr_card_art);
+}
+//Card
 _card = new champ_card(
 		1, 280, 2, 1, [4, 3, 2, 3], card_types.GRAY,
 		spr_champ_1, spr_champ_cut_1, spr_champ_art_1, spr_champ_half_art_1,
-		_passive, _ability, _generate_attack_I, _battle_sprites
+		_passive, _ability, _generate_attack, _battle_sprites
 	)
 
 array_push(global.champ_cards, _card);
 
 #endregion
 
-#region Card 2
+#region Card 2 - Archer
 
 _passive = undefined;
 _ability = undefined;
-_generate_attack = undefined;
+_generate_attack = function(_card, _type) {
+	var _spr_atk = _card.card_sprs.char_atk_bow;
+	var _atk_anim = spr_bow_atk;
+	var _attacks = [ 
+		new char_attack_anim(_spr_atk, _atk_anim, 10, true, 1)
+	];
+
+	return new char_attack_chain(_attacks, 1, _type, _card.spr_card_art);
+}
 
 _card = new champ_card(
 		2, 200, 2, 0, [3, 6, 2, 2], card_types.RED,
@@ -112,14 +165,31 @@ array_push(global.champ_cards, _card);
 
 #endregion
 
-#region Card 3
+#region Card 3 - Apprentice
 
-_passive = undefined;
+//Passive
+_modifiers = [	
+	new modifier(champ_stat_type.MD, 2, value_target.CURRENT, math_ops.ADD)
+];
+_active_func = function(_inst) {return _inst.card_pos != 0}
+_passive = new passive(_modifiers, _active_func);
+//Ability
 _ability = undefined;
-_generate_attack = undefined;
+//Attack
+_generate_attack = function(_card, _type) {
+	var _char_atk = _card.card_sprs.char_atk_sword;
+	var _atk_anim = spr_sword_atk_1;
+	var _attacks = [ 
+		new char_attack_anim(_char_atk, _atk_anim, 10, false, 3), 
+		new char_attack_anim(_char_atk, _atk_anim, 10, false, 3), 
+		new char_attack_anim(_char_atk, _atk_anim, 14, false, 3)
+	];
 
+	return new char_attack_chain(_attacks, 3, _type, _card.spr_card_art);
+}
+//Card
 _card = new champ_card(
-		3, 220, 2, 2, [2, 4, 5, 4], card_types.BLUE,
+		3, 220, 2, 1, [2, 4, 5, 4], card_types.BLUE,
 		spr_champ_3, spr_champ_cut_3, spr_champ_art_3, spr_champ_half_art_3,
 		_passive, _ability, _generate_attack, _battle_sprites
 	)
@@ -128,11 +198,19 @@ array_push(global.champ_cards, _card);
 
 #endregion
 
-#region Card 4
+#region Card 4 - Enginner
 
 _passive = undefined;
 _ability = undefined;
-_generate_attack = undefined;
+_generate_attack = function(_card, _type) {
+	var _spr_atk = _card.card_sprs.char_atk_shield;
+	var _atk_anim = spr_shield_atk;
+	var _attacks = [ 
+		new char_attack_anim(_spr_atk, _atk_anim, 20, false, 4)
+	];
+
+	return new char_attack_chain(_attacks, 2, _type, _card.spr_card_art);
+}
 
 _card = new champ_card(
 		4, 260, 3, 0, [6, 3, 2, 2], card_types.GOLD,
@@ -144,11 +222,19 @@ array_push(global.champ_cards, _card);
 
 #endregion
 
-#region Card 5
+#region Card 5 - Mage
 
 _passive = undefined;
 _ability = undefined;
-_generate_attack = undefined;
+_generate_attack = function(_card, _type) {
+	var _spr_atk = _card.card_sprs.char_atk_book_str;
+	var _atk_anim = spr_book_atk_str;
+	var _attacks = [ 
+		new char_attack_anim(_spr_atk, _atk_anim, 20, true, 3)
+	];
+
+	return new char_attack_chain(_attacks, 3, _type, _card.spr_card_art);
+}
 
 _card = new champ_card(
 		5, 200, 1, 3, [3, 3, 6, 4], card_types.GOLD,
@@ -160,11 +246,19 @@ array_push(global.champ_cards, _card);
 
 #endregion
 
-#region Card 6
+#region Card 6 - Wizard
 
 _passive = undefined;
 _ability = undefined;
-_generate_attack = undefined;
+_generate_attack = function(_card, _type) {
+	var _spr_atk = _card.card_sprs.char_atk_book_str;
+	var _atk_anim = spr_book_atk_str;
+	var _attacks = [ 
+		new char_attack_anim(_spr_atk, _atk_anim, 20, true, 3)
+	];
+
+	return new char_attack_chain(_attacks, 3, _type, _card.spr_card_art);
+}
 
 _card = new champ_card(
 		6, 200, 1, 3, [2, 3, 6, 6], card_types.BLUE,
@@ -176,16 +270,39 @@ array_push(global.champ_cards, _card);
 
 #endregion
 
-#region Card 7
+#region Card 7 - Executor
 
-_passive = undefined;
+//Passive
+var _modifiers = [	
+	new modifier(champ_stat_type.RED_DMG, 15, value_target.BASE, math_ops.ADD),
+	new modifier(champ_stat_type.BLUE_DMG, 15, value_target.BASE, math_ops.ADD),
+	new modifier(champ_stat_type.GOLD_DMG, 15, value_target.BASE, math_ops.ADD),
+	new modifier(champ_stat_type.GRAY_DMG, 15, value_target.BASE, math_ops.ADD)
+];
+_active_func = function(_inst) {
+	var _data = global.card_phase_data;
+	var _already_active = _inst.card_passive_state;
+	var _activate = (_data.turn_stage == card_phase_stages.END_STAGE && _inst.card_pos == 0);
+	return (_already_active || _activate);
+}
+_passive = new passive(_modifiers, _active_func);
+//Ability
 _ability = undefined;
-_generate_attack = undefined;
+//Atk
+_generate_attack = function(_card, _type) {
+	var _spr_atk = _card.card_sprs.char_atk_bow;
+	var _atk_anim = spr_bow_atk;
+	var _attacks = [ 
+		new char_attack_anim(_spr_atk, _atk_anim, 10, true, 1)
+	];
 
+	return new char_attack_chain(_attacks, 1, _type, _card.spr_card_art);
+}
+//Card
 _card = new champ_card(
 		7, 220, 2, 2, [4, 5, 1, 4], card_types.RED,
 		spr_champ_7, spr_champ_cut_7, spr_champ_art_7, spr_champ_half_art_7,
-		_passive, _ability, _generate_attack_I, _battle_sprites
+		_passive, _ability, _generate_attack, _battle_sprites
 	)
 
 array_push(global.champ_cards, _card);

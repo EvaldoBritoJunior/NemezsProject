@@ -74,12 +74,12 @@ global.ptbr_texts = {
 	gear_descriptions: [
 		"O Champion equipado ganha 1 MD",
 		"O Champion equipado ganha 1 MD",
-		"O Champion equipado ganha bonus de 10 dmg Gray",
-		"O Champion equipado ganha bonus de 10 dmg Red",
+		"O Champion equipado ganha bonus de 15 dmg Gray",
+		"O Champion equipado ganha bonus de 15 dmg Red",
 		"O Champion equipado ganha 15 HP total",
 		"O Champion equipado ganha 15 HP total",
-		"O Champion equipado ganha bonus de 3 dmg para todos os tipos",
-		"O Champion equipado ganha bonus de 3 dmg para todos os tipos"
+		"O Champion equipado ganha bonus de 5 dmg para todos os tipos",
+		"O Champion equipado ganha bonus de 5 dmg para todos os tipos"
 	],
 	
 	#endregion
@@ -120,8 +120,8 @@ global.ptbr_texts = {
 	territory_descriptions: [
 		"No inicio do turno, cada jogador compra um Gear e uma Magia adicionais",
 		"No inicio do turno, todos os Champions perdem uma Skill ate o fim do turno",
-		"No inicio do turno, Champions fora de Vanguard nao podem usar Habilidade ate o fim do turno",
-		"No inicio do turno, Champions fora de Vanguard nao podem equipar Gear ate o fim do turno"
+		"NO INICIO DO TURNO, CHAMPIONS FORA DE VANGUARD TEM SUA HABILIDADE BLOQUEADA ATE O FIM DO TURNO",
+		"No inicio do turno, Champions fora de Vanguard sao bloqueados de equipar Gear ate o fim do turno"
 	]
 	#endregion
 }
