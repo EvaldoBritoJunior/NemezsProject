@@ -1,8 +1,16 @@
 data = global.card_phase_data;
+depth = depth - 51;
 
+// Act stage variables
 redo_func = -1;
 return_func = -1;
 card_inst = -1;
+draw_x = -1;
+draw_y = -1;
+choice_draw_funcs = [];
+choice_draw_args = [];
+choice_draw_idx = -1;
+draw_choices = false;
 
 #region Init stage functions
 
@@ -68,10 +76,15 @@ select_territory_deck = function(_select_amount, _card_array) {
 
 #region Act stage functions
 
-enemy_prepare_action = function(_options_array, _card_inst, _redo_func, _return_func) {
+enemy_prepare_action = function(_options_array,  _x, _y, _card_inst, _redo_func, _return_func) {
+	draw_x = _x;
+	draw_y = _y;
 	card_inst = _card_inst;
 	redo_func = _redo_func;
 	return_func = _return_func;
+	choice_draw_funcs = [];
+	choice_draw_args = [];
+	choice_draw_idx = -1;
 
 	enemy_select_action(_options_array);
 }
@@ -89,10 +102,36 @@ enemy_select_action = function(_options_array) {
 	_size = array_length(_avail_options);
 	var _selected = irandom(_size - 1);
 	_option = _avail_options[_selected];
+	
+	if (_option.draw_func != undefined && _option.act_func != end_act_menu
+		&& _option.name != global.language.act_magic && _option.name != global.language.act_equip) {
+		array_push(choice_draw_funcs, _option.draw_func);
+		array_push(choice_draw_args, _option.draw_args[0]);
+	}
+	
 	var _func = _option.act_func;
 	var _args = _option.act_args;
 	script_execute_ext(_func, _args);
 }
+
+prepare_redo_func = function() {
+	manager_inst.show_cards_when_over = false;
+	alarm[0] = 10;
+}
+
+prepare_return_func = function() {
+	manager_inst.show_cards_when_over = false;
+	alarm[1] = 10;
+}
+
+draw_choice = function() {
+	var _card_instance = choice_draw_args[choice_draw_idx];
+	var _draw_func = choice_draw_funcs[choice_draw_idx];
+	
+	_draw_func(_card_instance, draw_x, draw_y);
+}
+
+#endregion
 
 choose_new_vanguard = function(_func, _arg) {
 	var _avail_options = [];
@@ -109,5 +148,3 @@ choose_new_vanguard = function(_func, _arg) {
 	
 	_func(_arg);
 }
-
-#endregion

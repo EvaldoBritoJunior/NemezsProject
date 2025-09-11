@@ -32,6 +32,8 @@ global.eng_texts = {
 	act_magic: "Use Magic",
 	act_pass: "Do Nothing",
 	act_return: "Return",
+	act_card_stats: ["Power", "Skill", "Intelligence", "Devotion"],
+	act_card_types: ["Gray", "Red", "Blue", "Gold"],
 	
 	#endregion
 	
@@ -99,12 +101,12 @@ global.eng_texts = {
 	magic_descriptions: [
 		"Choose a Stat and increase the Champion that used this card Stat by two",
 		"Choose a type and change the Champion that used this card to it until the end of the turn",
-		"The Champion that used this card gains 10 dmg bonus to its type",
+		"The Champion that used this card gains 15 dmg bonus to its current type",
 		"Choose a enemy Champion and block its use of Magics until the end of the turn",
-		"Choose a enemy champion and a Stat: decrease the Champion Stat by two",
-		"Choose a ally champion and a Stat: increase the Champion Stat by two",
-		"All Champions gain 10 dmg bonus to its type until the end of the turn",
-		"Choose a enemy Champion and break its Gears"
+		"Choose a enemy champion and a Stat: decrease the Champion Stat by two until the end of the turn",
+		"Choose a ally Champion and increase all its Stats by one until the end of the turn",
+		"All Champions gain 10 dmg bonus to its type",
+		"Choose a Gear from the Enemy Vanguard and break it"
 	],
 	
 	#endregion

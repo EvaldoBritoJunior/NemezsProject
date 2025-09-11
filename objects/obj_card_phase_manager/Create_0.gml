@@ -151,7 +151,11 @@ draw_data = function () {
 	draw_set_font(fnt_main_20);
 
 	#region Player data
-	if (_player_turn) draw_set_color(c_yellow);
+	if (_player_turn) { 
+		draw_set_color(c_yellow);
+	} else {
+		draw_set_color(c_white);
+	}
 	draw_text(10, 620, global.player_data.name); // Name
 	if (_player_turn) draw_set_color(c_white);
 
@@ -172,7 +176,11 @@ draw_data = function () {
 	draw_set_valign(fa_top);
 	draw_set_font(fnt_main_20);
 	
-	if (!_player_turn) draw_set_color(c_yellow);
+	if (!_player_turn) { 
+		draw_set_color(c_yellow);
+	} else {
+		draw_set_color(c_white);
+	}
 	draw_text(1055, 8, _data.enemy_name);  // Name
 	draw_set_color(c_white);
 
@@ -584,229 +592,4 @@ end_stage = function () {
 	}
 }
 
-#endregion
-
-test_act = false;
-
-#region Test Act Stage
-/*
-set_test_act = function() {
-	data.player_gear_hand_size = 3;
-	data.player_gear_hand = [global.gear_cards[0], global.gear_cards[1], global.gear_cards[2]];
-	data.player_magic_hand_size = 3;
-	data.player_magic_hand = [global.magic_cards[0], global.magic_cards[1], global.magic_cards[2]];
-	
-	data.enemy_gear_hand_size = 3;
-	data.enemy_gear_hand = [global.gear_cards[0], global.gear_cards[1], global.gear_cards[2]];
-	//data.enemy_magic_hand_size = 3;
-	//data.enemy_magic_hand = [global.magic_cards[0], global.magic_cards[1], global.magic_cards[2]];
-	
-	
-	data.enemy_champs[0] = new champ_instance(global.champ_cards[1], card_owners.ENEMY, 0);
-	data.player_champs[0] = new champ_instance(global.champ_cards[0], card_owners.PLAYER, 0);
-	test_act_menu();
-}
-
-test_act_menu = function() {
-	data.apply_passives_all();
-	if (data.check_champs_hp()) {
-		var _winner = data.check_victory()
-		if (_winner != card_phase_winners.NOBODY) {
-			winner = _winner;
-			test_act = false;
-		}
-	}
-	else {
-		// Start
-		var _this = self;
-		var _card_inst = data.player_champs[0];
-		var _go_back = new act_option(global.language.act_return, act_menu_go_back, [], undefined, [], act_menu_draw_champ, [_card_inst]);
-	
-		// Set equip gear act options
-		var _act_equip = new act_option(
-			global.language.act_equip, 
-			create_act_sub_menu, [_card_inst, []], 
-			check_any_avail, undefined,
-			act_menu_draw_champ, [_card_inst]
-		);
-		var _opt_array = _act_equip.act_args[1];
-		var _card = -1;
-		for (var i = 0; i < data.player_gear_hand_size; i++) {
-			_card = data.player_gear_hand[i];
-			if (_card != undefined) {
-				array_push(_opt_array, 
-					new act_option(	_card.name,
-									_card_inst.equip_gear, [_card_inst, _card, i, self],	
-									_card_inst.can_equip_gear, [_card_inst, _card],
-									act_menu_draw_gear, [_card]
-					)
-				);
-			}
-		}
-		array_push(_opt_array, _go_back);	
-		_act_equip.avail_args = _act_equip.act_args;
-		_act_equip.avail = script_execute_ext(_act_equip.avail_func, _act_equip.avail_args);
-	
-		// Set use magic act options
-		var _act_magic = new act_option(
-			global.language.act_magic, 
-			create_act_sub_menu, [_card_inst, []], 
-			check_any_avail, undefined,
-			act_menu_draw_champ, [_card_inst]);
-		
-		_opt_array = _act_magic.act_args[1];
-		_card = -1;
-		for (var i = 0; i < data.player_magic_hand_size; i++) {
-			_card = data.player_magic_hand[i];
-			if (_card != undefined) {
-				array_push(_opt_array, 
-					new act_option(	_card.name,
-									_card_inst.use_magic, [_card_inst, _card, i, self],	// Change to spell function
-									_card_inst.can_use_magic, [_card_inst, _card],
-									act_menu_draw_magic, [_card]
-					)
-				);
-			}
-		}
-		array_push(_opt_array, _go_back);	
-		_act_magic.avail_args = _act_magic.act_args;
-		_act_magic.avail = script_execute_ext(_act_magic.avail_func, _act_magic.avail_args);
-	
-		// Set use ability act option
-		var _act_ability = new act_option(global.language.act_ability, 
-			_card_inst.use_ability, [_card_inst, self],
-			_card_inst.can_use_ability, [_card_inst],
-			act_menu_draw_champ, [_card_inst]);
-		
-		_act_ability.avail = script_execute_ext(_act_ability.avail_func, _act_ability.avail_args);
-	
-		// Set do nothing option
-		var _act_pass = new act_option(global.language.act_pass, 
-			end_act_menu, [_card_inst, self], 
-			undefined, [],
-			act_menu_draw_champ, [_card_inst]);
-		// Create select act menu
-		instance_create_layer(room_width / 2, room_height / 2, global.cp_layer_instances_above, obj_cp_select_act_menu,
-			{	
-				options_array: [
-					_act_equip,		
-					_act_magic,
-					_act_ability,
-					_act_pass
-				],
-				card_inst: _card_inst,
-				manager_inst: _this,
-				redo_func : _this.test_act_menu,
-				return_func : _this.test_enemy_act
-			}
-		)
-	}
-
-}
-
-test_enemy_act = function() {
-	data.enemy_champs[0].champ_apply_passives(data.enemy_champs[0]);
-	data.player_champs[0].champ_apply_passives(data.player_champs[0]);
-	// Start
-	var _this = self;
-	var _card_inst = data.enemy_champs[0];
-	var _go_back = new act_option(global.language.act_return, act_menu_go_back, [], undefined, [], act_menu_draw_champ, [_card_inst]);
-	
-	// Set equip gear act options
-	var _act_equip = new act_option(
-		global.language.act_equip, 
-		create_act_sub_menu, [_card_inst, []], 
-		check_any_avail, undefined,
-		act_menu_draw_champ, [_card_inst]
-	);
-	var _opt_array = _act_equip.act_args[1];
-	var _card = -1;
-	for (var i = 0; i < data.enemy_gear_hand_size; i++) {
-		_card = data.enemy_gear_hand[i];
-		if (_card != undefined) {
-			array_push(_opt_array, 
-				new act_option(	_card.name,
-								_card_inst.equip_gear, [_card_inst, _card, i, self],	
-								_card_inst.can_equip_gear, [_card_inst, _card],
-								act_menu_draw_gear, [_card]
-				)
-			);
-		}
-	}
-	_act_equip.avail_args = _act_equip.act_args;
-	_act_equip.avail = script_execute_ext(_act_equip.avail_func, _act_equip.avail_args);
-	
-	// Set use magic act options
-	var _act_magic = new act_option(
-		global.language.act_magic, 
-		create_act_sub_menu, [_card_inst, []], 
-		check_any_avail, undefined,
-		act_menu_draw_champ, [_card_inst]);
-		
-	_opt_array = _act_magic.act_args[1];
-	_card = -1;
-	for (var i = 0; i < data.enemy_magic_hand_size; i++) {
-		_card = data.enemy_magic_hand[i];
-		if (_card != undefined) {
-			array_push(_opt_array, 
-				new act_option(	_card.name,
-								_card_inst.use_magic, [_card_inst, _card, i, self],	// Change to spell function
-								_card_inst.can_use_magic, [_card_inst, _card],
-								act_menu_draw_magic, [_card]
-				)
-			);
-		}
-	}
-	_act_magic.avail_args = _act_magic.act_args;
-	_act_magic.avail = script_execute_ext(_act_magic.avail_func, _act_magic.avail_args);
-	
-	// Set use ability act option
-	var _act_ability = new act_option(global.language.act_ability, 
-		_card_inst.use_ability, [_card_inst, self],
-		_card_inst.can_use_ability, [_card_inst],
-		act_menu_draw_champ, [_card_inst]);
-		
-	_act_ability.avail = script_execute_ext(_act_ability.avail_func, _act_ability.avail_args);
-	
-	// Set do nothing option
-	var _act_pass = new act_option(global.language.act_pass, 
-		end_act_menu, [_card_inst, self], 
-		undefined, [],
-		act_menu_draw_champ, [_card_inst]);
-		
-	// Create select act menu
-	enemy_prepare_action([_act_equip,_act_magic,_act_ability,_act_pass], _card_inst, _this, _this.test_enemy_act, _this.test_act_menu);
-}
-
-manager_inst = -1;
-redo_func = -1;
-return_func = -1;
-card_inst = -1;
-enemy_prepare_action = function(_options_array, _card_inst, _manager_inst, _redo_func, _return_func) {
-	manager_inst = _manager_inst;
-	card_inst = _card_inst;
-	redo_func = _redo_func;
-	return_func = _return_func;
-
-	enemy_select_action(_options_array);
-}
-
-enemy_select_action = function(_options_array) {
-	var _size = array_length(_options_array);
-	var _avail_options = [];
-	var _option = -1;
-	for (var i = 0; i < _size; i++) {
-		_option = _options_array[i];
-		if (_option.avail) array_push(_avail_options, _option);
-	}
-	
-	_size = array_length(_avail_options);
-	randomize();
-	var _selected = irandom(_size - 1);
-	_option = _avail_options[_selected];
-	var _func = _option.act_func;
-	var _args = _option.act_args;
-	script_execute_ext(_func, _args);
-}
-*/
 #endregion

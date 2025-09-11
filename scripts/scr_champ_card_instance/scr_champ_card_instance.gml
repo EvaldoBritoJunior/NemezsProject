@@ -167,6 +167,7 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 	
 	has_acted = false;
 	
+	#region Check and Apply: Gear, Magic, Ability
 	static can_equip_gear = function(_card_inst, _gear) {
 		var _champ_gw = _card_inst.gw.get_value();
 		var _champ_max_gw = _card_inst.gw.get_max_value();
@@ -221,7 +222,9 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 		if (!_card_inst.can_use_ability(_card_inst)) throw("Tried to use ability when cant use ability"); 
 		script_execute_ext(_card_inst.card_ability.act_func, [_card_inst, self]);
     };
+	#endregion
 	
+	#region Check and Apply: Passives, Modifiers
 	static champ_add_modifier = function(_card_inst, _modifier) {
 		switch (_modifier.stat) {
 			case champ_stat_type.HP:
@@ -236,7 +239,7 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 			case champ_stat_type.TYPE:
 				_card_inst.card_type.add_modifier(_modifier);
 				break;
-			case champ_stat_type.STR:
+			case champ_stat_type.PWR:
 				_card_inst.stats[0].add_modifier(_modifier);
 				break;
 			case champ_stat_type.SKL:
@@ -288,7 +291,7 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 			case champ_stat_type.TYPE:
 				_card_inst.card_type.remove_modifier(_modifier);
 				break;
-			case champ_stat_type.STR:
+			case champ_stat_type.PWR:
 				_card_inst.stats[0].remove_modifier(_modifier);
 				break;
 			case champ_stat_type.SKL:
@@ -308,6 +311,18 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 				break;
 			case champ_stat_type.CAN_ABILITY:
 				_card_inst.can_use_abilities.remove_modifier(_modifier);
+				break;
+			case champ_stat_type.GRAY_DMG:
+				_card_inst.type_dmg_incr[card_types.GRAY].remove_modifier(_modifier);
+				break;
+			case champ_stat_type.RED_DMG:
+				_card_inst.type_dmg_incr[card_types.RED].remove_modifier(_modifier);
+				break;
+			case champ_stat_type.BLUE_DMG:
+				_card_inst.type_dmg_incr[card_types.BLUE].remove_modifier(_modifier);
+				break;
+			case champ_stat_type.GOLD_DMG:
+				_card_inst.type_dmg_incr[card_types.GOLD].remove_modifier(_modifier);
 				break;
 			default:
 				throw($"Invalid Champion Stat: {_modifier.stat}");
@@ -379,7 +394,9 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 			}
 		}
 	}
+	#endregion
 	
+	#region Remove Functions
 	static champ_remove_passive = function(_card_inst, _passive, _current_state, _gear = undefined) {
 		if (_passive != undefined) {
 			var _new_state = false;
@@ -395,6 +412,7 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
     };
 	
 	static remove_gear = function(_card_inst, _idx) {
+		var _data = global.card_phase_data;
 		var _gears = _card_inst.gears;
 		var _gears_state = _card_inst.gears_state;
 		var _gear = _gears[_idx];
@@ -407,6 +425,13 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 		
 		array_delete(_gears, _idx, 1);
 		array_delete(_gears_state, _idx, 1);
+		
+		if (_card_inst.card_owner == card_owners.PLAYER) {
+			array_push(_data.player_gear_gyd, _gear);
+		} else {
+			array_push(_data.enemy_gear_gyd, _gear);
+		}
+		
 	}
 	
 	static remove_gears = function(_card_inst) {
@@ -417,7 +442,10 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 	        _card_inst.remove_gear(_card_inst, i);
 	    }
 	}
-		
+	
+	#endregion
+	
+	#region Generate Attacks
 	static gen_champ_attack = function(_card_inst) {
 		var _card = _card_inst.card;
 		return _card.generate_attack(_card, _card_inst.card_type.get_value());
@@ -438,4 +466,5 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 		
 		return _return;
 	}
+	#endregion
 }

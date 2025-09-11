@@ -10,7 +10,7 @@ enum card_stats {
 
 enum champ_stat_type {
     HP, GW, MD, TYPE, 
-	STR, SKL, INT, DVT, 
+	PWR, SKL, INT, DVT, 
 	CAN_EQUIP, CAN_MAGIC, CAN_ABILITY,
 	GRAY_DMG, RED_DMG, BLUE_DMG, GOLD_DMG
 }

@@ -41,7 +41,7 @@ function end_act_menu(_card_inst) {
 		self.return_func();
 		instance_destroy(self);
 	} else {
-		self.return_func();
+		self.prepare_return_func();
 	}
 }
 
@@ -52,24 +52,24 @@ function redo_act_menu(_card_inst) {
 		instance_destroy(self);
 		
 	} else {
-		self.return_func();
+		self.prepare_redo_func();
 	}
 }
 
-function act_menu_draw_champ(_card_inst) {
-	draw_champ_card_instance(_card_inst, 410, 390);
+function act_menu_draw_champ(_card_inst, _x = 410, _y = 390) {
+	draw_champ_card_instance(_card_inst, _x, _y);
 }
 
-function act_menu_draw_gear(_gear) {
-	draw_gear_card(_gear, 410, 390);
+function act_menu_draw_gear(_gear, _x = 410, _y = 390) {
+	draw_gear_card(_gear, _x, _y);
 }
 
-function act_menu_draw_magic(_magic) {
-	draw_magic_card(_magic, 410, 390);
+function act_menu_draw_magic(_magic, _x = 410, _y = 390) {
+	draw_magic_card(_magic, _x, _y);
 }
 
-function act_menu_draw_territory(_terr) {
-	draw_territory_card(_terr, 410, 390);
+function act_menu_draw_territory(_terr, _x = 410, _y = 390) {
+	draw_territory_card(_terr, _x, _y);
 }
 
 function check_any_avail(_, _act_args) {

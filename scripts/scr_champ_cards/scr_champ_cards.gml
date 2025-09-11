@@ -1,3 +1,5 @@
+global.champ_cards = [];
+
 function card_sprites(
 	_char_stand, _char_step, _char_walk, _char_jump, _char_slide,
 	_char_atk_sword, _char_atk_bow, _char_atk_shield, _char_atk_book_str, _char_atk_book_weak
@@ -44,31 +46,15 @@ function champ_card(_card_id, _hp, _gw, _md, _stats, _type,
 	card_sprs = _card_sprs;
 }
 
-#region Util
-// For ability
-var _20_dmg_func = function(_inst) {
-	var _data = global.card_phase_data;
-	var _card = global.card_phase_data.enemy_champs[0];
-	_card.champ_add_modifier(_card, new modifier(champ_stat_type.HP, -100, value_target.BASE));
-	var _card = global.card_phase_data.player_champs[0];
-	_card.champ_add_modifier(_card, new modifier(champ_stat_type.HP, -100, value_target.BASE));
-	end_act_menu(_inst);
-};
-
-#endregion
-
-global.champ_cards = [];
-
+#region Card 0 - Squire
+//Sprites
 var _battle_sprites = new card_sprites(
 	spr_stand_0, spr_step_0, spr_walk_0, spr_jump_0, spr_slide_0,
 	spr_atk_sword_0, spr_atk_bow_0, spr_atk_shield_0, spr_atk_book_str_0, spr_atk_book_weak_0
 );
-
-#region Card 0 - Squire
-
 //Passive
 var _modifiers = [	
-	new modifier(champ_stat_type.STR, 1, value_target.CURRENT, math_ops.ADD),
+	new modifier(champ_stat_type.PWR, 1, value_target.CURRENT, math_ops.ADD),
 	new modifier(champ_stat_type.SKL, 1, value_target.CURRENT, math_ops.ADD),
 	new modifier(champ_stat_type.INT, 1, value_target.CURRENT, math_ops.ADD),
 	new modifier(champ_stat_type.DVT, 1, value_target.CURRENT, math_ops.ADD)
@@ -240,7 +226,12 @@ _act_func = function(_inst) {
 	}
 	end_act_menu(_inst);
 };
-_avail_func = function(_inst) {return true}
+_avail_func = function(_inst) {
+	var _data = global.card_phase_data;
+	var _size = (_inst.card_owner == card_owners.PLAYER) ? _data.player_gear_hand_size : _data.enemy_gear_hand_size; 
+	
+	return (_size < global.max_gear_qty);
+}
 _ability = new ability(_act_func, _avail_func);
 // Atk
 _generate_attack = function(_card, _type) {
@@ -324,7 +315,6 @@ array_push(global.champ_cards, _card);
 #endregion
 
 #region Card 6 - Wizard
-
 // Passive
 _passive = undefined;
 //Ability
@@ -337,7 +327,12 @@ _act_func = function(_inst) {
 	}
 	end_act_menu(_inst);
 };
-_avail_func = function(_inst) {return true}
+_avail_func = function(_inst) {
+	var _data = global.card_phase_data;
+	var _size = (_inst.card_owner == card_owners.PLAYER) ? _data.player_magic_hand_size : _data.enemy_magic_hand_size; 
+	
+	return (_size < global.max_magic_qty);
+}
 _ability = new ability(_act_func, _avail_func);
 // Atk
 _generate_attack = function(_card, _type) {

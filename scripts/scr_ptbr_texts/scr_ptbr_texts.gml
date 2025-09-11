@@ -32,6 +32,8 @@ global.ptbr_texts = {
 	act_magic: "Usar Magia",
 	act_pass: "Não Fazer Nada",
 	act_return: "Voltar",
+	act_card_stats: ["Poder", "Perícia", "Inteligência", "Devoção"],
+	act_card_types: ["Gray", "Red", "Blue", "Gold"],
 	
 	#endregion
 	
@@ -97,14 +99,14 @@ global.ptbr_texts = {
 	],
 	
 	magic_descriptions: [
-		"Escolha um Stat e aumente em dois o Stat do Champion que usou esta carta",
+		"Escolha um Status e aumente em dois o Status do Champion que usou esta carta",
 		"Escolha um tipo e mude o Champion que usou esta carta para ele ate o fim do turno",
-		"O Champion que usou esta carta ganha bonus de 10 dmg para seu tipo",
+		"O Champion que usou esta carta ganha bonus de 15 dmg para seu tipo atual",
 		"Escolha um Champion inimigo e bloqueie seu uso de Magia ate o fim do turno",
-		"Escolha um Champion inimigo e um Stat: reduza o Stat do Champion em dois",
-		"Escolha um Champion aliado e um Stat: aumente o Stat do Champion em dois",
+		"Escolha um Champion inimigo e um Status: reduza o Stat do Champion em dois",
+		"Escolha um Champion aliado e aumente todos seus Stats em um",
 		"Todos os Champions ganham bonus de 10 dmg para seu tipo ate o fim do turno",
-		"Escolha um Champion inimigo e quebre seus Gears"
+		"Escolha um Gear do Vanguard inimigo e remova-o"
 	],
 	
 	#endregion
@@ -119,7 +121,7 @@ global.ptbr_texts = {
 	
 	territory_descriptions: [
 		"No inicio do turno, cada jogador compra um Gear e uma Magia adicionais",
-		"No inicio do turno, todos os Champions perdem um ponto em Skill ate o fim do turno",
+		"No inicio do turno, todos os Champions perdem um ponto em Pericia ate o fim do turno",
 		"No inicio do turno, Champions fora de Vanguard tem sua HABILIDADE bloqueada ate o fim do turno",
 		"No inicio do turno, Champions fora de Vanguard sao bloqueados de equipar Gear ate o fim do turno"
 	]

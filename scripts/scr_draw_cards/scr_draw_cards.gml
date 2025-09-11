@@ -40,12 +40,12 @@ function draw_equipped_gear_stats(_champ_stats, _stats, _x, _y)  {
 	draw_middle_center_outline(_x - 16, _y + 228, card_stat_str(_stat), font_card_text_25, _color);
 	
 	_champ_stat = _champ_stats[1].get_value();
-	_stat = _stats[1];
+	_stat = _stats[2];
 	_color = _stat > _champ_stat ? c_red : c_lime;
 	draw_middle_center_outline(_x + 52, _y + 228, card_stat_str(_stat), font_card_text_25, _color);
 	
 	_champ_stat = _champ_stats[1].get_value();
-	_stat = _stats[1];
+	_stat = _stats[3];
 	_color = _stat > _champ_stat ? c_red : c_lime;
 	draw_middle_center_outline(_x + 116, _y + 228, card_stat_str(_stat), font_card_text_25, _color);
 }

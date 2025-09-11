@@ -337,6 +337,8 @@ function reset_card_phase_data(_champ_qty = 4) {
 		},
 			
 		#endregion
+		
+		#region Apply Functions
 		apply_passives_all: function() {
 			var _champ = -1;
 			for (var i = 0; i < champ_qty; i++) {
@@ -383,6 +385,8 @@ function reset_card_phase_data(_champ_qty = 4) {
 				);
 			}
 		}
+		
+		#endregion
 			
 	}
 	
@@ -404,4 +408,4 @@ function get_position_name(_pos) {
 	}
 }
 
-reset_card_phase_data(2);
+reset_card_phase_data(1);

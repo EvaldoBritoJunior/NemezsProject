@@ -1,0 +1,1 @@
+if (draw_choices) draw_choice();

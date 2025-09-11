@@ -168,10 +168,11 @@ set_act_step = function() {
 		_card = _gear_hand[i];
 		if (_card != undefined) {
 			array_push(_opt_array, 
-				new act_option(	global.language.gear_names[_card.card_id],
-								_card_inst.equip_gear, [_card_inst, _card, i, self],	
-								_card_inst.can_equip_gear, [_card_inst, _card],
-								act_menu_draw_gear, [_card]
+				new act_option(	
+					global.language.gear_names[_card.card_id],
+					_card_inst.equip_gear, [_card_inst, _card, i, self],	
+					_card_inst.can_equip_gear, [_card_inst, _card],
+					act_menu_draw_gear, [_card]
 				)
 			);
 		}
@@ -193,10 +194,11 @@ set_act_step = function() {
 		_card = _magic_hand[i];
 		if (_card != undefined) {
 			array_push(_opt_array, 
-				new act_option(	global.language.magic_names[_card.card_id],
-								_card_inst.use_magic, [_card_inst, _card, i, self],	// Change to spell function
-								_card_inst.can_use_magic, [_card_inst, _card],
-								act_menu_draw_magic, [_card]
+				new act_option(	
+					global.language.magic_names[_card.card_id],
+					_card_inst.use_magic, [_card_inst, _card, i, self],
+					_card_inst.can_use_magic, [_card_inst, _card],
+					act_menu_draw_magic, [_card]
 				)
 			);
 		}
@@ -206,7 +208,8 @@ set_act_step = function() {
 	_act_magic.avail = script_execute_ext(_act_magic.avail_func, _act_magic.avail_args);
 	
 	// Set use ability act option
-	var _act_ability = new act_option(global.language.act_ability, 
+	var _act_ability = new act_option(
+		global.language.act_ability,
 		_card_inst.use_ability, [_card_inst, self],
 		_card_inst.can_use_ability, [_card_inst],
 		act_menu_draw_champ, [_card_inst]);
@@ -214,7 +217,8 @@ set_act_step = function() {
 	_act_ability.avail = script_execute_ext(_act_ability.avail_func, _act_ability.avail_args);
 	
 	// Set do nothing option
-	var _act_pass = new act_option(global.language.act_pass, 
+	var _act_pass = new act_option(
+		global.language.act_pass,
 		end_act_menu, [_card_inst, self], 
 		undefined, [],
 		act_menu_draw_champ, [_card_inst]);
@@ -280,7 +284,7 @@ start_act_step = function() {
 		);
 	} else {
 		manager_inst.enemy_ia_inst.enemy_prepare_action(
-			_options_array, _card_inst, _this.start_act_step, _this.fin_act_step
+			_options_array, x - (sprite_width / 2), y, _card_inst, _this.start_act_step, _this.fin_act_step
 		);
 	}
 }
