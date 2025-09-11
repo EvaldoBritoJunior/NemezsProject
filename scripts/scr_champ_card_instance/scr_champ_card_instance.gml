@@ -425,6 +425,7 @@ function champ_instance(_card, _card_owner, _card_pos) constructor {
 		
 		array_delete(_gears, _idx, 1);
 		array_delete(_gears_state, _idx, 1);
+		_card_inst.champ_add_modifier(_card_inst, new modifier(champ_stat_type.GW, -_gear.gw, value_target.BASE))
 		
 		if (_card_inst.card_owner == card_owners.PLAYER) {
 			array_push(_data.player_gear_gyd, _gear);

@@ -300,7 +300,7 @@ apply_dmg = function(_attack_chain, _attack) {
 	var _dmg = _attack.dmg;
 	var _dmg_incr = enemy.dmg_incr[_type];
 	
-	char.hp -= _dmg * (1 + (_dmg_incr / 100));
+	char.hp -= floor(_dmg * (1 + (_dmg_incr / 100)));
 }
 
 #endregion
