@@ -2,6 +2,7 @@
 
 data = global.card_phase_data;
 check_battle_result = false;
+coin_toss = true;
 default_background = spr_field_default;
 
 enemy_ia_inst = undefined;
@@ -151,7 +152,7 @@ draw_data = function () {
 	draw_set_font(fnt_main_20);
 
 	#region Player data
-	if (_player_turn) { 
+	if (_player_turn && coin_toss) { 
 		draw_set_color(c_yellow);
 	} else {
 		draw_set_color(c_white);
@@ -176,7 +177,7 @@ draw_data = function () {
 	draw_set_valign(fa_top);
 	draw_set_font(fnt_main_20);
 	
-	if (!_player_turn) { 
+	if (!_player_turn && coin_toss) { 
 		draw_set_color(c_yellow);
 	} else {
 		draw_set_color(c_white);
@@ -491,6 +492,15 @@ end_set_decks = function (_terr_cards) {
 
 #endregion
 
+#region Post Sequence Functions
+
+post_coin_toss = function () {
+	coin_toss = true;
+	init_stage_step();
+}
+
+#endregion
+
 #region Stage Functions
 
 start_stage = function () {
@@ -499,11 +509,16 @@ start_stage = function () {
 		champ_card_selection = array_full_copy(global.champ_cards);
 		randomize();
 		var _first = irandom(1); //choose(card_owners.PLAYER, card_owners.ENEMY);
+		coin_toss = false;
 		data.turn_owner = _first;
 		create_objects();
 		objects_step_order = array_full_copy(champ_holders);
 		init_stage_sort();
-		init_stage_step();
+		if (_first == card_owners.PLAYER) {
+			cp_sequence_start(self, self.post_coin_toss, sq_cp_coin_player);
+		} else {
+			cp_sequence_start(self, self.post_coin_toss, sq_cp_coin_enemy);
+		}
 		
 	} else if (data.turn_stage == card_phase_stages.ACT_STAGE) {
 		draw_stage_draws();
