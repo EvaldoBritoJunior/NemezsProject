@@ -499,6 +499,13 @@ post_coin_toss = function () {
 	init_stage_step();
 }
 
+post_territory_sequence = function() {
+	update_all_sprites();
+	objects_step_order = array_full_copy(champ_holders);
+	set_has_acted();
+	alarm[1] = 140;
+}
+
 #endregion
 
 #region Stage Functions
@@ -531,11 +538,10 @@ start_stage = function () {
 		}
 		data.current_territory = _terr_card;
 		if (!(_terr_card.effect == undefined)) _terr_card.effect();
-		update_all_sprites();
-		objects_step_order = array_full_copy(champ_holders);
-		set_has_acted();
-		//act_stage_step
-		act_stage_step();
+		
+		object_set_sprite(obj_sq_util, _terr_card.spr_cut_card);
+		object_set_sprite(obj_sq_util_II, _terr_card.spr_card_art);
+		cp_sequence_start(self, self.post_territory_sequence, sq_cp_select_territory);
 		
 	} else if (data.turn_stage == card_phase_stages.END_STAGE) {
 		create_objects();

@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_transitions",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"Sequences",
+    "path":"folders/Scripts/Sequences.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
