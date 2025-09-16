@@ -80,7 +80,7 @@ function draw_card_name(_text, _x, _y) {
 }
 
 function draw_card_description(_text, _x, _y) {
-	draw_outline(_x - 135, _y + 125, _text, font_card_text_10);
+	draw_center_outline(_x, _y + 125, _text, font_card_text_10);
 }
 
 function draw_cut_card_name(_text, _x, _y, _w, _h) {

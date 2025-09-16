@@ -16,50 +16,45 @@ array_sort(available_languages, function(left, right) {
         return 0;
 });
 
-function format_line(_text) {
-    // Only process if last char is a space
-	var _size =  string_length(_text);
-    if (string_char_at(_text, _size) == " ") {
-        // Remove trailing space(s)
-        _text = string_copy(_text, 1, _size - 1);
-
-        // Find last space in the trimmed string
-        var _last_space = string_last_pos(" ", _text);
-
-        if (_last_space > 0) {
-            // Insert an extra space after the last space
-            var _before = string_copy(_text, 1, _last_space);
-            var _after  = string_copy(_text, _last_space + 1, string_length(_text) - _last_space);
-            _text = _before + " " + _after;
-        }
-    }
-    
-    return _text;
-}
-
 function format_description(_text) {
-	draw_set_font(font_card_text_10);
-    var _result = "";
-    var _len = string_length(_text);
-	var i = 1;
+    draw_set_font(font_card_text_10);
 
-    while (i <= _len) {
+    var _result = "";
+    var _line   = "";
+    var _len    = string_length(_text);
+
+    for (var i = 1; i <= _len; i++) {
         var _char = string_char_at(_text, i);
-        
-        // Check if adding this char would overflow
-        if (string_width(_result + _char) > 267) {
-			_result = format_line(_result);
-            _result += "\n";
-			if (_char == " ") {
-				i++;
-				_char = string_char_at(_text, i);
-			} 
+        var _test_line = _line + _char;
+
+        if (string_width(_test_line) > 267) {
+            // Find last space in current line
+            var _last_space = string_last_pos(" ", _line);
+
+            if (_last_space > 0) {
+                // Break at last space
+                _result += string_copy(_line, 1, _last_space - 1) + "\n";
+
+                // Carry over leftover (after space) into new line
+                _line = string_copy(_line, _last_space + 1, string_length(_line) - _last_space);
+            } else {
+                // No spaces: force break
+                _result += _line + "\n";
+                _line = "";
+            }
+
+            // Re-check current char (don’t drop it)
+            _test_line = _line + _char;
         }
-        
-        _result += _char;
-		i++;
+
+        _line = _test_line;
     }
-    
+
+    // Add last line
+    if (_line != "") {
+        _result += _line;
+    }
+
     return _result;
 }
 	

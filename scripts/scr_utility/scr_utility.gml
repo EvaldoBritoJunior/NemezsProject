@@ -35,6 +35,34 @@ function draw_outline(_x, _y, _text, _font = fnt_main_20, _text_color = c_white)
 	draw_text(_x, _y, _text);
 }
 
+function draw_center_outline(_x, _y, _text, _font = fnt_main_20, _text_color = c_white) {
+	var _outline_color = c_black;
+	var _outline_thickness = 1; 
+	
+	draw_set_font(_font);
+	draw_set_color(_outline_color);
+	draw_set_halign(fa_center);
+
+	// Draw outline in multiple directions
+	draw_text(_x - _outline_thickness, _y - _outline_thickness, _text); // Top-left
+	draw_text(_x + _outline_thickness, _y - _outline_thickness, _text); // Top-right
+	draw_text(_x - _outline_thickness, _y + _outline_thickness, _text); // Bottom-left
+	draw_text(_x + _outline_thickness, _y + _outline_thickness, _text); // Bottom-right
+	draw_text(_x - _outline_thickness, _y, _text); // Left
+	draw_text(_x + _outline_thickness, _y, _text); // Right
+	draw_text(_x, _y - _outline_thickness, _text); // Up
+	draw_text(_x, _y + _outline_thickness, _text); // Down
+
+	// Set the color for the main text and draw it on top
+	draw_set_color(_text_color);
+	draw_text(_x, _y, _text);
+
+	// Reset
+	draw_set_color(c_white);
+	draw_set_halign(fa_left);
+	draw_set_valign(fa_top);
+}
+
 function draw_middle_center_outline(_x, _y, _text, _font = fnt_main_20, _text_color = c_white) {
 	var _outline_color = c_black;
 	var _outline_thickness = 1; 
