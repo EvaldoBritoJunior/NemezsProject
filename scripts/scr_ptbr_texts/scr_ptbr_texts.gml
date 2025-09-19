@@ -13,7 +13,7 @@ global.ptbr_texts = {
 	give_feedback_button_text: "Dar Feedback",
 	cancel_button_text: "Cancelar",
 	
-	watch_tutorial_url: "https://www.youtube.com/watch?v=jhQE8KUhDgY",
+	watch_tutorial_url: "https://www.youtube.com/watch?v=nF2pGaQQLYM",
 	give_feedback_url: "https://docs.google.com/forms/d/e/1FAIpQLScwW3BRSD6MymIX0ZLKaaUx-lNmxaqVA-0To8aT5MvyEaPzkw/viewform?usp=dialog",
 	
 	// Options Menu

@@ -13,7 +13,7 @@ global.eng_texts = {
 	give_feedback_button_text: "Give Feedback",
 	cancel_button_text: "Cancel",
 	
-	watch_tutorial_url: "https://www.youtube.com/watch?v=0LcuFfhd2oo",
+	watch_tutorial_url: "https://www.youtube.com/watch?v=m7i7T0FSgJQ",
 	give_feedback_url: "https://docs.google.com/forms/d/e/1FAIpQLScwW3BRSD6MymIX0ZLKaaUx-lNmxaqVA-0To8aT5MvyEaPzkw/viewform?usp=dialog",
 	
 	// Options Menu
