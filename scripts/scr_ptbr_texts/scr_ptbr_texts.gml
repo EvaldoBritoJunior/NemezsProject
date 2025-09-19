@@ -109,8 +109,8 @@ global.ptbr_texts = {
 		"Escolha um tipo e mude o Champion que usou esta carta para ele ate o fim do turno",
 		"O Champion que usou esta carta ganha bonus de 15 dmg para seu tipo atual",
 		"Escolha um Champion inimigo e bloqueie seu uso de Magia ate o fim do turno",
-		"Escolha um Champion inimigo e um Status: reduza o Stat do Champion em dois",
-		"Escolha um Champion aliado e aumente todos seus Stats em um",
+		"Escolha um Champion inimigo e um Stat: reduza o Stat do Champion em dois ate o fim do turno",
+		"Escolha um Champion aliado e aumente todos seus Stats em um ate o fim do turno",
 		"Todos os Champions ganham bonus de 10 dmg para seu tipo ate o fim do turno",
 		"Escolha um Gear do Vanguard inimigo e remova-o"
 	],
