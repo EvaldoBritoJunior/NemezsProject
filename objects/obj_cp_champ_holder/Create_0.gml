@@ -283,8 +283,14 @@ start_act_step = function() {
 			}
 		);
 	} else {
+		var _y = y; 
+		if (field_position == 1) {
+			_y += 40;
+		} else if (field_position == 3) {
+			_y -= 40;
+		}
 		manager_inst.enemy_ia_inst.enemy_prepare_action(
-			_options_array, x - (sprite_width / 2), y, _card_inst, _this.start_act_step, _this.fin_act_step
+			_options_array, x - (sprite_width * 0.9), _y, _card_inst, _this.start_act_step, _this.fin_act_step
 		);
 	}
 }

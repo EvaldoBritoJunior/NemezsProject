@@ -503,7 +503,7 @@ post_territory_sequence = function() {
 	update_all_sprites();
 	objects_step_order = array_full_copy(champ_holders);
 	set_has_acted();
-	alarm[1] = 140;
+	alarm[1] = 150;
 }
 
 #endregion
@@ -547,7 +547,7 @@ start_stage = function () {
 		create_objects();
 		check_battle_result = true;
 		data.apply_battle_result();
-		check_game_state(self.end_stage);
+		alarm[2] = 181;
 	} else {
 		throw($"Invalid Stage {data.turn_stage}")
 	}

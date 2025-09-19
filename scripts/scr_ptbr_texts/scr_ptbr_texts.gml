@@ -9,6 +9,12 @@ global.ptbr_texts = {
 	// Main Menu
 	start_duel_button_text: "➤ Iniciar Duelo",
 	start_options_button_text: "Configurações",
+	watch_tutorial_button_text: "Assistir Tutorial",
+	give_feedback_button_text: "Dar Feedback",
+	cancel_button_text: "Cancelar",
+	
+	watch_tutorial_url: "https://www.youtube.com/watch?v=jhQE8KUhDgY",
+	give_feedback_url: "https://docs.google.com/forms/d/e/1FAIpQLScwW3BRSD6MymIX0ZLKaaUx-lNmxaqVA-0To8aT5MvyEaPzkw/viewform?usp=dialog",
 	
 	// Options Menu
 	language_button: "Idioma:",

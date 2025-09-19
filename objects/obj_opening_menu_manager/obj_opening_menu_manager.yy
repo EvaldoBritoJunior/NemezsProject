@@ -1,13 +1,16 @@
 {
   "$GMObject":"",
-  "%Name":"obj_sq_util",
-  "eventList":[],
+  "%Name":"obj_opening_menu_manager",
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":4,"eventType":7,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
-  "name":"obj_sq_util",
+  "name":"obj_opening_menu_manager",
   "overriddenProperties":[],
   "parent":{
-    "name":"Sequence Util",
-    "path":"folders/Objects/Sequence Util.yy",
+    "name":"Menu",
+    "path":"folders/Objects/Opening/Menu.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -27,10 +30,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_territory_cut_1",
-    "path":"sprites/spr_territory_cut_1/spr_territory_cut_1.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

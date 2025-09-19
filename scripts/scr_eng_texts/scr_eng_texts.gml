@@ -9,6 +9,12 @@ global.eng_texts = {
 	// Main Menu
 	start_duel_button_text: "➤ Start Duel",
 	start_options_button_text: "Settings",
+	watch_tutorial_button_text: "Watch Tutorial",
+	give_feedback_button_text: "Give Feedback",
+	cancel_button_text: "Cancel",
+	
+	watch_tutorial_url: "https://www.youtube.com/watch?v=0LcuFfhd2oo",
+	give_feedback_url: "https://docs.google.com/forms/d/e/1FAIpQLScwW3BRSD6MymIX0ZLKaaUx-lNmxaqVA-0To8aT5MvyEaPzkw/viewform?usp=dialog",
 	
 	// Options Menu
 	language_button: "Language:",
